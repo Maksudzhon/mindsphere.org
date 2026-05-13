@@ -1,0 +1,3743 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <title>MindSphere — The World's Knowledge Platform</title>
+    <meta name="description"
+        content="MindSphere is a free, AI-powered global learning platform for every field of study. Available in 190+ countries." />
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⬡</text></svg>" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Clash+Display:wght@400;500;600;700&family=Cabinet+Grotesk:wght@400;500;600;700;800&family=Neue+Montreal:wght@300;400;500&display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
+    <style>
+        /* ═══════════════════════════════════════════════════════════
+   DESIGN SYSTEM
+═══════════════════════════════════════════════════════════ */
+        :root {
+            --bg: #060612;
+            --bg2: #0b0b1e;
+            --bg3: #0f0f28;
+            --surface: #13132a;
+            --surface2: #191934;
+            --border: rgba(255, 255, 255, 0.07);
+            --border2: rgba(255, 255, 255, 0.12);
+            --text: #f2f2ff;
+            --text2: #8a8aaa;
+            --text3: #4a4a6a;
+            --accent: #7c6fff;
+            --accent2: #c4b8ff;
+            --cyan: #00d4ff;
+            --green: #00e5a0;
+            --amber: #ffb347;
+            --grad: linear-gradient(135deg, #7c6fff 0%, #c4b8ff 50%, #00d4ff 100%);
+            --grad2: linear-gradient(135deg, #7c6fff, #c4b8ff);
+            --shadow: 0 24px 80px rgba(0, 0, 0, 0.5);
+            --shadow-glow: 0 0 80px rgba(124, 111, 255, 0.2);
+            --r: 16px;
+            --r2: 24px;
+            --nav-h: 72px;
+            --font-head: 'Syne', sans-serif;
+            --font-body: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        [data-theme="light"] {
+            --bg: #f8f8ff;
+            --bg2: #f0f0fc;
+            --bg3: #e8e8f8;
+            --surface: #ffffff;
+            --surface2: #f4f4fd;
+            --border: rgba(0, 0, 0, 0.07);
+            --border2: rgba(0, 0, 0, 0.12);
+            --text: #0e0e1a;
+            --text2: #5a5a7a;
+            --text3: #9a9ab8;
+        }
+
+        /* ═══════════════════════════════════════════════════════════
+   BASE
+═══════════════════════════════════════════════════════════ */
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+            transition: background .3s, color .3s;
+        }
+
+        ::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--accent);
+            border-radius: 4px;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        img {
+            display: block;
+            max-width: 100%;
+        }
+
+        button {
+            cursor: pointer;
+            font-family: inherit;
+        }
+
+        ::selection {
+            background: rgba(124, 111, 255, 0.3);
+            color: var(--text);
+        }
+
+        /* ═══════════════════════════════════════════════════════════
+   UTILITY
+═══════════════════════════════════════════════════════════ */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            margin-top: 10px;
+            padding: 0 24px;
+        }
+
+        .container-wide {
+            max-width: 1440px;
+            margin: 0 auto;
+            /* margin-top: 20px; */
+            padding: 0 40px;
+        }
+
+        .grad-text {
+            background: var(--grad);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .grad-text-green {
+            background: linear-gradient(135deg, #00e5a0, #00d4ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(124, 111, 255, 0.1);
+            border: 1px solid rgba(124, 111, 255, 0.25);
+            color: var(--accent2);
+            font-size: .72rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .12em;
+            padding: 5px 14px;
+            border-radius: 100px;
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--grad2);
+            color: #fff;
+            font-weight: 700;
+            font-size: .9rem;
+            padding: 14px 32px;
+            border-radius: 100px;
+            border: none;
+            transition: transform .2s, box-shadow .2s, opacity .2s;
+            position: relative;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(255, 255, 255, 0);
+            transition: background .2s;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 16px 40px rgba(124, 111, 255, 0.4);
+        }
+
+        .btn-primary:hover::before {
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .btn-outline {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: transparent;
+            border: 1.5px solid var(--border2);
+            color: var(--text);
+            font-weight: 600;
+            font-size: .9rem;
+            padding: 13px 32px;
+            border-radius: 100px;
+            transition: border-color .2s, background .2s, transform .2s;
+            white-space: nowrap;
+        }
+
+        .btn-outline:hover {
+            border-color: var(--accent);
+            background: rgba(124, 111, 255, 0.08);
+            transform: translateY(-2px);
+        }
+
+        .section-tag {
+            margin-bottom: 16px;
+        }
+
+        .section-title {
+            font-family: var(--font-head);
+            font-size: clamp(2rem, 4.5vw, 3.2rem);
+            font-weight: 800;
+            line-height: 1.1;
+            letter-spacing: -.02em;
+            margin-bottom: 16px;
+        }
+
+        .section-sub {
+            color: var(--text2);
+            font-size: 1.05rem;
+            line-height: 1.7;
+            max-width: 560px;
+        }
+
+        /* ═══════════════════════════════════════════════════════════
+   ANIMATIONS
+═══════════════════════════════════════════════════════════ */
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0)
+            }
+
+            50% {
+                transform: translateY(-14px)
+            }
+        }
+
+        @keyframes float2 {
+
+            0%,
+            100% {
+                transform: translateY(0)
+            }
+
+            50% {
+                transform: translateY(-9px)
+            }
+        }
+
+        @keyframes spin-slow {
+            to {
+                transform: rotate(360deg)
+            }
+        }
+
+        @keyframes pulse-dot {
+
+            0%,
+            100% {
+                opacity: 1;
+                transform: scale(1)
+            }
+
+            50% {
+                opacity: .4;
+                transform: scale(.8)
+            }
+        }
+
+        @keyframes reveal {
+            from {
+                opacity: 0;
+                transform: translateY(28px)
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0)
+            }
+        }
+
+        @keyframes reveal-scale {
+            from {
+                opacity: 0;
+                transform: scale(.94)
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1)
+            }
+        }
+
+        @keyframes shimmer {
+            0% {
+                background-position: -200% 0
+            }
+
+            100% {
+                background-position: 200% 0
+            }
+        }
+
+        @keyframes gradient-shift {
+
+            0%,
+            100% {
+                background-position: 0% 50%
+            }
+
+            50% {
+                background-position: 100% 50%
+            }
+        }
+
+        @keyframes dash-scroll {
+            to {
+                stroke-dashoffset: -40
+            }
+        }
+
+        [data-reveal] {
+            opacity: 0;
+            transform: translateY(28px);
+            transition: opacity .65s ease, transform .65s ease;
+        }
+
+        [data-reveal].visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        [data-reveal-scale] {
+            opacity: 0;
+            transform: scale(.94);
+            transition: opacity .6s ease, transform .6s ease;
+        }
+
+        [data-reveal-scale].visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* ═══════════════════════════════════════════════════════════
+   NOISE TEXTURE
+═══════════════════════════════════════════════════════════ */
+        .noise-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            pointer-events: none;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.025'/%3E%3C/svg%3E");
+        }
+
+        /* ═══════════════════════════════════════════════════════════
+   NAV
+═══════════════════════════════════════════════════════════ */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            height: var(--nav-h);
+            border-bottom: 1px solid transparent;
+            transition: background .3s, border-color .3s, backdrop-filter .3s;
+        }
+
+        .nav.scrolled {
+            background: rgba(6, 6, 18, 0.85);
+            backdrop-filter: blur(24px);
+            border-color: var(--border);
+        }
+
+        [data-theme="light"] .nav.scrolled {
+            background: rgba(248, 248, 255, 0.88);
+        }
+
+        .nav-inner {
+            height: 100%;
+            display: flex;
+            align-items: center;
+            gap: 40px;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-family: var(--font-head);
+            font-weight: 800;
+            font-size: 1.25rem;
+            flex-shrink: 0;
+        }
+
+        .nav-logo-hex {
+            font-size: 1.5rem;
+            animation: spin-slow 14s linear infinite;
+            filter: drop-shadow(0 0 10px var(--accent));
+        }
+
+        .nav-logo-dot {
+            font-family: var(--font-body);
+            font-size: .8rem;
+            font-weight: 400;
+            color: var(--text3);
+            margin-left: -4px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            list-style: none;
+            margin-left: 8px;
+        }
+
+        .nav-links a {
+            font-size: .88rem;
+            font-weight: 500;
+            color: var(--text2);
+            transition: color .2s;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--grad2);
+            border-radius: 2px;
+            transition: width .3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--text);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-right {
+            margin-left: auto;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        /* Lang switcher */
+        .lang-sw {
+            display: flex;
+            gap: 2px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 100px;
+            padding: 3px;
+        }
+
+        .lang-sw button {
+            background: none;
+            border: none;
+            color: var(--text3);
+            font-size: .72rem;
+            font-weight: 700;
+            letter-spacing: .06em;
+            padding: 4px 10px;
+            border-radius: 100px;
+            transition: all .2s;
+        }
+
+        .lang-sw button.active {
+            background: var(--grad2);
+            color: #fff;
+        }
+
+        .lang-sw button:not(.active):hover {
+            color: var(--text2);
+        }
+
+        /* Theme btn */
+        .theme-btn {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            transition: all .2s;
+            flex-shrink: 0;
+        }
+
+        .theme-btn:hover {
+            border-color: var(--accent);
+            transform: rotate(15deg) scale(1.1);
+        }
+
+        /* Sign in btn */
+        .nav-signin {
+            font-size: .85rem;
+            padding: 10px 24px;
+        }
+
+        /* Hamburger */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            gap: 5px;
+            background: none;
+            border: none;
+            padding: 4px;
+            width: 36px;
+            height: 36px;
+        }
+
+        .hamburger span {
+            width: 22px;
+            height: 2px;
+            background: var(--text2);
+            border-radius: 2px;
+            transition: all .3s;
+            display: block;
+        }
+
+        .hamburger.open span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .hamburger.open span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.open span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+
+        /* Mobile menu */
+        .mobile-nav {
+            display: none;
+            flex-direction: column;
+            background: var(--bg2);
+            border-bottom: 1px solid var(--border);
+            padding: 20px 24px 28px;
+            gap: 4px;
+        }
+
+        .mobile-nav.open {
+            display: flex;
+        }
+
+        .mobile-nav a {
+            padding: 10px 0;
+            font-size: .95rem;
+            color: var(--text2);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .mobile-nav a:last-of-type {
+            border-bottom: none;
+        }
+
+        .mobile-nav-bottom {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 16px;
+        }
+
+        /* ═══════════════════════════════════════════════════════════
+   HERO
+═══════════════════════════════════════════════════════════ */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: calc(var(--nav-h) + 60px) 24px 80px;
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        /* Animated background mesh */
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(100px);
+            pointer-events: none;
+        }
+
+        .orb-1 {
+            width: 700px;
+            height: 700px;
+            background: radial-gradient(circle, rgba(124, 111, 255, 0.18), transparent 70%);
+            top: -200px;
+            left: -200px;
+            animation: float 12s ease-in-out infinite;
+        }
+
+        .orb-2 {
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(0, 212, 255, 0.12), transparent 70%);
+            top: 30%;
+            right: -100px;
+            animation: float 10s ease-in-out 3s infinite;
+        }
+
+        .orb-3 {
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(0, 229, 160, 0.08), transparent 70%);
+            bottom: 0;
+            left: 30%;
+            animation: float 14s ease-in-out 6s infinite;
+        }
+
+        .hero-grid {
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(124, 111, 255, 0.06) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(124, 111, 255, 0.06) 1px, transparent 1px);
+            background-size: 56px 56px;
+            mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black, transparent);
+        }
+
+        .hero-inner {
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 32px;
+            animation: reveal .6s ease both;
+        }
+
+        .hero-badge-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--green);
+            animation: pulse-dot 2.5s ease infinite;
+            box-shadow: 0 0 12px var(--green);
+        }
+
+        .hero-title {
+            font-family: var(--font-head);
+            font-size: clamp(2.8rem, 7vw, 6rem);
+            font-weight: 800;
+            line-height: 1.02;
+            letter-spacing: -.03em;
+            margin-bottom: 24px;
+        }
+
+        .hero-title .line {
+            display: block;
+        }
+
+        .hero-title .line-1 {
+            animation: reveal .6s ease .1s both;
+        }
+
+        .hero-title .line-2 {
+            animation: reveal .6s ease .2s both;
+        }
+
+        .hero-title .line-3 {
+            animation: reveal .6s ease .3s both;
+        }
+
+        .hero-sub {
+            color: var(--text2);
+            font-size: 1.15rem;
+            line-height: 1.75;
+            max-width: 620px;
+            margin: 0 auto 40px;
+            animation: reveal .6s ease .4s both;
+        }
+
+        .hero-ctas {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin-bottom: 56px;
+            animation: reveal .6s ease .5s both;
+        }
+
+        /* Social proof */
+        .hero-proof {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 14px;
+            animation: reveal .6s ease .6s both;
+        }
+
+        .proof-avatars {
+            display: flex;
+        }
+
+        .proof-avatars img {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            border: 2px solid var(--bg);
+            margin-left: -8px;
+            object-fit: cover;
+        }
+
+        .proof-avatars img:first-child {
+            margin-left: 0;
+        }
+
+        .proof-avatars-more {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            border: 2px solid var(--bg);
+            margin-left: -8px;
+            background: var(--grad2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: .6rem;
+            font-weight: 800;
+            color: #fff;
+        }
+
+        .proof-text {
+            font-size: .85rem;
+            color: var(--text2);
+        }
+
+        .proof-text strong {
+            color: var(--text);
+        }
+
+        /* Hero mockup */
+        .hero-mockup {
+            margin-top: 64px;
+            position: relative;
+            animation: reveal-scale .8s ease .7s both;
+        }
+
+        .mockup-window {
+            background: var(--surface);
+            border: 1px solid var(--border2);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow), var(--shadow-glow);
+            max-width: 860px;
+            margin: 0 auto;
+        }
+
+        .mockup-bar {
+            background: var(--bg3);
+            border-bottom: 1px solid var(--border);
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .mockup-dots {
+            display: flex;
+            gap: 6px;
+        }
+
+        .mockup-dots span {
+            width: 11px;
+            height: 11px;
+            border-radius: 50%;
+        }
+
+        .mockup-dots .d-r {
+            background: #ff5f56;
+        }
+
+        .mockup-dots .d-y {
+            background: #ffbd2e;
+        }
+
+        .mockup-dots .d-g {
+            background: #27c93f;
+        }
+
+        .mockup-url {
+            flex: 1;
+            background: var(--surface2);
+            border-radius: 6px;
+            padding: 5px 12px;
+            font-family: monospace;
+            font-size: .75rem;
+            color: var(--text3);
+            text-align: center;
+            border: 1px solid var(--border);
+        }
+
+        .mockup-body {
+            padding: 20px;
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 16px;
+        }
+
+        .mockup-sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .mockup-nav-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 10px;
+            border-radius: 8px;
+            font-size: .78rem;
+            color: var(--text2);
+            cursor: default;
+        }
+
+        .mockup-nav-item.active {
+            background: rgba(124, 111, 255, 0.12);
+            color: var(--accent2);
+            border: 1px solid rgba(124, 111, 255, 0.2);
+        }
+
+        .mockup-ai-badge {
+            background: rgba(0, 229, 160, 0.1);
+            border: 1px solid rgba(0, 229, 160, 0.2);
+            border-radius: 8px;
+            padding: 10px;
+            margin-top: 8px;
+        }
+
+        .ai-status {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: .7rem;
+            color: var(--green);
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .ai-status-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--green);
+            animation: pulse-dot 2s infinite;
+            box-shadow: 0 0 8px var(--green);
+        }
+
+        .ai-msg {
+            font-size: .72rem;
+            color: var(--text2);
+            line-height: 1.5;
+        }
+
+        .mockup-main {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .mockup-subjects-label {
+            font-size: .7rem;
+            color: var(--text3);
+            text-transform: uppercase;
+            letter-spacing: .1em;
+        }
+
+        .mockup-subjects {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+        }
+
+        .subj-card {
+            background: var(--surface2);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 10px;
+            transition: border-color .2s;
+            cursor: default;
+        }
+
+        .subj-card:hover {
+            border-color: rgba(124, 111, 255, 0.3);
+        }
+
+        .subj-icon {
+            font-size: 1.1rem;
+            margin-bottom: 4px;
+        }
+
+        .subj-name {
+            font-size: .72rem;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .subj-prog {
+            margin-top: 4px;
+            height: 3px;
+            background: var(--border2);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .subj-prog-bar {
+            height: 100%;
+            border-radius: 2px;
+            background: var(--grad2);
+        }
+
+        .subj-meta {
+            font-size: .62rem;
+            color: var(--text3);
+            margin-top: 3px;
+        }
+
+        .mockup-domains {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .domain-pill {
+            font-size: .68rem;
+            font-weight: 600;
+            padding: 3px 10px;
+            border-radius: 100px;
+            background: var(--surface2);
+            border: 1px solid var(--border);
+            color: var(--text2);
+        }
+
+        /* Floating cards on mockup */
+        .float-card {
+            position: absolute;
+            background: var(--surface);
+            border: 1px solid var(--border2);
+            border-radius: 14px;
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: var(--shadow);
+            font-size: .8rem;
+            font-weight: 600;
+            color: var(--text);
+            backdrop-filter: blur(16px);
+        }
+
+        .fc-top-left {
+            top: -20px;
+            left: -40px;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .fc-bottom-right {
+            bottom: -18px;
+            right: -32px;
+            animation: float2 7s ease-in-out 2s infinite;
+        }
+
+        /* ═══════════════════════════════════════════════════════════
+   STATS BAR
+═══════════════════════════════════════════════════════════ */
+        .stats-bar {
+            background: var(--bg2);
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            padding: 40px 0;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0;
+        }
+
+        .stat-item {
+            text-align: center;
+            border-right: 1px solid var(--border);
+            padding: 8px 24px;
+        }
+
+        .stat-item:last-child {
+            border-right: none;
+        }
+
+        .stat-num {
+            font-family: var(--font-head);
+            font-size: 2.4rem;
+            font-weight: 800;
+            line-height: 1;
+        }
+
+        .stat-label {
+            font-size: .78rem;
+            color: var(--text3);
+            text-transform: uppercase;
+            letter-spacing: .1em;
+            margin-top: 6px;
+        }
+
+        /* ═══════════════════════════════════════════════════════════
+   SECTION SHARED
+═══════════════════════════════════════════════════════════ */
+        .section {
+            padding: 112px 0;
+        }
+
+        .section-header {
+            margin-bottom: 64px;
+        }
+
+        .section-header.center {
+            text-align: center;
+        }
+
+        .section-header.center .section-sub {
+            margin: 0 auto;
+        }
+
+        /* ═══════════════════════════════════════════════════════════
+   FEATURES
+═══════════════════════════════════════════════════════════ */
+        .features-tabs {
+            display: flex;
+            gap: 8px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 100px;
+            padding: 5px;
+            margin: 0 auto 52px;
+            width: fit-content;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .feat-tab-btn {
+            padding: 9px 22px;
+            border-radius: 100px;
+            background: none;
+            border: none;
+            color: var(--text2);
+            font-size: .83rem;
+            font-weight: 600;
+            transition: all .25s;
+        }
+
+        .feat-tab-btn.active {
+            background: var(--grad2);
+            color: #fff;
+        }
+
+        .feat-tab-btn:not(.active):hover {
+            color: var(--text);
+        }
+
+        .feat-panel {
+            display: none;
+        }
+
+        .feat-panel.active {
+            display: block;
+        }
+
+        /* AI panel */
+        .feat-ai-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 48px;
+            align-items: center;
+        }
+
+        .feat-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            margin-top: 28px;
+        }
+
+        .feat-list-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+        }
+
+        .feat-list-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            background: rgba(124, 111, 255, 0.12);
+            border: 1px solid rgba(124, 111, 255, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .feat-list-text strong {
+            display: block;
+            font-weight: 600;
+            font-size: .9rem;
+            margin-bottom: 3px;
+        }
+
+        .feat-list-text p {
+            font-size: .84rem;
+            color: var(--text2);
+            line-height: 1.6;
+        }
+
+        .ai-chat-demo {
+            background: var(--surface);
+            border: 1px solid var(--border2);
+            border-radius: 20px;
+            padding: 24px;
+            box-shadow: var(--shadow);
+        }
+
+        .ai-chat-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 20px;
+        }
+
+        .ai-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--grad2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: .9rem;
+        }
+
+        .ai-name {
+            font-size: .88rem;
+            font-weight: 700;
+        }
+
+        .ai-online {
+            margin-left: auto;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: .72rem;
+            color: var(--green);
+            font-weight: 600;
+        }
+
+        .ai-online-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: var(--green);
+            animation: pulse-dot 2s infinite;
+            box-shadow: 0 0 8px var(--green);
+        }
+
+        .chat-messages {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .msg-ai {
+            background: var(--surface2);
+            border: 1px solid var(--border);
+            border-radius: 12px 12px 12px 3px;
+            padding: 12px 16px;
+            font-size: .84rem;
+            color: var(--text);
+            line-height: 1.6;
+            max-width: 90%;
+        }
+
+        .msg-user {
+            background: var(--grad2);
+            border-radius: 12px 12px 3px 12px;
+            padding: 12px 16px;
+            font-size: .84rem;
+            color: #fff;
+            line-height: 1.6;
+            align-self: flex-end;
+            max-width: 90%;
+        }
+
+        .chat-progress {
+            margin-top: 16px;
+            padding: 12px;
+            background: rgba(0, 229, 160, 0.06);
+            border: 1px solid rgba(0, 229, 160, 0.15);
+            border-radius: 10px;
+        }
+
+        .prog-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: .75rem;
+            color: var(--text2);
+            margin-bottom: 6px;
+        }
+
+        .prog-bar {
+            height: 5px;
+            background: var(--border2);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .prog-fill {
+            height: 100%;
+            width: 68%;
+            background: linear-gradient(90deg, var(--green), var(--cyan));
+            border-radius: 3px;
+        }
+
+        /* Domains panel */
+        .domains-intro {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+
+        .domains-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 12px;
+        }
+
+        .domain-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 20px 16px;
+            text-align: center;
+            transition: all .25s;
+            cursor: default;
+        }
+
+        .domain-card:hover {
+            border-color: rgba(124, 111, 255, 0.35);
+            background: var(--surface2);
+            transform: translateY(-3px);
+        }
+
+        .domain-emoji {
+            font-size: 1.8rem;
+            margin-bottom: 8px;
+        }
+
+        .domain-name {
+            font-size: .82rem;
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+
+        .domain-count {
+            font-size: .7rem;
+            color: var(--text3);
+        }
+
+        /* Lang panel */
+        .lang-showcase {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 48px;
+            align-items: center;
+        }
+
+        .lang-phase-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin-top: 24px;
+        }
+
+        .lang-phase {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 20px;
+        }
+
+        .lang-phase-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 12px;
+        }
+
+        .lang-phase-label {
+            font-weight: 700;
+            font-size: .88rem;
+        }
+
+        .lang-phase-status {
+            font-size: .7rem;
+            font-weight: 700;
+            padding: 3px 10px;
+            border-radius: 100px;
+        }
+
+        .status-live {
+            background: rgba(0, 229, 160, 0.12);
+            color: var(--green);
+            border: 1px solid rgba(0, 229, 160, 0.2);
+        }
+
+        .status-soon {
+            background: rgba(124, 111, 255, 0.12);
+            color: var(--accent2);
+            border: 1px solid rgba(124, 111, 255, 0.2);
+        }
+
+        .lang-flags {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .lang-flag {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--surface2);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 5px 10px;
+            font-size: .78rem;
+            font-weight: 500;
+        }
+
+        .lang-progress-visual {
+            text-align: center;
+        }
+
+        .lang-big-num {
+            font-family: var(--font-head);
+            font-size: 6rem;
+            font-weight: 800;
+            line-height: 1;
+            margin-bottom: 4px;
+        }
+
+        .lang-roadmap {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-top: 24px;
+        }
+
+        .roadmap-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .roadmap-label {
+            font-size: .78rem;
+            color: var(--text2);
+            width: 80px;
+            flex-shrink: 0;
+        }
+
+        .roadmap-bar-bg {
+            flex: 1;
+            height: 6px;
+            background: var(--border2);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .roadmap-bar-fill {
+            height: 100%;
+            border-radius: 3px;
+            background: var(--grad2);
+        }
+
+        .roadmap-num {
+            font-size: .75rem;
+            color: var(--text3);
+            width: 36px;
+            text-align: right;
+        }
+
+        /* Pricing */
+        .pricing-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .pricing-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 36px 28px;
+            position: relative;
+            transition: all .25s;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--border2);
+        }
+
+        .pricing-card.featured {
+            background: var(--surface2);
+            border-color: rgba(124, 111, 255, 0.4);
+            box-shadow: 0 0 0 1px rgba(124, 111, 255, 0.15), var(--shadow-glow);
+        }
+
+        .pricing-badge {
+            position: absolute;
+            top: -13px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: .68rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .1em;
+            padding: 4px 14px;
+            border-radius: 100px;
+            white-space: nowrap;
+        }
+
+        .pricing-icon {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        .pricing-price {
+            font-family: var(--font-head);
+            font-size: 2.8rem;
+            font-weight: 800;
+            line-height: 1;
+            margin-bottom: 4px;
+        }
+
+        .pricing-period {
+            font-size: .8rem;
+            color: var(--text3);
+            margin-bottom: 12px;
+        }
+
+        .pricing-name {
+            font-weight: 700;
+            font-size: 1.05rem;
+            margin-bottom: 6px;
+        }
+
+        .pricing-desc {
+            font-size: .84rem;
+            color: var(--text2);
+            line-height: 1.6;
+            margin-bottom: 28px;
+        }
+
+        .pricing-features {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 28px;
+        }
+
+        .pricing-feat {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            font-size: .84rem;
+            color: var(--text2);
+            line-height: 1.4;
+        }
+
+        .pricing-feat-check {
+            color: var(--green);
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+
+        .pricing-cta {
+            width: 100%;
+            padding: 13px;
+            font-size: .88rem;
+            justify-content: center;
+        }
+
+        /* Pricing note */
+        .pricing-note {
+            margin-top: 32px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 20px 24px;
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+        }
+
+        .pricing-note-icon {
+            font-size: 1.4rem;
+            flex-shrink: 0;
+        }
+
+        .pricing-note p {
+            font-size: .87rem;
+            color: var(--text2);
+            line-height: 1.65;
+        }
+
+        .pricing-note strong {
+            color: var(--text);
+        }
+
+        /* ═══════════════════════════════════════════════════════════
+   GUIDE
+═══════════════════════════════════════════════════════════ */
+        .guide-steps {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-bottom: 56px;
+        }
+
+        .guide-step {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 32px 28px;
+            position: relative;
+        }
+
+        .step-num {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--grad2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-head);
+            font-size: .9rem;
+            font-weight: 800;
+            color: #fff;
+            margin-bottom: 20px;
+        }
+
+        .step-icon {
+            font-size: 1.8rem;
+            margin-bottom: 12px;
+        }
+
+        .step-title {
+            font-weight: 700;
+            font-size: 1rem;
+            margin-bottom: 8px;
+        }
+
+        .step-desc {
+            font-size: .84rem;
+            color: var(--text2);
+            line-height: 1.65;
+        }
+
+        /* Ecosystem */
+        .ecosystem-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .eco-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 32px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .eco-card.primary {
+            border-color: rgba(124, 111, 255, 0.3);
+        }
+
+        .eco-card.secondary {
+            border-color: rgba(0, 229, 160, 0.25);
+        }
+
+        .eco-card-tag {
+            font-family: monospace;
+            font-size: .78rem;
+            padding: 4px 12px;
+            border-radius: 6px;
+            display: inline-block;
+            margin-bottom: 16px;
+            font-weight: 700;
+        }
+
+        .eco-card.primary .eco-card-tag {
+            background: rgba(124, 111, 255, 0.12);
+            color: var(--accent2);
+        }
+
+        .eco-card.secondary .eco-card-tag {
+            background: rgba(0, 229, 160, 0.1);
+            color: var(--green);
+        }
+
+        .eco-title {
+            font-family: var(--font-head);
+            font-size: 1.2rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+        }
+
+        .eco-desc {
+            font-size: .87rem;
+            color: var(--text2);
+            line-height: 1.65;
+            margin-bottom: 20px;
+        }
+
+        .eco-url {
+            font-family: monospace;
+            font-size: .8rem;
+            padding: 8px 14px;
+            border-radius: 8px;
+            display: inline-block;
+            font-weight: 600;
+        }
+
+        .eco-card.primary .eco-url {
+            background: rgba(124, 111, 255, 0.1);
+            color: var(--accent2);
+        }
+
+        .eco-card.secondary .eco-url {
+            background: rgba(0, 229, 160, 0.08);
+            color: var(--green);
+        }
+
+        .eco-bg-num {
+            position: absolute;
+            right: -10px;
+            bottom: -20px;
+            font-family: var(--font-head);
+            font-size: 7rem;
+            font-weight: 800;
+            opacity: .04;
+            line-height: 1;
+            pointer-events: none;
+        }
+
+        /* ═══════════════════════════════════════════════════════════
+   FAQ
+═══════════════════════════════════════════════════════════ */
+        .faq-list {
+            max-width: 720px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .faq-item {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            overflow: hidden;
+            transition: border-color .2s;
+        }
+
+        .faq-item:hover {
+            border-color: var(--border2);
+        }
+
+        .faq-btn {
+            width: 100%;
+            background: none;
+            border: none;
+            padding: 20px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            color: var(--text);
+            font-weight: 600;
+            font-size: .92rem;
+            text-align: left;
+            cursor: pointer;
+        }
+
+        .faq-icon {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: var(--surface2);
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: .85rem;
+            flex-shrink: 0;
+            transition: transform .3s, background .2s;
+            color: var(--accent2);
+        }
+
+        .faq-item.open .faq-icon {
+            transform: rotate(45deg);
+            background: rgba(124, 111, 255, 0.15);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height .4s ease;
+            padding: 0 24px;
+        }
+
+        .faq-answer-inner {
+            padding-bottom: 20px;
+            font-size: .87rem;
+            color: var(--text2);
+            line-height: 1.75;
+        }
+
+        /* ═══════════════════════════════════════════════════════════
+   CTA BANNER
+═══════════════════════════════════════════════════════════ */
+        .cta-section {
+            padding: 120px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-bg-orb {
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: radial-gradient(circle, rgba(124, 111, 255, 0.15), transparent 65%);
+            filter: blur(60px);
+            pointer-events: none;
+        }
+
+        .cta-inner {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+        }
+
+        .cta-title {
+            font-family: var(--font-head);
+            font-size: clamp(2.4rem, 5.5vw, 4.2rem);
+            font-weight: 800;
+            line-height: 1.08;
+            letter-spacing: -.025em;
+            margin-bottom: 20px;
+        }
+
+        .cta-sub {
+            color: var(--text2);
+            font-size: 1.1rem;
+            line-height: 1.7;
+            max-width: 540px;
+            margin: 0 auto 40px;
+        }
+
+        .cta-btns {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .cta-note {
+            margin-top: 20px;
+            font-size: .8rem;
+            color: var(--text3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        /* ═══════════════════════════════════════════════════════════
+   FOOTER
+═══════════════════════════════════════════════════════════ */
+        .footer {
+            background: var(--bg2);
+            border-top: 1px solid var(--border);
+            padding: 72px 0 0;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1.8fr 1fr 1fr 1fr;
+            gap: 48px;
+            padding-bottom: 64px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .footer-brand-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-family: var(--font-head);
+            font-weight: 800;
+            font-size: 1.2rem;
+            margin-bottom: 14px;
+        }
+
+        .footer-brand-desc {
+            font-size: .86rem;
+            color: var(--text2);
+            line-height: 1.7;
+            max-width: 280px;
+            margin-bottom: 24px;
+        }
+
+        .footer-socials {
+            display: flex;
+            gap: 10px;
+        }
+
+        .footer-social {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: .82rem;
+            color: var(--text2);
+            transition: all .2s;
+        }
+
+        .footer-social:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            background: rgba(124, 111, 255, 0.1);
+        }
+
+        .footer-col-title {
+            font-size: .78rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: .1em;
+            color: var(--text);
+            margin-bottom: 18px;
+        }
+
+        .footer-col-links {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .footer-col-links a {
+            font-size: .85rem;
+            color: var(--text2);
+            transition: color .2s;
+        }
+
+        .footer-col-links a:hover {
+            color: var(--text);
+        }
+
+        .footer-bottom {
+            padding: 20px 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .footer-copy {
+            font-size: .8rem;
+            color: var(--text3);
+        }
+
+        .footer-made {
+            font-size: .8rem;
+            color: var(--text3);
+        }
+
+        /* ═══════════════════════════════════════════════════════════
+   AUTH MODAL
+═══════════════════════════════════════════════════════════ */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 300;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity .3s;
+        }
+
+        .modal-overlay.open {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .modal-box {
+            background: var(--surface);
+            border: 1px solid var(--border2);
+            border-radius: 24px;
+            padding: 40px 36px;
+            width: 100%;
+            max-width: 440px;
+            position: relative;
+            box-shadow: var(--shadow), var(--shadow-glow);
+            transform: scale(.92) translateY(20px);
+            transition: transform .45s cubic-bezier(.34, 1.56, .64, 1);
+        }
+
+        .modal-overlay.open .modal-box {
+            transform: scale(1) translateY(0);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: var(--surface2);
+            border: 1px solid var(--border);
+            color: var(--text2);
+            font-size: .8rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all .2s;
+        }
+
+        .modal-close:hover {
+            background: rgba(124, 111, 255, 0.15);
+            color: var(--text);
+            border-color: var(--accent);
+        }
+
+        .modal-logo {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            font-family: var(--font-head);
+            font-weight: 800;
+            font-size: 1.15rem;
+            margin-bottom: 8px;
+        }
+
+        .modal-logo-hex {
+            font-size: 1.3rem;
+            filter: drop-shadow(0 0 8px var(--accent));
+        }
+
+        .modal-tagline {
+            font-size: .82rem;
+            color: var(--text3);
+            margin-bottom: 28px;
+        }
+
+        /* Auth tabs */
+        .auth-tabs {
+            display: flex;
+            gap: 4px;
+            background: var(--bg3);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 4px;
+            margin-bottom: 28px;
+        }
+
+        .auth-tab {
+            flex: 1;
+            padding: 9px;
+            border-radius: 9px;
+            background: none;
+            border: none;
+            color: var(--text2);
+            font-size: .86rem;
+            font-weight: 600;
+            transition: all .2s;
+            cursor: pointer;
+        }
+
+        .auth-tab.active {
+            background: var(--surface2);
+            color: var(--text);
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .auth-form-panel {
+            display: none;
+        }
+
+        .auth-form-panel.active {
+            display: block;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: .75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .07em;
+            color: var(--text2);
+            margin-bottom: 7px;
+        }
+
+        .form-input {
+            width: 100%;
+            background: var(--bg3);
+            border: 1.5px solid var(--border);
+            border-radius: 12px;
+            padding: 12px 16px;
+            color: var(--text);
+            font-family: var(--font-body);
+            font-size: .9rem;
+            outline: none;
+            transition: border-color .2s, box-shadow .2s;
+            appearance: none;
+        }
+
+        .form-input:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(124, 111, 255, 0.15);
+        }
+
+        .form-input::placeholder {
+            color: var(--text3);
+        }
+
+        .auth-submit {
+            width: 100%;
+            margin-top: 20px;
+            justify-content: center;
+            padding: 14px;
+        }
+
+        .auth-note-text {
+            text-align: center;
+            font-size: .78rem;
+            color: var(--text3);
+            margin-top: 14px;
+            line-height: 1.5;
+        }
+
+        .auth-note-text strong {
+            color: var(--text2);
+        }
+
+        /* Divider */
+        .form-divider {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 20px 0;
+        }
+
+        .form-divider::before,
+        .form-divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--border);
+        }
+
+        .form-divider span {
+            font-size: .75rem;
+            color: var(--text3);
+        }
+
+        /* Platform shortcut */
+        .platform-link {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(0, 229, 160, 0.06);
+            border: 1px solid rgba(0, 229, 160, 0.15);
+            border-radius: 12px;
+            padding: 12px 16px;
+            font-size: .82rem;
+            color: var(--text2);
+            transition: all .2s;
+        }
+
+        .platform-link:hover {
+            border-color: rgba(0, 229, 160, 0.3);
+            color: var(--text);
+        }
+
+        .platform-link-arrow {
+            color: var(--green);
+            font-size: 1rem;
+        }
+
+        /* ═══════════════════════════════════════════════════════════
+   DIVIDER LINE
+═══════════════════════════════════════════════════════════ */
+        .line-divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--border2), transparent);
+            margin: 0 auto;
+        }
+
+        /* ═══════════════════════════════════════════════════════════
+   SCROLL TOP BTN
+═══════════════════════════════════════════════════════════ */
+        .scroll-top {
+            position: fixed;
+            bottom: 28px;
+            right: 28px;
+            z-index: 50;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: var(--grad2);
+            color: #fff;
+            border: none;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 24px rgba(124, 111, 255, 0.4);
+            transition: transform .2s, opacity .3s;
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(10px);
+        }
+
+        .scroll-top.visible {
+            opacity: 1;
+            pointer-events: all;
+            transform: translateY(0);
+        }
+
+        .scroll-top:hover {
+            transform: translateY(-3px);
+        }
+
+        /* ═══════════════════════════════════════════════════════════
+   RESPONSIVE
+═══════════════════════════════════════════════════════════ */
+        @media (max-width: 1024px) {
+            .mockup-body {
+                grid-template-columns: 1fr;
+            }
+
+            .mockup-sidebar {
+                display: none;
+            }
+
+            .feat-ai-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .lang-showcase {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .pricing-cards {
+                grid-template-columns: 1fr;
+                max-width: 480px;
+                margin: 0 auto;
+            }
+        }
+
+        @media (max-width: 768px) {
+
+            .nav-links,
+            .nav-signin {
+                display: none;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .container,
+            .container-wide {
+                padding: 0 20px;
+            }
+
+            .section {
+                padding: 80px 0;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .stat-item:nth-child(2n) {
+                border-right: none;
+            }
+
+            .stat-item {
+                border-bottom: 1px solid var(--border);
+                padding: 16px;
+            }
+
+            .guide-steps {
+                grid-template-columns: 1fr;
+            }
+
+            .ecosystem-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 32px;
+            }
+
+            .fc-top-left,
+            .fc-bottom-right {
+                display: none;
+            }
+
+            .hero-title {
+                letter-spacing: -.02em;
+            }
+
+            .domains-grid {
+                grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            }
+
+            .features-tabs {
+                gap: 4px;
+            }
+
+            .feat-tab-btn {
+                padding: 8px 14px;
+                font-size: .78rem;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-ctas {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .hero-ctas .btn-primary,
+            .hero-ctas .btn-outline {
+                justify-content: center;
+            }
+
+            .modal-box {
+                padding: 32px 24px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="noise-overlay"></div>
+
+    <!-- ═══════════════════════════════════════════════════════════
+  NAVBAR
+═══════════════════════════════════════════════════════════ -->
+    <nav class="nav" id="mainNav">
+        <div class="container">
+            <div class="nav-inner">
+                <a href="#" class="nav-logo">
+                    <span class="nav-logo-hex">⬡</span>
+                    <span class="grad-text">MindSphere</span>
+                    <!-- <span class="nav-logo-dot">.org</span> -->
+                </a>
+
+                <ul class="nav-links">
+                    <li><a href="#features" id="nl-features">Features</a></li>
+                    <li><a href="#domains" id="nl-domains">Fields</a></li>
+                    <li><a href="#pricing" id="nl-pricing">Pricing</a></li>
+                    <li><a href="#guide" id="nl-guide">Guide</a></li>
+                    <li><a href="#faq" id="nl-faq">FAQ</a></li>
+                </ul>
+
+                <div class="nav-right">
+                    <div class="lang-sw">
+                        <button class="active" data-lang="en" onclick="setLang('en')">EN</button>
+                        <button data-lang="ru" onclick="setLang('ru')">RU</button>
+                        <button data-lang="uz" onclick="setLang('uz')">UZ</button>
+                    </div>
+                    <button class="theme-btn" id="themeBtn" onclick="toggleTheme()" title="Toggle theme">
+                        <span id="themeIcon">🌙</span>
+                    </button>
+                    <button class="btn-primary nav-signin" id="nav-signin" onclick="openModal()">Sign In</button>
+                    <button class="hamburger" id="hamburger" onclick="toggleMobileMenu()">
+                        <span></span><span></span><span></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="mobile-nav" id="mobileNav">
+            <a href="#features" onclick="closeMobileMenu()" id="ml-features">Features</a>
+            <a href="#domains" onclick="closeMobileMenu()" id="ml-domains">Fields of Study</a>
+            <a href="#pricing" onclick="closeMobileMenu()" id="ml-pricing">Pricing</a>
+            <a href="#guide" onclick="closeMobileMenu()" id="ml-guide">Guide</a>
+            <a href="#faq" onclick="closeMobileMenu()" id="ml-faq">FAQ</a>
+            <div class="mobile-nav-bottom">
+                <div class="lang-sw">
+                    <button class="active" data-lang="en" onclick="setLang('en')">EN</button>
+                    <button data-lang="ru" onclick="setLang('ru')">RU</button>
+                    <button data-lang="uz" onclick="setLang('uz')">UZ</button>
+                </div>
+                <button class="btn-primary" style="padding:10px 20px;font-size:.83rem" id="ml-signin"
+                    onclick="openModal();closeMobileMenu()">Sign In</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ═══════════════════════════════════════════════════════════
+  HERO
+═══════════════════════════════════════════════════════════ -->
+    <section class="hero">
+        <div class="hero-bg">
+            <div class="orb orb-1"></div>
+            <div class="orb orb-2"></div>
+            <div class="orb orb-3"></div>
+            <div class="hero-grid"></div>
+        </div>
+
+        <div class="hero-inner">
+            <div class="hero-badge chip">
+                <span class="hero-badge-dot"></span>
+                <span id="hero-badge">🌍 Free forever · Open source · 190+ countries</span>
+            </div>
+
+            <h1 class="hero-title">
+                <span class="line line-1" id="hero-t1">One Platform.</span>
+                <span class="line line-2 grad-text" id="hero-t2">Every Field of Knowledge.</span>
+                <span class="line line-3" id="hero-t3">For Everyone.</span>
+            </h1>
+
+            <p class="hero-sub" id="hero-sub">
+                MindSphere is a free, AI-powered global learning platform covering every discipline — from medicine and
+                law to music and philosophy. Built for 8 billion people.
+            </p>
+
+            <div class="hero-ctas">
+                <button class="btn-primary" onclick="openModal()" id="hero-cta1">
+                    <span id="hero-cta1-text">Get Started — It's Free</span>
+                    <span>→</span>
+                </button>
+                <a href="#guide" class="btn-outline" id="hero-cta2">How It Works</a>
+            </div>
+
+            <div class="hero-proof">
+                <div class="proof-avatars">
+                    <img src="https://i.pravatar.cc/40?img=1" alt="" loading="lazy" />
+                    <img src="https://i.pravatar.cc/40?img=5" alt="" loading="lazy" />
+                    <img src="https://i.pravatar.cc/40?img=9" alt="" loading="lazy" />
+                    <img src="https://i.pravatar.cc/40?img=13" alt="" loading="lazy" />
+                    <div class="proof-avatars-more">2M+</div>
+                </div>
+                <p class="proof-text" id="hero-proof"><strong>2.4 million</strong> learners worldwide</p>
+            </div>
+
+            <!-- Platform mockup -->
+            <div class="hero-mockup">
+                <div class="float-card fc-top-left">
+                    <span>🤖</span>
+                    <div>
+                        <div style="font-size:.7rem;color:var(--text2)" id="fc1-label">AI Tutor</div>
+                        <div style="font-size:.78rem" id="fc1-text">Active & Learning</div>
+                    </div>
+                </div>
+
+                <div class="mockup-window">
+                    <div class="mockup-bar">
+                        <div class="mockup-dots">
+                            <span class="d-r"></span>
+                            <span class="d-y"></span>
+                            <span class="d-g"></span>
+                        </div>
+                        <div class="mockup-url">mindsphere.com — <span id="mockup-title">Dashboard</span></div>
+                    </div>
+                    <div class="mockup-body">
+                        <div class="mockup-sidebar">
+                            <div class="mockup-nav-item active">📊 <span id="mn1">Dashboard</span></div>
+                            <div class="mockup-nav-item">📚 <span id="mn2">My Courses</span></div>
+                            <div class="mockup-nav-item">🌐 <span id="mn3">Explore</span></div>
+                            <div class="mockup-nav-item">🏆 <span id="mn4">Progress</span></div>
+                            <div class="mockup-ai-badge">
+                                <div class="ai-status">
+                                    <span class="ai-status-dot"></span>
+                                    <span id="ai-status-text">AI Tutor Online</span>
+                                </div>
+                                <div class="ai-msg" id="ai-msg-text">"You've mastered 68% of Human Anatomy — keep
+                                    going!"</div>
+                            </div>
+                        </div>
+                        <div class="mockup-main">
+                            <div class="mockup-subjects-label" id="mock-continue">Continue Learning</div>
+                            <div class="mockup-subjects">
+                                <div class="subj-card">
+                                    <div class="subj-icon">🔬</div>
+                                    <div class="subj-name" id="mc1">Biology</div>
+                                    <div class="subj-prog">
+                                        <div class="subj-prog-bar" style="width:73%"></div>
+                                    </div>
+                                    <div class="subj-meta">73% · Ch. 12</div>
+                                </div>
+                                <div class="subj-card">
+                                    <div class="subj-icon">⚖️</div>
+                                    <div class="subj-name" id="mc2">Law & Justice</div>
+                                    <div class="subj-prog">
+                                        <div class="subj-prog-bar" style="width:41%"></div>
+                                    </div>
+                                    <div class="subj-meta">41% · Ch. 5</div>
+                                </div>
+                                <div class="subj-card">
+                                    <div class="subj-icon">🎨</div>
+                                    <div class="subj-name" id="mc3">Fine Arts</div>
+                                    <div class="subj-prog">
+                                        <div class="subj-prog-bar" style="width:28%"></div>
+                                    </div>
+                                    <div class="subj-meta">28% · Ch. 3</div>
+                                </div>
+                                <div class="subj-card">
+                                    <div class="subj-icon">📐</div>
+                                    <div class="subj-name" id="mc4">Mathematics</div>
+                                    <div class="subj-prog">
+                                        <div class="subj-prog-bar" style="width:89%"></div>
+                                    </div>
+                                    <div class="subj-meta">89% · Ch. 20</div>
+                                </div>
+                                <div class="subj-card">
+                                    <div class="subj-icon">🧬</div>
+                                    <div class="subj-name" id="mc5">Genetics</div>
+                                    <div class="subj-prog">
+                                        <div class="subj-prog-bar" style="width:15%"></div>
+                                    </div>
+                                    <div class="subj-meta">15% · New</div>
+                                </div>
+                                <div class="subj-card">
+                                    <div class="subj-icon">🎵</div>
+                                    <div class="subj-name" id="mc6">Music Theory</div>
+                                    <div class="subj-prog">
+                                        <div class="subj-prog-bar" style="width:55%"></div>
+                                    </div>
+                                    <div class="subj-meta">55% · Ch. 8</div>
+                                </div>
+                            </div>
+                            <div class="mockup-domains">
+                                <span class="domain-pill" id="dp1">Medicine</span>
+                                <span class="domain-pill" id="dp2">Engineering</span>
+                                <span class="domain-pill" id="dp3">Psychology</span>
+                                <span class="domain-pill" id="dp4">Philosophy</span>
+                                <span class="domain-pill" id="dp5">History</span>
+                                <span class="domain-pill" id="dp6">Linguistics</span>
+                                <span class="domain-pill" style="color:var(--accent2)" id="dp7">+136 more →</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="float-card fc-bottom-right">
+                    <span>🆓</span>
+                    <div>
+                        <div style="font-size:.7rem;color:var(--text2)" id="fc2-label">Pricing</div>
+                        <div style="font-size:.78rem" id="fc2-text">100% Free Forever</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════
+  STATS
+═══════════════════════════════════════════════════════════ -->
+    <div class="stats-bar">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-num grad-text">2.4M+</div>
+                    <div class="stat-label" id="st1">Active Learners</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-num grad-text">142+</div>
+                    <div class="stat-label" id="st2">Fields of Study</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-num grad-text">190+</div>
+                    <div class="stat-label" id="st3">Countries</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-num grad-text-green">$0</div>
+                    <div class="stat-label" id="st4">Forever Free</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════
+  FEATURES
+═══════════════════════════════════════════════════════════ -->
+    <section class="section" id="features">
+        <div class="container">
+            <div class="section-header center" data-reveal>
+                <div class="chip section-tag" id="f-tag">Technical Features</div>
+                <h2 class="section-title" id="f-title">Built different.<br />Works better.</h2>
+                <p class="section-sub" id="f-sub">Four pillars that make MindSphere the world's most advanced free
+                    learning platform.</p>
+            </div>
+
+            <div class="features-tabs" data-reveal>
+                <button class="feat-tab-btn active" onclick="switchFeatTab('ai')" id="ft-ai">🤖 AI Tutor</button>
+                <button class="feat-tab-btn" onclick="switchFeatTab('domains')" id="ft-domains">📚 All Fields</button>
+                <button class="feat-tab-btn" onclick="switchFeatTab('lang')" id="ft-lang">🌐 Languages</button>
+                <button class="feat-tab-btn" onclick="switchFeatTab('access')" id="ft-access">♿ Accessibility</button>
+            </div>
+
+            <!-- AI Tutor -->
+            <div class="feat-panel active" id="ftab-ai">
+                <div class="feat-ai-grid">
+                    <div data-reveal>
+                        <div class="chip section-tag" id="fai-tag">AI-Powered Learning</div>
+                        <h3 class="section-title" style="font-size:clamp(1.6rem,3vw,2.4rem)" id="fai-title">Your
+                            personal tutor.<br />24 hours a day.</h3>
+                        <p class="section-sub" style="font-size:.92rem" id="fai-desc">Every account comes with a
+                            dedicated AI assistant that learns how you learn. It tracks mastery, identifies weak areas,
+                            adjusts difficulty, and responds in your language — whether you're studying medicine or
+                            medieval history.</p>
+                        <div class="feat-list">
+                            <div class="feat-list-item">
+                                <div class="feat-list-icon">📊</div>
+                                <div class="feat-list-text">
+                                    <strong id="fai-l1-t">Real-time mastery analysis</strong>
+                                    <p id="fai-l1-d">Continuously evaluates your understanding — not just quiz scores,
+                                        but depth of comprehension.</p>
+                                </div>
+                            </div>
+                            <div class="feat-list-item">
+                                <div class="feat-list-icon">🎯</div>
+                                <div class="feat-list-text">
+                                    <strong id="fai-l2-t">Adaptive learning paths</strong>
+                                    <p id="fai-l2-d">Lessons, difficulty, and pace automatically adjust to your learning
+                                        style and current level.</p>
+                                </div>
+                            </div>
+                            <div class="feat-list-item">
+                                <div class="feat-list-icon">💬</div>
+                                <div class="feat-list-text">
+                                    <strong id="fai-l3-t">Conversational teaching</strong>
+                                    <p id="fai-l3-d">Ask anything, get real explanations. The AI tutor understands
+                                        context, corrects misconceptions, and teaches — not just answers.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ai-chat-demo" data-reveal-scale>
+                        <div class="ai-chat-header">
+                            <div class="ai-avatar">🤖</div>
+                            <div>
+                                <div class="ai-name" id="ai-demo-name">MindSphere AI Tutor</div>
+                                <div style="font-size:.72rem;color:var(--text3)" id="ai-demo-sub">Personal learning
+                                    assistant</div>
+                            </div>
+                            <div class="ai-online">
+                                <span class="ai-online-dot"></span>
+                                <span id="ai-demo-status">Online</span>
+                            </div>
+                        </div>
+                        <div class="chat-messages" id="chatMessages">
+                            <div class="msg-ai" id="chat-m1">I noticed you got 3 questions wrong on the cardiac cycle.
+                                Let me explain it differently — think of the heart as two pumps working in sync. 🫀
+                            </div>
+                            <div class="msg-user" id="chat-m2">That makes more sense! But why does the left ventricle
+                                have thicker walls?</div>
+                            <div class="msg-ai" id="chat-m3">Great question! The left ventricle pumps blood to the
+                                entire body (systemic circulation), while the right only pumps to the lungs. More
+                                distance = more pressure needed = thicker muscle walls. Want a quick quiz to lock this
+                                in?</div>
+                        </div>
+                        <div class="chat-progress">
+                            <div class="prog-label">
+                                <span id="chat-prog-label">Human Anatomy — Chapter 12</span>
+                                <span style="color:var(--green);font-weight:700">68%</span>
+                            </div>
+                            <div class="prog-bar">
+                                <div class="prog-fill"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- All Fields -->
+            <div class="feat-panel" id="ftab-domains">
+                <div class="domains-intro" data-reveal>
+                    <h3 class="section-title" style="font-size:clamp(1.6rem,3vw,2.4rem)" id="dom-title">Every field of
+                        human knowledge</h3>
+                    <p class="section-sub" style="margin:0 auto;font-size:.92rem" id="dom-sub">MindSphere is not a
+                        coding platform. Not a language app. It's a universal learning platform — from quantum physics
+                        to classical literature, from surgery to architecture.</p>
+                </div>
+                <div class="domains-grid" id="domainsGrid">
+                    <!-- Rendered by JS -->
+                </div>
+            </div>
+
+            <!-- Languages -->
+            <div class="feat-panel" id="ftab-lang">
+                <div class="lang-showcase">
+                    <div data-reveal>
+                        <div class="chip section-tag" id="flang-tag">Multi-Language Support</div>
+                        <h3 class="section-title" style="font-size:clamp(1.6rem,3vw,2.4rem)" id="flang-title">Start in 3
+                            languages.<br />Scale to 142.</h3>
+                        <p class="section-sub" style="font-size:.92rem;margin-bottom:28px" id="flang-desc">Language is
+                            not a barrier on MindSphere. The interface, course content, and AI tutor all communicate in
+                            your language. Phase 1 launches in EN, RU, and UZ — with 142 languages planned by 2027.</p>
+                        <div class="lang-phase-list">
+                            <div class="lang-phase">
+                                <div class="lang-phase-header">
+                                    <span class="lang-phase-label" id="lp1-label">Phase 1 — Live Now</span>
+                                    <span class="lang-phase-status status-live" id="lp1-status">✓ Live</span>
+                                </div>
+                                <div class="lang-flags">
+                                    <span class="lang-flag">🇺🇸 <span id="l-en">English</span></span>
+                                    <span class="lang-flag">🇷🇺 <span id="l-ru">Russian</span></span>
+                                    <span class="lang-flag">🇺🇿 <span id="l-uz">Uzbek</span></span>
+                                </div>
+                            </div>
+                            <div class="lang-phase">
+                                <div class="lang-phase-header">
+                                    <span class="lang-phase-label" id="lp2-label">Phase 2 — 2026</span>
+                                    <span class="lang-phase-status status-soon" id="lp2-status">Coming</span>
+                                </div>
+                                <div class="lang-flags">
+                                    <span class="lang-flag">🇩🇪 DE</span>
+                                    <span class="lang-flag">🇫🇷 FR</span>
+                                    <span class="lang-flag">🇨🇳 ZH</span>
+                                    <span class="lang-flag">🇯🇵 JA</span>
+                                    <span class="lang-flag">🇦🇪 AR</span>
+                                    <span class="lang-flag">🇪🇸 ES</span>
+                                    <span class="lang-flag">🇮🇳 HI</span>
+                                    <span class="lang-flag">🇧🇷 PT</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="lang-progress-visual" data-reveal-scale>
+                        <div class="lang-big-num grad-text">142</div>
+                        <div style="color:var(--text2);font-size:.95rem;margin-bottom:8px" id="lang-target-text">target
+                            languages</div>
+                        <div style="font-size:.8rem;color:var(--text3);margin-bottom:32px" id="lang-target-sub">planned
+                            by 2027</div>
+                        <div class="lang-roadmap">
+                            <div class="roadmap-row">
+                                <span class="roadmap-label" id="lr1">2025</span>
+                                <div class="roadmap-bar-bg">
+                                    <div class="roadmap-bar-fill" style="width:2%"></div>
+                                </div>
+                                <span class="roadmap-num">3</span>
+                            </div>
+                            <div class="roadmap-row">
+                                <span class="roadmap-label" id="lr2">2026</span>
+                                <div class="roadmap-bar-bg">
+                                    <div class="roadmap-bar-fill" style="width:15%"></div>
+                                </div>
+                                <span class="roadmap-num">~20</span>
+                            </div>
+                            <div class="roadmap-row">
+                                <span class="roadmap-label" id="lr3">2027</span>
+                                <div class="roadmap-bar-bg">
+                                    <div class="roadmap-bar-fill" style="width:100%"></div>
+                                </div>
+                                <span class="roadmap-num">142</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Accessibility -->
+            <div class="feat-panel" id="ftab-access">
+                <div class="section-header center" style="margin-bottom:40px" data-reveal>
+                    <h3 class="section-title" style="font-size:clamp(1.6rem,3vw,2.4rem)" id="acc-title">Accessible to
+                        everyone,<br />on every device.</h3>
+                    <p class="section-sub" id="acc-sub">Fully responsive design from 320px mobile to 4K ultrawide. No
+                        app required. Works offline. Screen-reader ready.</p>
+                </div>
+                <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px" data-reveal>
+                    <div
+                        style="background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:24px">
+                        <div style="font-size:1.8rem;margin-bottom:12px">📱</div>
+                        <div style="font-weight:700;margin-bottom:6px" id="ac1-t">Fully Responsive</div>
+                        <div style="font-size:.84rem;color:var(--text2);line-height:1.6" id="ac1-d">Seamless experience
+                            from 320px phones to 6K ultrawide monitors. Every pixel considered.</div>
+                    </div>
+                    <div
+                        style="background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:24px">
+                        <div style="font-size:1.8rem;margin-bottom:12px">⌨️</div>
+                        <div style="font-weight:700;margin-bottom:6px" id="ac2-t">Keyboard Navigation</div>
+                        <div style="font-size:.84rem;color:var(--text2);line-height:1.6" id="ac2-d">Full keyboard
+                            support and screen reader compatibility (WCAG 2.1 AA standard).</div>
+                    </div>
+                    <div
+                        style="background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:24px">
+                        <div style="font-size:1.8rem;margin-bottom:12px">🌙</div>
+                        <div style="font-weight:700;margin-bottom:6px" id="ac3-t">Dark & Light Mode</div>
+                        <div style="font-size:.84rem;color:var(--text2);line-height:1.6" id="ac3-d">Beautiful in both
+                            themes. Respects your system preference automatically.</div>
+                    </div>
+                    <div
+                        style="background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:24px">
+                        <div style="font-size:1.8rem;margin-bottom:12px">⚡</div>
+                        <div style="font-weight:700;margin-bottom:6px" id="ac4-t">Offline Ready</div>
+                        <div style="font-size:.84rem;color:var(--text2);line-height:1.6" id="ac4-d">Download courses and
+                            study without internet. No app installation needed.</div>
+                    </div>
+                    <div
+                        style="background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:24px">
+                        <div style="font-size:1.8rem;margin-bottom:12px">🔒</div>
+                        <div style="font-weight:700;margin-bottom:6px" id="ac5-t">Privacy First</div>
+                        <div style="font-size:.84rem;color:var(--text2);line-height:1.6" id="ac5-d">Zero ads. No data
+                            selling. GDPR compliant. Your learning data stays yours.</div>
+                    </div>
+                    <div
+                        style="background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:24px">
+                        <div style="font-size:1.8rem;margin-bottom:12px">🌍</div>
+                        <div style="font-weight:700;margin-bottom:6px" id="ac6-t">Low Bandwidth</div>
+                        <div style="font-size:.84rem;color:var(--text2);line-height:1.6" id="ac6-d">Optimized for slow
+                            connections. Accessible in regions with limited internet infrastructure.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="line-divider container"></div>
+
+    <!-- ═══════════════════════════════════════════════════════════
+  DOMAINS / FIELDS
+═══════════════════════════════════════════════════════════ -->
+    <section class="section" id="domains">
+        <div class="container">
+            <div class="section-header" data-reveal>
+                <div class="chip section-tag" id="dom-section-tag">Fields of Study</div>
+                <h2 class="section-title" id="dom-section-title">Not just tech. Everything.</h2>
+                <p class="section-sub" id="dom-section-sub">MindSphere covers every major discipline of human knowledge.
+                    Whatever you want to learn — we have it.</p>
+            </div>
+            <div class="domains-grid" id="domainsGridMain" data-reveal>
+                <!-- Rendered by JS -->
+            </div>
+        </div>
+    </section>
+
+    <div class="line-divider container"></div>
+
+    <!-- ═══════════════════════════════════════════════════════════
+  PRICING
+═══════════════════════════════════════════════════════════ -->
+    <section class="section" id="pricing">
+        <div class="container">
+            <div class="section-header center" data-reveal>
+                <div class="chip section-tag" id="p-tag">Pricing Model</div>
+                <h2 class="section-title" id="p-title">Knowledge has<br /><span class="grad-text">no price.</span></h2>
+                <p class="section-sub" id="p-sub">MindSphere is free — permanently, unconditionally, for everyone on
+                    Earth. No trials, no paywalls, no hidden fees.</p>
+            </div>
+            <div class="pricing-cards">
+                <!-- Free -->
+                <div class="pricing-card" data-reveal>
+                    <div class="pricing-icon">🎓</div>
+                    <div class="pricing-price">$0</div>
+                    <div class="pricing-period" id="pr1-period">Forever · No card required</div>
+                    <div class="pricing-name" id="pr1-name">Free Learner</div>
+                    <div class="pricing-desc" id="pr1-desc">Complete access to every course, AI tutor, and community
+                        feature. Always free.</div>
+                    <div class="pricing-features">
+                        <div class="pricing-feat"><span class="pricing-feat-check">✓</span><span id="pf1">All 48,000+
+                                courses across 142 fields</span></div>
+                        <div class="pricing-feat"><span class="pricing-feat-check">✓</span><span id="pf2">Personal AI
+                                tutor, 24/7</span></div>
+                        <div class="pricing-feat"><span class="pricing-feat-check">✓</span><span id="pf3">3 languages
+                                (EN, RU, UZ)</span></div>
+                        <div class="pricing-feat"><span class="pricing-feat-check">✓</span><span id="pf4">Progress
+                                tracking & analytics</span></div>
+                        <div class="pricing-feat"><span class="pricing-feat-check">✓</span><span id="pf5">Global
+                                community access</span></div>
+                        <div class="pricing-feat"><span class="pricing-feat-check">✓</span><span id="pf6">Certificates
+                                of completion</span></div>
+                    </div>
+                    <button class="btn-outline pricing-cta" onclick="openModal()" id="pr1-cta">Get Started Free</button>
+                </div>
+
+                <!-- Open Source -->
+                <div class="pricing-card featured" data-reveal>
+                    <div class="pricing-badge chip" style="top:-13px">⭐ <span id="oss-badge">Open Source</span></div>
+                    <div class="pricing-icon">🔓</div>
+                    <div class="pricing-price" style="font-size:1.8rem;padding-top:8px" id="oss-price">Contributor</div>
+                    <div class="pricing-period" id="pr2-period">Community-driven</div>
+                    <div class="pricing-name" id="pr2-name">Open Source Mindset</div>
+                    <div class="pricing-desc" id="pr2-desc">MindSphere is built by its community. Contribute courses,
+                        translations, or code — and help democratize knowledge globally.</div>
+                    <div class="pricing-features">
+                        <div class="pricing-feat"><span class="pricing-feat-check">✓</span><span id="po1">Everything in
+                                Free</span></div>
+                        <div class="pricing-feat"><span class="pricing-feat-check">✓</span><span id="po2">Publish your
+                                own courses</span></div>
+                        <div class="pricing-feat"><span class="pricing-feat-check">✓</span><span id="po3">Add language
+                                translations</span></div>
+                        <div class="pricing-feat"><span class="pricing-feat-check">✓</span><span id="po4">GitHub
+                                repository access</span></div>
+                        <div class="pricing-feat"><span class="pricing-feat-check">✓</span><span id="po5">Verified
+                                Contributor badge</span></div>
+                    </div>
+                    <button class="btn-primary pricing-cta" onclick="window.open('https://mindsphere.com','_blank')"
+                        id="pr2-cta">Join as Contributor</button>
+                </div>
+
+                <!-- Supporter -->
+                <div class="pricing-card" data-reveal>
+                    <div class="pricing-icon">❤️</div>
+                    <div class="pricing-price grad-text-green" id="pr3-price">From $5</div>
+                    <div class="pricing-period" id="pr3-period">/month · 100% voluntary</div>
+                    <div class="pricing-name" id="pr3-name">Supporter</div>
+                    <div class="pricing-desc" id="pr3-desc">No extra features — just your belief in free education.
+                        Every dollar funds new languages, servers, and access for learners in underserved regions.</div>
+                    <div class="pricing-features">
+                        <div class="pricing-feat"><span class="pricing-feat-check">✓</span><span id="ps1">Everything in
+                                Free</span></div>
+                        <div class="pricing-feat"><span class="pricing-feat-check">✓</span><span id="ps2">Supporter
+                                badge on profile 💎</span></div>
+                        <div class="pricing-feat"><span class="pricing-feat-check">✓</span><span id="ps3">Fund expansion
+                                to new languages</span></div>
+                        <div class="pricing-feat"><span class="pricing-feat-check">✓</span><span id="ps4">Quarterly
+                                impact report</span></div>
+                        <div class="pricing-feat"><span class="pricing-feat-check">✓</span><span id="ps5">Early access
+                                to new features</span></div>
+                    </div>
+                    <button class="btn-outline pricing-cta" onclick="window.open('https://mindsphere.com','_blank')"
+                        id="pr3-cta">Become a Supporter</button>
+                </div>
+            </div>
+
+            <div class="pricing-note" data-reveal>
+                <span class="pricing-note-icon">💡</span>
+                <p id="price-note"><strong>Important:</strong> Every single course, AI tutor session, and community
+                    feature is <strong>completely free</strong>. The Supporter plan is a voluntary donation to expand
+                    MindSphere globally — it does not unlock additional features. There are no paywalls, ever.</p>
+            </div>
+        </div>
+    </section>
+
+    <div class="line-divider container"></div>
+
+    <!-- ═══════════════════════════════════════════════════════════
+  GUIDE
+═══════════════════════════════════════════════════════════ -->
+    <section class="section" id="guide">
+        <div class="container">
+            <div class="section-header" data-reveal>
+                <div class="chip section-tag" id="g-tag">Getting Started</div>
+                <h2 class="section-title" id="g-title">From zero to learning<br />in 3 steps.</h2>
+                <p class="section-sub" id="g-sub">No setup. No installation. No payment. Just open and start.</p>
+            </div>
+
+            <div class="guide-steps">
+                <div class="guide-step" data-reveal>
+                    <div class="step-num">1</div>
+                    <div class="step-icon">📝</div>
+                    <div class="step-title" id="g1-t">Create your account</div>
+                    <div class="step-desc" id="g1-d">Click "Sign In" at the top. Register with your email — no credit
+                        card, no payment information. You're in within 30 seconds.</div>
+                </div>
+                <div class="guide-step" data-reveal>
+                    <div class="step-num">2</div>
+                    <div class="step-icon">🎯</div>
+                    <div class="step-title" id="g2-t">Set your learning goals</div>
+                    <div class="step-desc" id="g2-d">Tell the AI what you want to learn — any field, any level. It
+                        builds a personalized roadmap and adjusts as you progress.</div>
+                </div>
+                <div class="guide-step" data-reveal>
+                    <div class="step-num">3</div>
+                    <div class="step-icon">🚀</div>
+                    <div class="step-title" id="g3-t">Start learning instantly</div>
+                    <div class="step-desc" id="g3-d">Access 48,000+ courses, chat with your AI tutor, track progress,
+                        and connect with 2.4 million learners worldwide.</div>
+                </div>
+            </div>
+
+            <!-- Ecosystem -->
+            <div class="section-header" style="margin-top:80px;margin-bottom:32px" data-reveal>
+                <div class="chip section-tag" id="eco-tag">Ecosystem</div>
+                <h3 class="section-title" style="font-size:clamp(1.5rem,3vw,2.2rem)" id="eco-title">Two domains. One
+                    mission.</h3>
+            </div>
+            <div class="ecosystem-grid" data-reveal>
+                <div class="eco-card primary">
+                    <div class="eco-card-tag">mindsphere.org</div>
+                    <div class="eco-title" id="eco1-t">Welcome & Guide Portal</div>
+                    <div class="eco-desc" id="eco1-d">You're here now. This portal explains the platform, the mission,
+                        pricing model, and how to get started. No account needed — just explore.</div>
+                    <div class="eco-url">→ mindsphere.org</div>
+                    <div class="eco-bg-num">ORG</div>
+                </div>
+                <div class="eco-card secondary">
+                    <div class="eco-card-tag">mindsphere.com</div>
+                    <div class="eco-title" id="eco2-t">The Learning Platform (LMS)</div>
+                    <div class="eco-desc" id="eco2-d">The full platform — 48K+ courses, AI tutor, community, progress
+                        tracking, certificates, and everything else. Sign up to access. Free forever.</div>
+                    <div class="eco-url">→ mindsphere.com</div>
+                    <div class="eco-bg-num">LMS</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="line-divider container"></div>
+
+    <!-- ═══════════════════════════════════════════════════════════
+  FAQ
+═══════════════════════════════════════════════════════════ -->
+    <section class="section" id="faq">
+        <div class="container">
+            <div class="section-header center" data-reveal>
+                <div class="chip section-tag" id="faq-tag">FAQ</div>
+                <h2 class="section-title" id="faq-title">Questions answered.</h2>
+            </div>
+            <div class="faq-list" id="faqList"></div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════
+  CTA BANNER
+═══════════════════════════════════════════════════════════ -->
+    <section class="cta-section">
+        <div class="cta-bg-orb"></div>
+        <div class="container">
+            <div class="cta-inner">
+                <div class="chip section-tag" style="margin-bottom:24px" data-reveal id="cta-tag">Join the movement
+                </div>
+                <h2 class="cta-title" data-reveal id="cta-title">
+                    2.4 million learners.<br />
+                    <span class="grad-text">And counting.</span>
+                </h2>
+                <p class="cta-sub" data-reveal id="cta-sub">No credit card. No paywall. No catch. The world's most
+                    comprehensive free learning platform — open to everyone, everywhere.</p>
+                <div class="cta-btns" data-reveal>
+                    <button class="btn-primary" style="padding:16px 40px;font-size:1rem" onclick="openModal()"
+                        id="cta-btn1">
+                        <span id="cta-btn1-text">Create Free Account</span>
+                        <span>→</span>
+                    </button>
+                    <a href="https://mindsphere.com" target="_blank" class="btn-outline"
+                        style="padding:16px 40px;font-size:1rem" id="cta-btn2">Go to Platform</a>
+                </div>
+                <div class="cta-note">
+                    <span>✓</span> <span id="cta-note">No credit card · Free forever · Cancel anytime</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════
+  FOOTER
+═══════════════════════════════════════════════════════════ -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <div class="footer-brand-logo">
+                        <span
+                            style="font-size:1.3rem;animation:spin-slow 14s linear infinite;filter:drop-shadow(0 0 8px var(--accent))">⬡</span>
+                        <span class="grad-text">MindSphere</span>
+                    </div>
+                    <p class="footer-brand-desc" id="foot-desc">Expanding the boundaries of human knowledge — free,
+                        open, and available to every person on Earth.</p>
+                    <div class="footer-socials">
+                        <a href="https://mindsphere.com" target="_blank" class="footer-social" title="Platform">🌐</a>
+                        <a href="#" class="footer-social" title="GitHub">⌥</a>
+                        <a href="#" class="footer-social" title="Twitter">𝕏</a>
+                        <a href="#" class="footer-social" title="Discord">💬</a>
+                    </div>
+                </div>
+                <div>
+                    <div class="footer-col-title" id="fl1-h">Platform</div>
+                    <div class="footer-col-links">
+                        <a href="#features" id="fl1-1">Features</a>
+                        <a href="#domains" id="fl1-2">Fields of Study</a>
+                        <a href="#pricing" id="fl1-3">Pricing</a>
+                        <a href="https://mindsphere.com" target="_blank" id="fl1-4">mindsphere.com</a>
+                    </div>
+                </div>
+                <div>
+                    <div class="footer-col-title" id="fl2-h">Community</div>
+                    <div class="footer-col-links">
+                        <a href="#" id="fl2-1">GitHub</a>
+                        <a href="#" id="fl2-2">Discord</a>
+                        <a href="#" id="fl2-3">Blog</a>
+                        <a href="#guide" id="fl2-4">Guide</a>
+                        <a href="#faq" id="fl2-5">FAQ</a>
+                    </div>
+                </div>
+                <div>
+                    <div class="footer-col-title" id="fl3-h">Legal</div>
+                    <div class="footer-col-links">
+                        <a href="#" id="fl3-1">Privacy Policy</a>
+                        <a href="#" id="fl3-2">Terms of Service</a>
+                        <a href="#" id="fl3-3">Open Source</a>
+                        <a href="#" id="fl3-4">Cookie Policy</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <span class="footer-copy" id="foot-copy">© 2025 MindSphere Inc. All rights reserved.</span>
+                <span class="footer-made" id="foot-made">Made with ❤️ for curious minds everywhere.</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ═══════════════════════════════════════════════════════════
+  AUTH MODAL
+═══════════════════════════════════════════════════════════ -->
+    <div class="modal-overlay" id="authModal">
+        <div class="modal-box">
+            <button class="modal-close" onclick="closeModal()">✕</button>
+            <div class="modal-logo">
+                <span class="modal-logo-hex">⬡</span>
+                <span class="grad-text">MindSphere</span>
+            </div>
+            <p class="modal-tagline" id="modal-tagline">Free forever · No credit card needed</p>
+
+            <div class="auth-tabs">
+                <button class="auth-tab active" id="tab-signin" onclick="switchAuthTab('signin')" id="auth-tab1">Sign
+                    In</button>
+                <button class="auth-tab" id="tab-register" onclick="switchAuthTab('register')"
+                    id="auth-tab2">Register</button>
+            </div>
+
+            <!-- Sign In -->
+            <div class="auth-form-panel active" id="panel-signin">
+                <div class="form-group">
+                    <label class="form-label" id="lbl-email">Email Address</label>
+                    <input type="email" class="form-input" id="inp-email" placeholder="you@example.com"
+                        autocomplete="email" />
+                </div>
+                <div class="form-group">
+                    <label class="form-label" id="lbl-pass">Password</label>
+                    <input type="password" class="form-input" id="inp-pass" placeholder="••••••••"
+                        autocomplete="current-password" />
+                </div>
+                <button class="btn-primary auth-submit" onclick="handleSignIn()" id="signin-btn">
+                    <span id="signin-btn-text">Sign In to MindSphere →</span>
+                </button>
+                <p class="auth-note-text" id="signin-note">You'll be taken to <strong>mindsphere.com</strong> after
+                    signing in.</p>
+            </div>
+
+            <!-- Register -->
+            <div class="auth-form-panel" id="panel-register">
+                <div class="form-group">
+                    <label class="form-label" id="lbl-name">Full Name</label>
+                    <input type="text" class="form-input" id="inp-name" placeholder="Your full name"
+                        autocomplete="name" />
+                </div>
+                <div class="form-group">
+                    <label class="form-label" id="lbl-regemail">Email Address</label>
+                    <input type="email" class="form-input" id="inp-regemail" placeholder="you@example.com"
+                        autocomplete="email" />
+                </div>
+                <div class="form-group">
+                    <label class="form-label" id="lbl-regpass">Create Password</label>
+                    <input type="password" class="form-input" id="inp-regpass" placeholder="Minimum 8 characters"
+                        autocomplete="new-password" />
+                </div>
+                <button class="btn-primary auth-submit" onclick="handleRegister()" id="reg-btn">
+                    <span id="reg-btn-text">Create Free Account →</span>
+                </button>
+                <p class="auth-note-text" id="reg-note">Free forever · No credit card · Takes 30 seconds</p>
+            </div>
+
+            <div class="form-divider"><span id="auth-or">or go directly</span></div>
+            <a href="https://mindsphere.com" target="_blank" class="platform-link" onclick="closeModal()">
+                <span id="plat-link-text">Continue to mindsphere.com →</span>
+                <span class="platform-link-arrow">↗</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- Scroll top -->
+    <button class="scroll-top" id="scrollTopBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})"
+        title="Back to top">↑</button>
+
+    <!-- Toast -->
+    <div id="toastEl"
+        style="position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);z-index:400;padding:12px 24px;border-radius:100px;font-size:.85rem;font-weight:600;transition:all .4s cubic-bezier(.34,1.56,.64,1);opacity:0;pointer-events:none;backdrop-filter:blur(16px);border:1px solid var(--border2);background:var(--surface2);color:var(--text);white-space:nowrap;font-family:var(--font-body)">
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════
+  SCRIPT
+═══════════════════════════════════════════════════════════ -->
+    <script>
+        // ─── DATA ─────────────────────────────────────────────────────
+        const DOMAINS = [
+            { emoji: '🔬', name: 'Natural Sciences', count: '4,200+ courses' },
+            { emoji: '⚕️', name: 'Medicine & Health', count: '6,100+ courses' },
+            { emoji: '⚖️', name: 'Law & Justice', count: '2,800+ courses' },
+            { emoji: '🏛️', name: 'History & Civilization', count: '3,500+ courses' },
+            { emoji: '🧠', name: 'Psychology', count: '2,400+ courses' },
+            { emoji: '💼', name: 'Business & Economics', count: '5,600+ courses' },
+            { emoji: '🎨', name: 'Arts & Design', count: '3,100+ courses' },
+            { emoji: '🎵', name: 'Music & Performing Arts', count: '1,900+ courses' },
+            { emoji: '📐', name: 'Mathematics', count: '4,800+ courses' },
+            { emoji: '⚙️', name: 'Engineering', count: '5,200+ courses' },
+            { emoji: '💻', name: 'Computer Science', count: '4,700+ courses' },
+            { emoji: '🌍', name: 'Geography & Environment', count: '2,100+ courses' },
+            { emoji: '📖', name: 'Literature & Languages', count: '3,300+ courses' },
+            { emoji: '🔭', name: 'Physics & Astronomy', count: '2,700+ courses' },
+            { emoji: '🧪', name: 'Chemistry', count: '2,200+ courses' },
+            { emoji: '🌱', name: 'Biology & Life Sciences', count: '3,400+ courses' },
+            { emoji: '🏗️', name: 'Architecture', count: '1,600+ courses' },
+            { emoji: '📰', name: 'Journalism & Media', count: '1,400+ courses' },
+            { emoji: '🤝', name: 'Political Science', count: '1,800+ courses' },
+            { emoji: '🧘', name: 'Philosophy & Ethics', count: '2,000+ courses' },
+            { emoji: '📊', name: 'Data & Statistics', count: '3,000+ courses' },
+            { emoji: '🌐', name: 'Linguistics', count: '1,700+ courses' },
+            { emoji: '🏋️', name: 'Sports & Physical Ed.', count: '1,200+ courses' },
+            { emoji: '🍽️', name: 'Culinary Arts', count: '900+ courses' },
+        ];
+
+        // ─── TRANSLATIONS ─────────────────────────────────────────────
+        const T = {
+            en: {
+                // Nav
+                'nl-features': 'Features', 'nl-domains': 'Fields', 'nl-pricing': 'Pricing', 'nl-guide': 'Guide', 'nl-faq': 'FAQ',
+                'ml-features': 'Features', 'ml-domains': 'Fields of Study', 'ml-pricing': 'Pricing', 'ml-guide': 'Guide', 'ml-faq': 'FAQ',
+                'nav-signin': 'Sign In', 'ml-signin': 'Sign In',
+                // Hero
+                'hero-badge': '🌍 Free forever · Open source · 190+ countries',
+                'hero-t1': 'One Platform.', 'hero-t2': 'Every Field of Knowledge.', 'hero-t3': 'For Everyone.',
+                'hero-sub': 'MindSphere is a free, AI-powered global learning platform covering every discipline — from medicine and law to music and philosophy. Built for 8 billion people.',
+                'hero-cta1-text': 'Get Started — It\'s Free', 'hero-cta2': 'How It Works',
+                'hero-proof': '<strong>2.4 million</strong> learners worldwide',
+                'fc1-label': 'AI Tutor', 'fc1-text': 'Active & Learning', 'fc2-label': 'Pricing', 'fc2-text': '100% Free Forever',
+                'mockup-title': 'Dashboard', 'mn1': 'Dashboard', 'mn2': 'My Courses', 'mn3': 'Explore', 'mn4': 'Progress',
+                'ai-status-text': 'AI Tutor Online', 'ai-msg-text': '"You\'ve mastered 68% of Human Anatomy — keep going!"',
+                'mock-continue': 'Continue Learning',
+                'mc1': 'Biology', 'mc2': 'Law & Justice', 'mc3': 'Fine Arts', 'mc4': 'Mathematics', 'mc5': 'Genetics', 'mc6': 'Music Theory',
+                'dp1': 'Medicine', 'dp2': 'Engineering', 'dp3': 'Psychology', 'dp4': 'Philosophy', 'dp5': 'History', 'dp6': 'Linguistics', 'dp7': '+136 more →',
+                // Stats
+                'st1': 'Active Learners', 'st2': 'Fields of Study', 'st3': 'Countries', 'st4': 'Forever Free',
+                // Features section
+                'f-tag': 'Technical Features', 'f-title': 'Built different.<br/>Works better.',
+                'f-sub': 'Four pillars that make MindSphere the world\'s most advanced free learning platform.',
+                'ft-ai': '🤖 AI Tutor', 'ft-domains': '📚 All Fields', 'ft-lang': '🌐 Languages', 'ft-access': '♿ Accessibility',
+                'fai-tag': 'AI-Powered Learning', 'fai-title': 'Your personal tutor.<br/>24 hours a day.',
+                'fai-desc': 'Every account comes with a dedicated AI assistant that learns how you learn. It tracks mastery, identifies weak areas, adjusts difficulty, and responds in your language — whether you\'re studying medicine or medieval history.',
+                'fai-l1-t': 'Real-time mastery analysis', 'fai-l1-d': 'Continuously evaluates your understanding — not just quiz scores, but depth of comprehension.',
+                'fai-l2-t': 'Adaptive learning paths', 'fai-l2-d': 'Lessons, difficulty, and pace automatically adjust to your learning style and current level.',
+                'fai-l3-t': 'Conversational teaching', 'fai-l3-d': 'Ask anything, get real explanations. The AI tutor understands context, corrects misconceptions, and teaches — not just answers.',
+                'ai-demo-name': 'MindSphere AI Tutor', 'ai-demo-sub': 'Personal learning assistant', 'ai-demo-status': 'Online',
+                'chat-m1': 'I noticed you got 3 questions wrong on the cardiac cycle. Let me explain it differently — think of the heart as two pumps working in sync. 🫀',
+                'chat-m2': 'That makes more sense! But why does the left ventricle have thicker walls?',
+                'chat-m3': 'Great question! The left ventricle pumps blood to the entire body (systemic circulation), while the right only pumps to the lungs. More distance = more pressure needed = thicker muscle walls. Want a quick quiz to lock this in?',
+                'chat-prog-label': 'Human Anatomy — Chapter 12',
+                'dom-title': 'Every field of human knowledge', 'dom-sub': 'MindSphere is not a coding platform. Not a language app. It\'s a universal learning platform — from quantum physics to classical literature, from surgery to architecture.',
+                'flang-tag': 'Multi-Language Support', 'flang-title': 'Start in 3 languages.<br/>Scale to 142.',
+                'flang-desc': 'Language is not a barrier on MindSphere. The interface, course content, and AI tutor all communicate in your language.',
+                'lp1-label': 'Phase 1 — Live Now', 'lp1-status': '✓ Live', 'lp2-label': 'Phase 2 — 2026', 'lp2-status': 'Coming',
+                'l-en': 'English', 'l-ru': 'Russian', 'l-uz': 'Uzbek',
+                'lang-target-text': 'target languages', 'lang-target-sub': 'planned by 2027',
+                'lr1': '2025', 'lr2': '2026', 'lr3': '2027',
+                'acc-title': 'Accessible to everyone,<br/>on every device.', 'acc-sub': 'Fully responsive design from 320px mobile to 4K ultrawide. No app required. Works offline. Screen-reader ready.',
+                'ac1-t': 'Fully Responsive', 'ac1-d': 'Seamless experience from 320px phones to 6K ultrawide monitors. Every pixel considered.',
+                'ac2-t': 'Keyboard Navigation', 'ac2-d': 'Full keyboard support and screen reader compatibility (WCAG 2.1 AA standard).',
+                'ac3-t': 'Dark & Light Mode', 'ac3-d': 'Beautiful in both themes. Respects your system preference automatically.',
+                'ac4-t': 'Offline Ready', 'ac4-d': 'Download courses and study without internet. No app installation needed.',
+                'ac5-t': 'Privacy First', 'ac5-d': 'Zero ads. No data selling. GDPR compliant. Your learning data stays yours.',
+                'ac6-t': 'Low Bandwidth', 'ac6-d': 'Optimized for slow connections. Accessible in regions with limited internet infrastructure.',
+                // Domains
+                'dom-section-tag': 'Fields of Study', 'dom-section-title': 'Not just tech. Everything.',
+                'dom-section-sub': 'MindSphere covers every major discipline of human knowledge. Whatever you want to learn — we have it.',
+                // Pricing
+                'p-tag': 'Pricing Model', 'p-title': 'Knowledge has<br/><span class="grad-text">no price.</span>',
+                'p-sub': 'MindSphere is free — permanently, unconditionally, for everyone on Earth. No trials, no paywalls, no hidden fees.',
+                'pr1-period': 'Forever · No card required', 'pr1-name': 'Free Learner',
+                'pr1-desc': 'Complete access to every course, AI tutor, and community feature. Always free.',
+                'pf1': 'All 48,000+ courses across 142 fields', 'pf2': 'Personal AI tutor, 24/7', 'pf3': '3 languages (EN, RU, UZ)',
+                'pf4': 'Progress tracking & analytics', 'pf5': 'Global community access', 'pf6': 'Certificates of completion', 'pr1-cta': 'Get Started Free',
+                'oss-badge': 'Open Source', 'oss-price': 'Contributor', 'pr2-period': 'Community-driven', 'pr2-name': 'Open Source Mindset',
+                'pr2-desc': 'MindSphere is built by its community. Contribute courses, translations, or code — and help democratize knowledge globally.',
+                'po1': 'Everything in Free', 'po2': 'Publish your own courses', 'po3': 'Add language translations',
+                'po4': 'GitHub repository access', 'po5': 'Verified Contributor badge', 'pr2-cta': 'Join as Contributor',
+                'pr3-price': 'From $5', 'pr3-period': '/month · 100% voluntary', 'pr3-name': 'Supporter',
+                'pr3-desc': 'No extra features — just your belief in free education. Every dollar funds new languages, servers, and access for learners in underserved regions.',
+                'ps1': 'Everything in Free', 'ps2': 'Supporter badge on profile 💎', 'ps3': 'Fund expansion to new languages',
+                'ps4': 'Quarterly impact report', 'ps5': 'Early access to new features', 'pr3-cta': 'Become a Supporter',
+                'price-note': '<strong>Important:</strong> Every single course, AI tutor session, and community feature is <strong>completely free</strong>. The Supporter plan is a voluntary donation to expand MindSphere globally — it does not unlock additional features. There are no paywalls, ever.',
+                // Guide
+                'g-tag': 'Getting Started', 'g-title': 'From zero to learning<br/>in 3 steps.',
+                'g-sub': 'No setup. No installation. No payment. Just open and start.',
+                'g1-t': 'Create your account', 'g1-d': 'Click "Sign In" at the top. Register with your email — no credit card, no payment information. You\'re in within 30 seconds.',
+                'g2-t': 'Set your learning goals', 'g2-d': 'Tell the AI what you want to learn — any field, any level. It builds a personalized roadmap and adjusts as you progress.',
+                'g3-t': 'Start learning instantly', 'g3-d': 'Access 48,000+ courses, chat with your AI tutor, track progress, and connect with 2.4 million learners worldwide.',
+                'eco-tag': 'Ecosystem', 'eco-title': 'Two domains. One mission.',
+                'eco1-t': 'Welcome & Guide Portal', 'eco1-d': 'You\'re here now. This portal explains the platform, the mission, pricing model, and how to get started. No account needed.',
+                'eco2-t': 'The Learning Platform (LMS)', 'eco2-d': 'The full platform — 48K+ courses, AI tutor, community, progress tracking, certificates, and everything else. Free forever.',
+                // FAQ
+                'faq-tag': 'FAQ', 'faq-title': 'Questions answered.',
+                // CTA
+                'cta-tag': 'Join the movement',
+                'cta-title': '2.4 million learners.<br/><span class="grad-text">And counting.</span>',
+                'cta-sub': 'No credit card. No paywall. No catch. The world\'s most comprehensive free learning platform — open to everyone, everywhere.',
+                'cta-btn1-text': 'Create Free Account', 'cta-btn2': 'Go to Platform',
+                'cta-note': 'No credit card · Free forever · Cancel anytime',
+                // Footer
+                'foot-desc': 'Expanding the boundaries of human knowledge — free, open, and available to every person on Earth.',
+                'fl1-h': 'Platform', 'fl1-1': 'Features', 'fl1-2': 'Fields of Study', 'fl1-3': 'Pricing', 'fl1-4': 'mindsphere.com',
+                'fl2-h': 'Community', 'fl2-1': 'GitHub', 'fl2-2': 'Discord', 'fl2-3': 'Blog', 'fl2-4': 'Guide', 'fl2-5': 'FAQ',
+                'fl3-h': 'Legal', 'fl3-1': 'Privacy Policy', 'fl3-2': 'Terms of Service', 'fl3-3': 'Open Source', 'fl3-4': 'Cookie Policy',
+                'foot-copy': '© 2025 MindSphere Inc. All rights reserved.', 'foot-made': 'Made with ❤️ for curious minds everywhere.',
+                // Auth modal
+                'modal-tagline': 'Free forever · No credit card needed',
+                'auth-tab1': 'Sign In', 'auth-tab2': 'Register',
+                'lbl-email': 'Email Address', 'lbl-pass': 'Password',
+                'signin-btn-text': 'Sign In to MindSphere →', 'signin-note': 'You\'ll be taken to <strong>mindsphere.com</strong> after signing in.',
+                'lbl-name': 'Full Name', 'lbl-regemail': 'Email Address', 'lbl-regpass': 'Create Password',
+                'reg-btn-text': 'Create Free Account →', 'reg-note': 'Free forever · No credit card · Takes 30 seconds',
+                'auth-or': 'or go directly', 'plat-link-text': 'Continue to mindsphere.com →',
+                // Domain names
+                'domain_names': ['Natural Sciences', 'Medicine & Health', 'Law & Justice', 'History & Civilization', 'Psychology', 'Business & Economics', 'Arts & Design', 'Music & Performing Arts', 'Mathematics', 'Engineering', 'Computer Science', 'Geography & Environment', 'Literature & Languages', 'Physics & Astronomy', 'Chemistry', 'Biology & Life Sciences', 'Architecture', 'Journalism & Media', 'Political Science', 'Philosophy & Ethics', 'Data & Statistics', 'Linguistics', 'Sports & Physical Ed.', 'Culinary Arts'],
+                faqs: [
+                    { q: 'Is MindSphere really 100% free?', a: 'Yes — completely. Every course, AI tutor session, and community feature is free, with no time limit. The Supporter plan is a voluntary donation and does not unlock additional features. There are no paywalls, ever.' },
+                    { q: 'What subjects does MindSphere cover?', a: 'MindSphere covers every major field of human knowledge — medicine, law, mathematics, history, arts, music, engineering, psychology, philosophy, linguistics, and 130+ more. It is not a coding or language platform. It is a universal platform for all of human knowledge.' },
+                    { q: 'What is the difference between mindsphere.org and mindsphere.com?', a: 'mindsphere.org (this site) is the welcome and information portal — no login needed. You\'re here to learn about the platform. mindsphere.com is the actual learning platform where you study, access courses, and chat with your AI tutor.' },
+                    { q: 'Which languages are supported?', a: 'Phase 1 supports English, Russian, and Uzbek. The AI tutor, course content, and entire interface are localized. We are targeting 20 languages in 2026 and 142 languages by 2027.' },
+                    { q: 'How does the AI tutor work?', a: 'Every account gets a dedicated AI assistant. It continuously tracks your understanding, adapts lesson difficulty, generates personalized exercises, identifies weak points, and responds to questions — 24/7, in your language. It gets smarter the more you use it.' },
+                    { q: 'Is MindSphere open source?', a: 'Yes. The platform is community-driven. Educators, developers, and translators can contribute on GitHub. Contributors receive a verified badge and can publish their own courses on the platform.' },
+                    { q: 'Do I need to install anything?', a: 'No. MindSphere is fully web-based and works in any modern browser. There is also an offline mode where you can download courses for use without internet — no app installation required.' },
+                    { q: 'How is MindSphere different from Coursera or Khan Academy?', a: 'MindSphere covers a far wider range of subjects (142+ fields), all courses are genuinely free with no upgrade paths, the AI tutor is deeply integrated rather than a basic chatbot, it supports multiple languages including Uzbek and Russian, and it is open source and community-driven.' },
+                ]
+            },
+            ru: {
+                'nl-features': 'Возможности', 'nl-domains': 'Предметы', 'nl-pricing': 'Цены', 'nl-guide': 'Гайд', 'nl-faq': 'FAQ',
+                'ml-features': 'Возможности', 'ml-domains': 'Области знаний', 'ml-pricing': 'Цены', 'ml-guide': 'Гайд', 'ml-faq': 'FAQ',
+                'nav-signin': 'Войти', 'ml-signin': 'Войти',
+                'hero-badge': '🌍 Бесплатно навсегда · Открытый код · 190+ стран',
+                'hero-t1': 'Одна платформа.', 'hero-t2': 'Все области знаний.', 'hero-t3': 'Для каждого.',
+                'hero-sub': 'MindSphere — бесплатная глобальная платформа с AI, охватывающая все дисциплины: от медицины и права до музыки и философии. Создана для 8 миллиардов людей.',
+                'hero-cta1-text': 'Начать бесплатно', 'hero-cta2': 'Как это работает',
+                'hero-proof': '<strong>2.4 миллиона</strong> учеников по всему миру',
+                'fc1-label': 'AI Репетитор', 'fc1-text': 'Активен и учит', 'fc2-label': 'Стоимость', 'fc2-text': '100% Бесплатно',
+                'mockup-title': 'Дашборд', 'mn1': 'Дашборд', 'mn2': 'Мои курсы', 'mn3': 'Обзор', 'mn4': 'Прогресс',
+                'ai-status-text': 'AI Репетитор онлайн', 'ai-msg-text': '"Вы освоили 68% анатомии человека — продолжайте!"',
+                'mock-continue': 'Продолжить обучение',
+                'mc1': 'Биология', 'mc2': 'Право', 'mc3': 'Изобразительное искусство', 'mc4': 'Математика', 'mc5': 'Генетика', 'mc6': 'Теория музыки',
+                'dp1': 'Медицина', 'dp2': 'Инженерия', 'dp3': 'Психология', 'dp4': 'Философия', 'dp5': 'История', 'dp6': 'Лингвистика', 'dp7': '+136 ещё →',
+                'st1': 'Активных учеников', 'st2': 'Областей знаний', 'st3': 'Стран', 'st4': 'Всегда бесплатно',
+                'f-tag': 'Технические возможности', 'f-title': 'Создано иначе.<br/>Работает лучше.',
+                'f-sub': 'Четыре столпа, делающие MindSphere лучшей бесплатной образовательной платформой в мире.',
+                'ft-ai': '🤖 AI Репетитор', 'ft-domains': '📚 Все области', 'ft-lang': '🌐 Языки', 'ft-access': '♿ Доступность',
+                'fai-tag': 'Обучение с AI', 'fai-title': 'Ваш личный репетитор.<br/>24 часа в сутки.',
+                'fai-desc': 'С каждым аккаунтом идёт личный AI-ассистент, который учится вместе с вами. Он отслеживает усвоение материала, выявляет слабые стороны и отвечает на вашем языке.',
+                'fai-l1-t': 'Анализ в реальном времени', 'fai-l1-d': 'Постоянно оценивает глубину понимания — не только результаты тестов.',
+                'fai-l2-t': 'Адаптивные учебные пути', 'fai-l2-d': 'Уроки, сложность и темп автоматически подстраиваются под вас.',
+                'fai-l3-t': 'Диалоговое обучение', 'fai-l3-d': 'Задавайте любые вопросы, получайте настоящие объяснения. AI исправляет ошибки и обучает.',
+                'ai-demo-name': 'AI Репетитор MindSphere', 'ai-demo-sub': 'Личный ассистент', 'ai-demo-status': 'Онлайн',
+                'chat-m1': 'Я заметил, что вы ошиблись в 3 вопросах о сердечном цикле. Объясню иначе — представьте сердце как два насоса, работающих синхронно. 🫀',
+                'chat-m2': 'Это понятнее! Но почему у левого желудочка стенки толще?',
+                'chat-m3': 'Отличный вопрос! Левый желудочек качает кровь по всему телу, а правый — только к лёгким. Больше расстояние = больше давление = толще мышечные стенки. Хотите быстрый тест?',
+                'chat-prog-label': 'Анатомия человека — Глава 12',
+                'dom-title': 'Все области человеческих знаний', 'dom-sub': 'MindSphere — не платформа для программирования. Это универсальная платформа: от квантовой физики до классической литературы.',
+                'flang-tag': 'Многоязычная поддержка', 'flang-title': 'Начать с 3 языков.<br/>Масштабировать до 142.',
+                'flang-desc': 'Язык — не барьер на MindSphere. Интерфейс, контент курсов и AI-репетитор общаются на вашем языке.',
+                'lp1-label': 'Фаза 1 — Уже доступно', 'lp1-status': '✓ Запущено', 'lp2-label': 'Фаза 2 — 2026', 'lp2-status': 'Скоро',
+                'l-en': 'Английский', 'l-ru': 'Русский', 'l-uz': 'Узбекский',
+                'lang-target-text': 'целевых языков', 'lang-target-sub': 'к 2027 году',
+                'lr1': '2025', 'lr2': '2026', 'lr3': '2027',
+                'acc-title': 'Доступно всем,<br/>на любом устройстве.', 'acc-sub': 'Полностью адаптивный дизайн от 320px до 6K. Без установки приложений. Работает офлайн.',
+                'ac1-t': 'Адаптивный дизайн', 'ac1-d': 'Одинаковый опыт на телефоне и 6K мониторе. Каждый пиксель продуман.',
+                'ac2-t': 'Клавиатурная навигация', 'ac2-d': 'Полная поддержка клавиатуры и скринридеров (WCAG 2.1 AA).',
+                'ac3-t': 'Тёмная и светлая тема', 'ac3-d': 'Красиво в обоих режимах. Автоматически определяет настройки системы.',
+                'ac4-t': 'Офлайн режим', 'ac4-d': 'Скачивайте курсы и учитесь без интернета.',
+                'ac5-t': 'Приватность', 'ac5-d': 'Без рекламы. Без продажи данных. GDPR. Ваши данные — только ваши.',
+                'ac6-t': 'Слабый интернет', 'ac6-d': 'Оптимизировано для медленных соединений.',
+                'dom-section-tag': 'Области знаний', 'dom-section-title': 'Не только IT. Всё.',
+                'dom-section-sub': 'MindSphere охватывает все основные дисциплины человеческого знания. Что бы вы ни хотели изучить — у нас есть.',
+                'p-tag': 'Ценовая модель', 'p-title': 'Знания не имеют<br/><span class="grad-text">цены.</span>',
+                'p-sub': 'MindSphere бесплатна — навсегда, безусловно, для каждого жителя Земли.',
+                'pr1-period': 'Навсегда · Без карточки', 'pr1-name': 'Бесплатный ученик',
+                'pr1-desc': 'Полный доступ ко всем курсам, AI-репетитору и сообществу. Всегда бесплатно.',
+                'pf1': 'Все 48 000+ курсов в 142 областях', 'pf2': 'Личный AI-репетитор 24/7', 'pf3': '3 языка (EN, RU, UZ)',
+                'pf4': 'Аналитика прогресса', 'pf5': 'Глобальное сообщество', 'pf6': 'Сертификаты о прохождении', 'pr1-cta': 'Начать бесплатно',
+                'oss-badge': 'Открытый код', 'oss-price': 'Участник', 'pr2-period': 'Сообщество', 'pr2-name': 'Открытый исходный код',
+                'pr2-desc': 'MindSphere строится сообществом. Вносите курсы, переводы или код — помогайте демократизировать знания.',
+                'po1': 'Всё из бесплатного', 'po2': 'Публиковать собственные курсы', 'po3': 'Добавлять переводы',
+                'po4': 'Доступ к репозиторию GitHub', 'po5': 'Верифицированный значок участника', 'pr2-cta': 'Стать участником',
+                'pr3-price': 'От $5', 'pr3-period': '/мес · 100% добровольно', 'pr3-name': 'Сторонник',
+                'pr3-desc': 'Никаких дополнительных функций — только ваша вера в бесплатное образование. Каждый доллар финансирует новые языки и доступ для учеников в недостаточно обеспеченных регионах.',
+                'ps1': 'Всё из бесплатного', 'ps2': 'Значок сторонника 💎', 'ps3': 'Финансирование новых языков',
+                'ps4': 'Квартальный отчёт о влиянии', 'ps5': 'Ранний доступ к новым функциям', 'pr3-cta': 'Стать сторонником',
+                'price-note': '<strong>Важно:</strong> Абсолютно все курсы, сессии AI-репетитора и функции сообщества — <strong>полностью бесплатны</strong>. Тариф Supporter — добровольное пожертвование для расширения MindSphere. Никаких платных стен — никогда.',
+                'g-tag': 'Начало работы', 'g-title': 'От нуля до обучения<br/>за 3 шага.',
+                'g-sub': 'Никакой установки. Никаких оплат. Просто откройте и начните.',
+                'g1-t': 'Создайте аккаунт', 'g1-d': 'Нажмите "Войти" вверху. Зарегистрируйтесь по email — без карточки. За 30 секунд.',
+                'g2-t': 'Поставьте цели обучения', 'g2-d': 'Скажите AI, что хотите изучить. Он создаст персональный план и будет адаптироваться.',
+                'g3-t': 'Начните учиться мгновенно', 'g3-d': '48 000+ курсов, AI-репетитор, аналитика прогресса и 2.4 млн учеников.',
+                'eco-tag': 'Экосистема', 'eco-title': 'Два домена. Одна миссия.',
+                'eco1-t': 'Портал приветствия и гайдов', 'eco1-d': 'Вы здесь. Этот портал объясняет платформу, миссию и как начать. Регистрация не нужна.',
+                'eco2-t': 'Платформа обучения (LMS)', 'eco2-d': 'Полная платформа — 48К+ курсов, AI, сообщество, прогресс, сертификаты. Бесплатно навсегда.',
+                'faq-tag': 'Вопросы и ответы', 'faq-title': 'Ответы на вопросы.',
+                'cta-tag': 'Присоединяйтесь',
+                'cta-title': '2.4 миллиона учеников.<br/><span class="grad-text">И это только начало.</span>',
+                'cta-sub': 'Без карточки. Без платных стен. Самая полная бесплатная платформа — для всех и везде.',
+                'cta-btn1-text': 'Создать аккаунт', 'cta-btn2': 'На платформу',
+                'cta-note': 'Без карточки · Бесплатно навсегда',
+                'foot-desc': 'Расширяем горизонты знаний — бесплатно, открыто, для каждого человека на Земле.',
+                'fl1-h': 'Платформа', 'fl1-1': 'Возможности', 'fl1-2': 'Области знаний', 'fl1-3': 'Цены', 'fl1-4': 'mindsphere.com',
+                'fl2-h': 'Сообщество', 'fl2-1': 'GitHub', 'fl2-2': 'Discord', 'fl2-3': 'Блог', 'fl2-4': 'Гайд', 'fl2-5': 'FAQ',
+                'fl3-h': 'Правовое', 'fl3-1': 'Конфиденциальность', 'fl3-2': 'Условия', 'fl3-3': 'Открытый код', 'fl3-4': 'Cookie',
+                'foot-copy': '© 2025 MindSphere Inc. Все права защищены.', 'foot-made': 'Создано с ❤️ для любознательных умов.',
+                'modal-tagline': 'Бесплатно навсегда · Карточка не нужна',
+                'auth-tab1': 'Войти', 'auth-tab2': 'Регистрация',
+                'lbl-email': 'Email', 'lbl-pass': 'Пароль',
+                'signin-btn-text': 'Войти в MindSphere →', 'signin-note': 'Вы будете перенаправлены на <strong>mindsphere.com</strong>.',
+                'lbl-name': 'Полное имя', 'lbl-regemail': 'Email', 'lbl-regpass': 'Создать пароль',
+                'reg-btn-text': 'Создать аккаунт →', 'reg-note': 'Бесплатно навсегда · Без карточки · 30 секунд',
+                'auth-or': 'или перейдите напрямую', 'plat-link-text': 'Перейти на mindsphere.com →',
+                'domain_names': ['Естественные науки', 'Медицина и здоровье', 'Право', 'История', 'Психология', 'Бизнес и экономика', 'Искусство и дизайн', 'Музыка', 'Математика', 'Инженерия', 'Информатика', 'География', 'Литература', 'Физика', 'Химия', 'Биология', 'Архитектура', 'Журналистика', 'Политология', 'Философия', 'Данные и статистика', 'Лингвистика', 'Физкультура', 'Кулинария'],
+                faqs: [
+                    { q: 'MindSphere действительно на 100% бесплатный?', a: 'Да — полностью. Все курсы, сессии AI-репетитора и функции сообщества бесплатны без ограничений по времени. Тариф Supporter — добровольное пожертвование, не открывающее дополнительных функций. Никаких платных стен — никогда.' },
+                    { q: 'Какие предметы охватывает MindSphere?', a: 'MindSphere охватывает все основные области человеческого знания: медицину, право, математику, историю, искусство, музыку, инженерию, психологию, философию, лингвистику и ещё 130+ направлений. Это не платформа для программирования. Это универсальная платформа для всех знаний.' },
+                    { q: 'В чём разница между mindsphere.org и mindsphere.com?', a: 'mindsphere.org (этот сайт) — информационный портал. Здесь вы узнаёте о платформе. mindsphere.com — сама платформа обучения с курсами и AI-репетитором.' },
+                    { q: 'Какие языки поддерживаются?', a: 'Фаза 1: английский, русский, узбекский. AI, контент курсов и интерфейс полностью локализованы. В 2026 — около 20 языков, к 2027 — 142.' },
+                    { q: 'Как работает AI-репетитор?', a: 'У каждого аккаунта есть личный AI-ассистент. Он отслеживает понимание, адаптирует сложность, создаёт упражнения, выявляет слабые стороны и отвечает на вопросы — 24/7 на вашем языке.' },
+                    { q: 'MindSphere с открытым исходным кодом?', a: 'Да. Платформа создаётся сообществом. Педагоги, разработчики и переводчики могут вносить вклад на GitHub и публиковать курсы.' },
+                    { q: 'Нужно что-то устанавливать?', a: 'Нет. MindSphere полностью веб-based. Есть офлайн-режим для скачивания курсов без установки приложения.' },
+                    { q: 'Чем MindSphere отличается от Coursera или Khan Academy?', a: 'MindSphere охватывает 142+ области, все курсы реально бесплатны, AI-репетитор глубоко интегрирован, поддерживает узбекский и русский языки, и является открытым исходным кодом.' },
+                ]
+            },
+            uz: {
+                'nl-features': 'Imkoniyatlar', 'nl-domains': 'Sohalar', 'nl-pricing': 'Narxlar', 'nl-guide': 'Qo\'llanma', 'nl-faq': 'FAQ',
+                'ml-features': 'Imkoniyatlar', 'ml-domains': 'O\'quv sohalari', 'ml-pricing': 'Narxlar', 'ml-guide': 'Qo\'llanma', 'ml-faq': 'FAQ',
+                'nav-signin': 'Kirish', 'ml-signin': 'Kirish',
+                'hero-badge': '🌍 Hamisha bepul · Ochiq manba · 190+ mamlakat',
+                'hero-t1': 'Bitta platforma.', 'hero-t2': 'Barcha bilim sohalari.', 'hero-t3': 'Hamma uchun.',
+                'hero-sub': 'MindSphere — tibbiyotdan huquqqa, musiqa va falsafagacha barcha sohalarni qamrab oluvchi bepul, AI-asosidagi global o\'quv platformasi. 8 milliard kishi uchun yaratilgan.',
+                'hero-cta1-text': 'Bepul boshlash', 'hero-cta2': 'Qanday ishlaydi',
+                'hero-proof': 'Dunyo bo\'ylab <strong>2.4 million</strong> o\'quvchi',
+                'fc1-label': 'AI Repetitor', 'fc1-text': 'Faol va o\'qitmoqda', 'fc2-label': 'Narx', 'fc2-text': '100% Bepul',
+                'mockup-title': 'Boshqaruv paneli', 'mn1': 'Panel', 'mn2': 'Kurslarim', 'mn3': 'Kashf et', 'mn4': 'Progress',
+                'ai-status-text': 'AI Repetitor onlayn', 'ai-msg-text': '"Anatomiyaning 68% ini o\'zlashtirdingiz — davom eting!"',
+                'mock-continue': 'O\'qishni davom ettirish',
+                'mc1': 'Biologiya', 'mc2': 'Huquq', 'mc3': 'Tasviriy san\'at', 'mc4': 'Matematika', 'mc5': 'Genetika', 'mc6': 'Musiqa nazariyasi',
+                'dp1': 'Tibbiyot', 'dp2': 'Muhandislik', 'dp3': 'Psixologiya', 'dp4': 'Falsafa', 'dp5': 'Tarix', 'dp6': 'Tilshunoslik', 'dp7': '+136 ta →',
+                'st1': 'Faol o\'quvchilar', 'st2': 'O\'quv sohalari', 'st3': 'Mamlakatlar', 'st4': 'Hamisha bepul',
+                'f-tag': 'Texnik imkoniyatlar', 'f-title': 'Boshqacha yaratilgan.<br/>Yaxshiroq ishlaydi.',
+                'f-sub': 'MindSphere\'ni dunyoning eng ilg\'or bepul o\'quv platformasiga aylantiradigan to\'rtta ustun.',
+                'ft-ai': '🤖 AI Repetitor', 'ft-domains': '📚 Barcha sohalar', 'ft-lang': '🌐 Tillar', 'ft-access': '♿ Qulaylik',
+                'fai-tag': 'AI-asosida o\'qish', 'fai-title': 'Shaxsiy repetitoringiz.<br/>Sutkada 24 soat.',
+                'fai-desc': 'Har bir hisob o\'ziga xos AI-assistent bilan ta\'minlanadi. U o\'zlashtirish darajasini kuzatadi, zaif tomonlarni aniqlaydi va tilingizda javob beradi.',
+                'fai-l1-t': 'Real vaqtda tahlil', 'fai-l1-d': 'Tushunish chuqurligini uzluksiz baholaydi — nafaqat test natijalarini.',
+                'fai-l2-t': 'Moslashuvchi o\'quv yo\'llari', 'fai-l2-d': 'Darslar, qiyinlik va sur\'at sizning uslubingizga avtomatik moslashadi.',
+                'fai-l3-t': 'Dialogli o\'qitish', 'fai-l3-d': 'Istalgan savolni bering, haqiqiy tushuntirishlar oling. AI kontekstni tushunadi va o\'rgatadi.',
+                'ai-demo-name': 'MindSphere AI Repetitori', 'ai-demo-sub': 'Shaxsiy o\'quv yordamchisi', 'ai-demo-status': 'Onlayn',
+                'chat-m1': 'Yurak sikli bo\'yicha 3 ta savolda xato qildingiz. Boshqacha tushuntiraman — yurakni sinxron ishlaydigan ikki nasos deb tasavvur qiling. 🫀',
+                'chat-m2': 'Bu tushunarli! Lekin nima uchun chap qorincha devorlari qalinroq?',
+                'chat-m3': 'Ajoyib savol! Chap qorincha butun tanaga qon haydaladi, o\'ng esa faqat o\'pkaga. Ko\'proq masofa = ko\'proq bosim = qalinroq muskul devorlari. Mustahkamlash uchun tez test o\'tkazamizmi?',
+                'chat-prog-label': 'Inson anatomiyasi — 12-bob',
+                'dom-title': 'Insoniyat bilimining barcha sohalari', 'dom-sub': 'MindSphere dasturlash platformasi emas. Til o\'rganish ilovasi ham emas. Kvant fizikasidan klassik adabiyotgacha, jarrohlikdan arxitekturagacha — universal platforma.',
+                'flang-tag': 'Ko\'p tilli qo\'llab-quvvatlash', 'flang-title': '3 tildan boshlash.<br/>142 tagacha kengayish.',
+                'flang-desc': 'MindSphere\'da til to\'siq emas. Interfeys, kurs kontenti va AI repetitor — hammasi sizning tilingizda.',
+                'lp1-label': '1-bosqich — Hozir faol', 'lp1-status': '✓ Faol', 'lp2-label': '2-bosqich — 2026', 'lp2-status': 'Kelmoqda',
+                'l-en': 'Ingliz', 'l-ru': 'Rus', 'l-uz': 'O\'zbek',
+                'lang-target-text': 'maqsad til', 'lang-target-sub': '2027 yilgacha rejalashtirilgan',
+                'lr1': '2025', 'lr2': '2026', 'lr3': '2027',
+                'acc-title': 'Hamma uchun qulay,<br/>har bir qurilmada.', 'acc-sub': '320px mobil telefondan 6K monitorlargacha to\'liq moslashuvchi. Ilova talab etilmaydi. Oflayn ham ishlaydi.',
+                'ac1-t': 'To\'liq moslashuvchi', 'ac1-d': 'Telefon va 6K monitorlarda bir xil qulay. Har bir piksel o\'ylangan.',
+                'ac2-t': 'Klaviatura navigatsiyasi', 'ac2-d': 'To\'liq klaviatura va ekran o\'quvchi qo\'llab-quvvatlash (WCAG 2.1 AA).',
+                'ac3-t': 'Qorong\'i va yorug\' rejim', 'ac3-d': 'Ikkala rejimda ham chiroyli. Tizim sozlamalarini avtomatik aniqlaydi.',
+                'ac4-t': 'Oflayn rejim', 'ac4-d': 'Kurslarni yuklab oling va internetsiz o\'rganing.',
+                'ac5-t': 'Maxfiylik birinchi', 'ac5-d': 'Reklama yo\'q. Ma\'lumot sotish yo\'q. GDPR mos. Ma\'lumotlaringiz sizniki.',
+                'ac6-t': 'Sekin internet', 'ac6-d': 'Sekin ulanishlar uchun optimallashtirilgan.',
+                'dom-section-tag': 'O\'quv sohalari', 'dom-section-title': 'Faqat IT emas. Hammasi.',
+                'dom-section-sub': 'MindSphere insoniyat bilimining barcha asosiy sohalarini qamrab oladi. Nima o\'rganmoqchi bo\'lsangiz — bizda bor.',
+                'p-tag': 'Narx siyosati', 'p-title': 'Bilimning<br/><span class="grad-text">narxi yo\'q.</span>',
+                'p-sub': 'MindSphere bepul — abadiy, shartisiz, Yer yuzidagi har bir kishi uchun.',
+                'pr1-period': 'Hamisha · Karta kerak emas', 'pr1-name': 'Bepul O\'quvchi',
+                'pr1-desc': 'Barcha kurslar, AI repetitor va jamiyat imkoniyatlariga to\'liq kirish. Hamisha bepul.',
+                'pf1': '142 sohadagi 48 000+ kurs', 'pf2': 'Shaxsiy AI repetitor 24/7', 'pf3': '3 til (EN, RU, UZ)',
+                'pf4': 'Progress kuzatuvi va analitika', 'pf5': 'Global jamiyat', 'pf6': 'Tugatish sertifikatlari', 'pr1-cta': 'Bepul boshlash',
+                'oss-badge': 'Ochiq manba', 'oss-price': 'Ishtirokchi', 'pr2-period': 'Jamiyat tomonidan', 'pr2-name': 'Ochiq manba yondashuvi',
+                'pr2-desc': 'MindSphere jamiyat tomonidan quriladi. Kurslar, tarjimalar yoki kod qo\'shib bilimni demokratlashtiring.',
+                'po1': 'Bepulidagi hamma narsa', 'po2': 'O\'z kurslaringizni nashr qilish', 'po3': 'Til tarjimalarini qo\'shish',
+                'po4': 'GitHub omboriga kirish', 'po5': 'Tasdiqlangan ishtirokchi belgisi', 'pr2-cta': 'Ishtirokchi bo\'lish',
+                'pr3-price': '$5 dan', 'pr3-period': '/oy · 100% ixtiyoriy', 'pr3-name': 'Qo\'llab-quvvatlovchi',
+                'pr3-desc': 'Qo\'shimcha imkoniyat yo\'q — faqat bepul ta\'limga ishonch. Har dollar yangi tillar va kam ta\'minlangan mintaqalardagi o\'quvchilarni moliyalashtiradi.',
+                'ps1': 'Bepulidagi hamma narsa', 'ps2': 'Profilingizda badge 💎', 'ps3': 'Yangi tillarni moliyalashtirish',
+                'ps4': 'Choraklik ta\'sir hisoboti', 'ps5': 'Yangi funksiyalarga erta kirish', 'pr3-cta': 'Qo\'llab-quvvatlovchi bo\'lish',
+                'price-note': '<strong>Muhim:</strong> Barcha kurslar, AI repetitor seanslar va jamiyat funksiyalari <strong>mutlaqo bepul</strong>. Supporter rejimi — MindSphere\'ni kengaytirish uchun ixtiyoriy xayriya. Hech qachon to\'siq bo\'lmaydi.',
+                'g-tag': 'Boshlash', 'g-title': 'Noldan o\'qishgacha<br/>3 qadamda.',
+                'g-sub': 'Hech qanday o\'rnatish. Hech qanday to\'lov. Faqat oching va boshlang.',
+                'g1-t': 'Hisob yarating', 'g1-d': 'Yuqorida "Kirish" tugmasini bosing. Emailingiz bilan ro\'yxatdan o\'ting — karta kerak emas. 30 soniyada.',
+                'g2-t': 'O\'quv maqsadlarini belgilang', 'g2-d': 'AI ga nima o\'rganmoqchi ekanligingizni ayting. U shaxsiy yo\'l xaritasi tuzadi.',
+                'g3-t': 'Darhol o\'qishni boshlang', 'g3-d': '48 000+ kurs, AI repetitor, progress kuzatuvi va 2.4 million o\'quvchi bilan bog\'lanish.',
+                'eco-tag': 'Ekotizim', 'eco-title': 'Ikki domen. Bitta missiya.',
+                'eco1-t': 'Xush kelibsiz va Qo\'llanma portali', 'eco1-d': 'Siz bu yerdasiz. Bu portal platformani, missiyani va qanday boshlashni tushuntiradi. Hisob kerak emas.',
+                'eco2-t': 'O\'quv platformasi (LMS)', 'eco2-d': 'To\'liq platforma — 48K+ kurs, AI, jamiyat, progress, sertifikatlar. Hamisha bepul.',
+                'faq-tag': 'Ko\'p so\'raladigan savollar', 'faq-title': 'Savollar javoblanadi.',
+                'cta-tag': 'Harakatga qo\'shiling',
+                'cta-title': '2.4 million o\'quvchi.<br/><span class="grad-text">Va bu boshlanish.</span>',
+                'cta-sub': 'Karta kerak emas. To\'siq yo\'q. Hech qanday hiyla yo\'q. Eng keng qamrovli bepul o\'quv platformasi — hamma uchun, hamma joyda.',
+                'cta-btn1-text': 'Bepul hisob yarating', 'cta-btn2': 'Platformaga o\'tish',
+                'cta-note': 'Karta kerak emas · Hamisha bepul',
+                'foot-desc': 'Insoniyat bilimining chegaralarini kengaytiramiz — bepul, ochiq va Yer yuzidagi har bir kishi uchun.',
+                'fl1-h': 'Platforma', 'fl1-1': 'Imkoniyatlar', 'fl1-2': 'O\'quv sohalari', 'fl1-3': 'Narxlar', 'fl1-4': 'mindsphere.com',
+                'fl2-h': 'Jamiyat', 'fl2-1': 'GitHub', 'fl2-2': 'Discord', 'fl2-3': 'Blog', 'fl2-4': 'Qo\'llanma', 'fl2-5': 'FAQ',
+                'fl3-h': 'Huquqiy', 'fl3-1': 'Maxfiylik siyosati', 'fl3-2': 'Foydalanish shartlari', 'fl3-3': 'Ochiq manba', 'fl3-4': 'Cookie',
+                'foot-copy': '© 2025 MindSphere Inc. Barcha huquqlar himoyalangan.', 'foot-made': 'Qiziquvchan aqllar uchun ❤️ bilan yaratildi.',
+                'modal-tagline': 'Hamisha bepul · Karta kerak emas',
+                'auth-tab1': 'Kirish', 'auth-tab2': 'Ro\'yxatdan o\'tish',
+                'lbl-email': 'Email manzil', 'lbl-pass': 'Parol',
+                'signin-btn-text': 'MindSphere ga kirish →', 'signin-note': 'Kirgandan so\'ng <strong>mindsphere.com</strong> ga yo\'naltirilasiz.',
+                'lbl-name': 'To\'liq ism', 'lbl-regemail': 'Email manzil', 'lbl-regpass': 'Parol yaratish',
+                'reg-btn-text': 'Bepul hisob yaratish →', 'reg-note': 'Hamisha bepul · Karta kerak emas · 30 soniya',
+                'auth-or': 'yoki to\'g\'ridan o\'ting', 'plat-link-text': 'mindsphere.com ga o\'tish →',
+                'domain_names': ['Tabiiy fanlar', 'Tibbiyot va salomatlik', 'Huquq', 'Tarix', 'Psixologiya', 'Biznes va iqtisodiyot', 'San\'at va dizayn', 'Musiqa', 'Matematika', 'Muhandislik', 'Informatika', 'Geografiya', 'Adabiyot va tillar', 'Fizika', 'Kimyo', 'Biologiya', 'Arxitektura', 'Jurnalistika', 'Siyosatshunoslik', 'Falsafa', 'Ma\'lumotlar va statistika', 'Tilshunoslik', 'Sport', 'Oshpazlik san\'ati'],
+                faqs: [
+                    { q: 'MindSphere haqiqatan 100% bepulmi?', a: 'Ha — to\'liq. Barcha kurslar, AI repetitor seanslar va jamiyat funksiyalari vaqt chegarasisiz bepul. Supporter rejimi ixtiyoriy xayriya bo\'lib, qo\'shimcha imkoniyatlar ochilmaydi. Hech qachon to\'siq bo\'lmaydi.' },
+                    { q: 'MindSphere qanday fanlarni qamrab oladi?', a: 'MindSphere insoniyat bilimining barcha asosiy sohalarini qamrab oladi: tibbiyot, huquq, matematika, tarix, san\'at, musiqa, muhandislik, psixologiya, falsafa, tilshunoslik va yana 130+ yo\'nalish. Bu dasturlash platformasi emas. Bu barcha bilimlar uchun universal platforma.' },
+                    { q: 'mindsphere.org va mindsphere.com farqi nima?', a: 'mindsphere.org (bu sahifa) — ma\'lumot portali. Bu yerda platforma haqida bilib olasiz. mindsphere.com — kurslar va AI repetitori bo\'lgan haqiqiy o\'quv platformasi.' },
+                    { q: 'Qaysi tillar qo\'llab-quvvatlanadi?', a: '1-bosqich: ingliz, rus va o\'zbek. AI, kurs kontenti va interfeys to\'liq lokalizatsiya qilingan. 2026 yilda ~20 til, 2027 yilgacha 142 til.' },
+                    { q: 'AI repetitor qanday ishlaydi?', a: 'Har bir hisobga shaxsiy AI-assistent beriladi. U tushunishni kuzatadi, qiyinlikni moslaydi, mashqlar yaratadi, zaif tomonlarni aniqlaydi va savollarga javob beradi — 24/7 tilingizda.' },
+                    { q: 'MindSphere ochiq manbaami?', a: 'Ha. Platforma jamiyat tomonidan quriladi. O\'qituvchilar, dasturchilar va tarjimonlar GitHub da hissa qo\'sha oladi va kurslarini nashr qila oladi.' },
+                    { q: 'Biror narsa o\'rnatish kerakmi?', a: 'Yo\'q. MindSphere to\'liq veb-asosli. Ilova o\'rnatmasdan kurslarni yuklab olish uchun oflayn rejim mavjud.' },
+                    { q: 'MindSphere Coursera yoki Khan Academy dan qanday farq qiladi?', a: 'MindSphere 142+ sohani qamrab oladi, barcha kurslar haqiqatan bepul, AI repetitor chuqur integratsiyalashgan, o\'zbek va rus tillari qo\'llab-quvvatlanadi va ochiq manba hisoblanadi.' },
+                ]
+            }
+        };
+
+        // ─── STATE ────────────────────────────────────────────────────
+        let lang = localStorage.getItem('ms_lang') || 'en';
+        let theme = localStorage.getItem('ms_theme') || 'dark';
+        let openFaqIdx = null;
+
+        // ─── THEME ────────────────────────────────────────────────────
+        function applyTheme() {
+            document.documentElement.setAttribute('data-theme', theme);
+            document.getElementById('themeIcon').textContent = theme === 'dark' ? '🌙' : '☀️';
+        }
+        function toggleTheme() {
+            theme = theme === 'dark' ? 'light' : 'dark';
+            localStorage.setItem('ms_theme', theme);
+            applyTheme();
+        }
+
+        // ─── LANG ─────────────────────────────────────────────────────
+        function setLang(l) {
+            lang = l;
+            localStorage.setItem('ms_lang', l);
+            applyTranslations();
+            renderFAQ();
+            renderDomains();
+            // update lang buttons
+            document.querySelectorAll('[data-lang]').forEach(b => {
+                b.classList.toggle('active', b.dataset.lang === l);
+            });
+        }
+        function applyTranslations() {
+            const t = T[lang] || T.en;
+            Object.keys(t).forEach(id => {
+                if (id === 'faqs' || id === 'domain_names') return;
+                const el = document.getElementById(id);
+                if (!el) return;
+                // ids that allow HTML
+                const htmlIds = ['hero-proof', 'price-note', 'cta-title', 'signin-note', 'reg-note', 'p-title', 'fai-title', 'acc-title', 'flang-title', 'g-title'];
+                if (htmlIds.includes(id)) el.innerHTML = t[id];
+                else el.textContent = t[id];
+            });
+        }
+
+        // ─── NAVBAR ───────────────────────────────────────────────────
+        window.addEventListener('scroll', () => {
+            document.getElementById('mainNav').classList.toggle('scrolled', window.scrollY > 20);
+            document.getElementById('scrollTopBtn').classList.toggle('visible', window.scrollY > 500);
+        });
+
+        // ─── MOBILE MENU ──────────────────────────────────────────────
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileNav');
+            const btn = document.getElementById('hamburger');
+            menu.classList.toggle('open');
+            btn.classList.toggle('open');
+        }
+        function closeMobileMenu() {
+            document.getElementById('mobileNav').classList.remove('open');
+            document.getElementById('hamburger').classList.remove('open');
+        }
+
+        // ─── MODAL ────────────────────────────────────────────────────
+        function openModal(tab = 'signin') {
+            document.getElementById('authModal').classList.add('open');
+            switchAuthTab(tab);
+            document.body.style.overflow = 'hidden';
+        }
+        function closeModal() {
+            document.getElementById('authModal').classList.remove('open');
+            document.body.style.overflow = '';
+        }
+        document.getElementById('authModal').addEventListener('click', e => {
+            if (e.target === document.getElementById('authModal')) closeModal();
+        });
+        document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+        function switchAuthTab(tab) {
+            document.querySelectorAll('.auth-tab').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.auth-form-panel').forEach(p => p.classList.remove('active'));
+            document.getElementById('tab-' + tab).classList.add('active');
+            document.getElementById('panel-' + tab).classList.add('active');
+        }
+
+        function handleSignIn() {
+            const email = document.getElementById('inp-email').value.trim();
+            const pass = document.getElementById('inp-pass').value;
+            if (!email || !pass) { toast('Please fill in all fields.', 'warn'); return; }
+            const btn = document.getElementById('signin-btn');
+            btn.disabled = true; btn.textContent = 'Redirecting…';
+            setTimeout(() => {
+                window.open('https://mindsphere.com', '_blank');
+                closeModal(); btn.disabled = false;
+                document.getElementById('signin-btn-text');
+                btn.textContent = (T[lang] || T.en)['signin-btn-text'];
+            }, 700);
+        }
+        function handleRegister() {
+            const name = document.getElementById('inp-name').value.trim();
+            const email = document.getElementById('inp-regemail').value.trim();
+            const pass = document.getElementById('inp-regpass').value;
+            if (!name || !email || !pass) { toast('Please fill in all fields.', 'warn'); return; }
+            if (pass.length < 8) { toast('Password must be at least 8 characters.', 'warn'); return; }
+            const btn = document.getElementById('reg-btn');
+            btn.disabled = true; btn.textContent = 'Creating account…';
+            setTimeout(() => {
+                window.open('https://mindsphere.com', '_blank');
+                closeModal(); btn.disabled = false;
+                btn.textContent = (T[lang] || T.en)['reg-btn-text'];
+            }, 800);
+        }
+
+        // ─── FEATURE TABS ─────────────────────────────────────────────
+        function switchFeatTab(tab) {
+            document.querySelectorAll('.feat-tab-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.feat-panel').forEach(p => p.classList.remove('active'));
+            document.querySelector(`.feat-tab-btn[onclick*="'${tab}'"]`).classList.add('active');
+            document.getElementById('ftab-' + tab).classList.add('active');
+        }
+
+        // ─── FAQ ──────────────────────────────────────────────────────
+        function renderFAQ() {
+            const t = T[lang] || T.en;
+            const list = document.getElementById('faqList');
+            list.innerHTML = '';
+            openFaqIdx = null;
+            t.faqs.forEach((f, i) => {
+                const item = document.createElement('div');
+                item.className = 'faq-item';
+                item.innerHTML = `
+      <button class="faq-btn" onclick="toggleFaq(${i})">
+        <span>${f.q}</span>
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-answer" id="faq-a-${i}">
+        <div class="faq-answer-inner">${f.a}</div>
+      </div>
+    `;
+                list.appendChild(item);
+            });
+        }
+        function toggleFaq(i) {
+            const items = document.querySelectorAll('.faq-item');
+            const answer = document.getElementById('faq-a-' + i);
+            const isOpen = items[i].classList.contains('open');
+            // close all
+            items.forEach((item, j) => {
+                item.classList.remove('open');
+                document.getElementById('faq-a-' + j).style.maxHeight = '';
+                item.querySelector('.faq-icon').textContent = '+';
+            });
+            if (!isOpen) {
+                items[i].classList.add('open');
+                answer.style.maxHeight = answer.scrollHeight + 'px';
+                items[i].querySelector('.faq-icon').textContent = '+';
+                openFaqIdx = i;
+            } else {
+                openFaqIdx = null;
+            }
+        }
+
+        // ─── DOMAINS ──────────────────────────────────────────────────
+        function renderDomains() {
+            const t = T[lang] || T.en;
+            const names = t.domain_names || T.en.domain_names;
+            ['domainsGrid', 'domainsGridMain'].forEach(id => {
+                const el = document.getElementById(id);
+                if (!el) return;
+                el.innerHTML = DOMAINS.map((d, i) => `
+      <div class="domain-card">
+        <div class="domain-emoji">${d.emoji}</div>
+        <div class="domain-name">${names[i] || d.name}</div>
+        <div class="domain-count">${d.count}</div>
+      </div>
+    `).join('');
+            });
+        }
+
+        // ─── SCROLL REVEAL ────────────────────────────────────────────
+        function initReveal() {
+            const obs = new IntersectionObserver((entries) => {
+                entries.forEach(e => {
+                    if (e.isIntersecting) {
+                        const delay = e.target.dataset.delay || 0;
+                        setTimeout(() => e.target.classList.add('visible'), +delay);
+                        obs.unobserve(e.target);
+                    }
+                });
+            }, { threshold: 0.08, rootMargin: '0px 0px -50px 0px' });
+            document.querySelectorAll('[data-reveal], [data-reveal-scale]').forEach(el => obs.observe(el));
+        }
+
+        // ─── TOAST ────────────────────────────────────────────────────
+        function toast(msg, type = 'info') {
+            const el = document.getElementById('toastEl');
+            el.textContent = msg;
+            el.style.transform = 'translateX(-50%) translateY(0)';
+            el.style.opacity = '1';
+            clearTimeout(el._t);
+            el._t = setTimeout(() => {
+                el.style.transform = 'translateX(-50%) translateY(80px)';
+                el.style.opacity = '0';
+            }, 3000);
+        }
+
+        // ─── INIT ─────────────────────────────────────────────────────
+        document.addEventListener('DOMContentLoaded', () => {
+            // Check system theme preference on first visit
+            if (!localStorage.getItem('ms_theme')) {
+                const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                theme = prefersDark ? 'dark' : 'light';
+            }
+            applyTheme();
+            setLang(lang);
+            initReveal();
+            renderDomains();
+
+            // Stagger reveal delays for guide steps
+            document.querySelectorAll('.guide-step').forEach((el, i) => {
+                el.dataset.delay = i * 100;
+            });
+            document.querySelectorAll('.pricing-card').forEach((el, i) => {
+                el.dataset.delay = i * 80;
+            });
+            document.querySelectorAll('.domain-card').forEach((el, i) => {
+                el.style.transitionDelay = (i * 25) + 'ms';
+            });
+        });
+    </script>
+</body>
+
+</html>
