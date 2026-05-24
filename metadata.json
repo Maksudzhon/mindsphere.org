@@ -1,0 +1,6 @@
+{
+  "name": "MindSphere",
+  "description": "MindSphere is a global open-source learning ecosystem connecting learners, creators, and organizations with AI-adapted knowledge in every field.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

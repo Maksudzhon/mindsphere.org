@@ -1,0 +1,248 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-display: "Inter", -apple-system, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+}
+
+/* Custom Design System Tokens */
+:root {
+  --bg: #060612;
+  --bg2: #0b0b1e;
+  --bg3: #0f0f28;
+  --sur: #13132a;
+  --sur2: #191934;
+  --bd: rgba(255, 255, 255, 0.07);
+  --bd2: rgba(255, 255, 255, 0.13);
+  --txt: #f2f2ff;
+  --txt2: #8a8aaa;
+  --txt3: #4a4a6a;
+  
+  --ac: #7c6fff;          /* Violet accent */
+  --ac2: #c4b8ff;         /* Lavender accent */
+  --cyan: #00d4ff;        /* Cyan accent */
+  --green: #00e5a0;       /* Green accent */
+  --amber: #ffb347;       /* Gold/Amber */
+  --rose: #ff6b8a;        /* Rose */
+
+  --gradient-main: linear-gradient(135deg, #7c6fff, #c4b8ff);
+  --gradient-green: linear-gradient(135deg, #00e5a0, #00d4ff);
+  --gradient-full: linear-gradient(135deg, #7c6fff, #c4b8ff, #00d4ff);
+  --grad: linear-gradient(135deg, #7c6fff, #c4b8ff);
+}
+
+html[data-theme="light"] {
+  --bg: #f4f4ff;
+  --bg2: #ebebfc;
+  --bg3: #e2e2f8;
+  --sur: #ffffff;
+  --sur2: #f0f0fb;
+  --bd: rgba(90, 80, 200, 0.09);
+  --bd2: rgba(90, 80, 200, 0.16);
+  --txt: #0e0e1a;
+  --txt2: #4a4a6a;
+  --txt3: #9090b0;
+  
+  --ac: #5a4bda;          /* High contrast indigo */
+  --ac2: #7c6fff;
+  --cyan: #008ba3;        /* Slightly darker cyan for legibility */
+  --green: #009966;       /* Slightly darker green */
+  --amber: #d97706;
+  --rose: #e11d48;
+
+  --gradient-main: linear-gradient(135deg, #5a4bda, #7c6fff);
+  --gradient-green: linear-gradient(135deg, #009966, #008ba3);
+  --gradient-full: linear-gradient(135deg, #5a4bda, #7c6fff, #008ba3);
+  --grad: linear-gradient(135deg, #5a4bda, #7c6fff);
+}
+
+/* Base resets & styles */
+html {
+  scroll-behavior: smooth;
+  font-family: var(--font-sans);
+  background-color: var(--bg);
+  color: var(--txt);
+  transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+body {
+  background-color: var(--bg);
+  overflow-x: hidden;
+}
+
+/* Typography styles */
+h1, h2, h3, h4, .font-heading {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  color: var(--txt);
+}
+
+p, span, li, button, input {
+  font-family: var(--font-sans);
+}
+
+/* Animations */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-13px);
+  }
+}
+
+@keyframes float2 {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes spin-slow {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes pulse-dot {
+  0%, 100% {
+    opacity: 0.8;
+    transform: scale(0.95);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-float-delayed {
+  animation: float2 7s ease-in-out infinite;
+  animation-delay: 2s;
+}
+
+.animate-spin-slow {
+  animation: spin-slow 14s linear infinite;
+}
+
+.animate-pulse-dot {
+  animation: pulse-dot 2.5s ease-in-out infinite;
+}
+
+/* Grid overlay background */
+.dot-grid {
+  background-image: radial-gradient(rgba(124, 111, 255, 0.15) 1.5px, transparent 1.5px);
+  background-size: 24px 24px;
+}
+
+html[data-theme="light"] .dot-grid {
+  background-image: radial-gradient(rgba(90, 80, 200, 0.1) 1.5px, transparent 1.5px);
+}
+
+/* Scrollbar styles */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--sur);
+  border-radius: 4px;
+  border: 2px solid var(--bg);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--sur2);
+}
+
+/* Utility classes for layout with theme properties */
+.theme-bg { background-color: var(--bg); }
+.theme-bg2 { background-color: var(--bg2); }
+.theme-bg3 { background-color: var(--bg3); }
+.theme-sur { background-color: var(--sur); }
+.theme-sur2 { background-color: var(--sur2); }
+
+.theme-bd { border-color: var(--bd); }
+.theme-bd2 { border-color: var(--bd2); }
+
+.theme-txt { color: var(--txt); }
+.theme-txt2 { color: var(--txt2); }
+.theme-txt3 { color: var(--txt3); }
+
+.theme-ac { color: var(--ac); }
+.theme-ac-bg { background-color: var(--ac); }
+
+/* Gradient backgrounds and borders */
+.bg-grad-main {
+  background: var(--gradient-main);
+}
+
+.bg-grad-green {
+  background: var(--gradient-green);
+}
+
+.bg-grad-full {
+  background: var(--gradient-full);
+}
+
+.text-grad-main {
+  background: var(--gradient-main);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-grad-full {
+  background: var(--gradient-full);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.grad-text {
+  background: var(--grad);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Simple helper for glow borders in dark mode */
+.shadow-glow {
+  box-shadow: 0 0 20px rgba(124, 111, 255, 0.15);
+}
+
+.hero-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  background: radial-gradient(circle at 80% 20%, rgba(124, 111, 255, 0.15), transparent 40%), radial-gradient(circle at 10% 80%, rgba(0, 229, 160, 0.1), transparent 40%);
+  pointer-events: none;
+}
+
+/* Spring scale-in animation */
+.modal-in-spring {
+  animation: modalIn 0.4s cubic-bezier(.34, 1.56, .64, 1) forwards;
+}
+
+@keyframes modalIn {
+  from {
+    opacity: 0;
+    transform: scale(0.88) translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
