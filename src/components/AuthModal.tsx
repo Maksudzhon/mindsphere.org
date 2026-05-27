@@ -68,7 +68,6 @@ export const AuthModal: React.FC = () => {
             <div className="flex items-center gap-2 mb-6">
               <span className="text-xl animate-spin-slow text-[var(--ac)]">⬡</span>
               <span className="font-display font-bold text-lg text-grad-main">MindSphere</span>
-              <span className="text-xs text-[var(--txt3)] font-mono">.org</span>
             </div>
 
             {/* Custom Tab Switchers */}

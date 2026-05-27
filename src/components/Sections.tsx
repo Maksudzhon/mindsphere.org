@@ -170,7 +170,7 @@ export const RolesSection: React.FC = () => {
 
             {/* Income Commission Yellow Alert box */}
             <div className="p-3.5 rounded-xl border border-[var(--amber)]/25 bg-[var(--amber)]/5 text-[10px] leading-relaxed text-[var(--txt)] font-medium">
-              <span className="font-extrabold text-[var(--amber)] text-xs inline-block mb-1 font-mono">💡 Revenue Share Details</span>
+              <span className="font-extrabold text-[var(--amber)] text-xs inline-block mb-1 font-mono">Revenue Share Details</span>
               <p className="text-[var(--txt2)] leading-normal">{t.roles.teacherRevenueCallout}</p>
             </div>
           </motion.div>
@@ -258,48 +258,92 @@ export const LeaderboardSection: React.FC = () => {
 
             {/* List Rows */}
             <div className="space-y-3.5">
-              {leaderboardRows.map((r, i) => (
-                <div
-                  key={i}
-                  className="flex items-center justify-between p-2 rounded-xl bg-[var(--bg3)]/35 hover:bg-[var(--bg3)]/75 transition-colors border border-transparent hover:border-[var(--bd)]"
-                >
-                  <div className="flex items-center gap-3">
-                    {/* Position circle representation */}
-                    <div className="w-6 h-6 rounded-full flex items-center justify-center font-mono text-xs font-extrabold select-none">
-                      {r.rank === 1 && <span className="text-[var(--amber)]">🥇</span>}
-                      {r.rank === 2 && <span className="text-gray-400">🥈</span>}
-                      {r.rank === 3 && <span className="text-amber-700">🥉</span>}
-                      {r.rank > 3 && <span className="text-[var(--txt3)] font-semibold">{r.rank}</span>}
-                    </div>
+              {leaderboardRows.map((r, i) => {
+                const isAisha = r.name === "Aisha Karimova";
+                const isYuki = r.name === "Yuki Tanaka";
+                const isElite = isAisha || isYuki;
 
-                    <img
-                      src={r.img}
-                      alt={r.name}
-                      referrerPolicy="no-referrer"
-                      className="w-8 h-8 rounded-full object-cover bg-neutral-800"
-                    />
+                return (
+                  <div
+                    key={i}
+                    className={`flex items-center justify-between p-2 rounded-xl transition-all border ${
+                      isElite
+                        ? "bg-indigo-500/5 border-indigo-500/25 shadow-[0_0_12px_rgba(99,102,241,0.06)] scale-[1.01]"
+                        : "bg-[var(--bg3)]/35 hover:bg-[var(--bg3)]/75 border-transparent hover:border-[var(--bd)]"
+                    }`}
+                  >
+                    <div className="flex items-center gap-3">
+                      {/* Position circle representation */}
+                      <div className="w-6 h-6 rounded-full flex items-center justify-center font-mono text-xs font-extrabold select-none">
+                        {r.rank === 1 && <span className="text-[var(--amber)]">🥇</span>}
+                        {r.rank === 2 && <span className="text-gray-400">🥈</span>}
+                        {r.rank === 3 && <span className="text-amber-700">🥉</span>}
+                        {r.rank > 3 && <span className="text-[var(--txt3)] font-semibold">{r.rank}</span>}
+                      </div>
 
-                    <div>
-                      <div className="flex items-center gap-1.5 font-sans">
-                        <span className="text-xs font-bold text-[var(--txt)] leading-none">{r.name}</span>
-                        <span className="text-[10px] select-none" title={r.code.toUpperCase()}>{r.flag}</span>
-                        {r.badge && (
-                          <span className="text-[8px] font-mono leading-none font-bold bg-[var(--amber)]/10 text-[var(--amber)] px-1.5 py-0.5 rounded ml-1">
-                            {r.badge}
-                          </span>
+                      <div className="relative shrink-0">
+                        <img
+                          src={r.img}
+                          alt={r.name}
+                          referrerPolicy="no-referrer"
+                          className={`w-8 h-8 rounded-full object-cover bg-neutral-800 transition-all ${
+                            isAisha
+                              ? "ring-2 ring-offset-1 ring-purple-400 ring-offset-slate-900"
+                              : isYuki
+                              ? "ring-2 ring-offset-1 ring-amber-400 ring-offset-slate-900"
+                              : "ring-0"
+                          }`}
+                        />
+                        {isElite && (
+                          <div className="absolute -bottom-1 -right-1 bg-indigo-500 w-3 h-3 rounded-full flex items-center justify-center text-[6px] text-white font-bold select-none shadow">
+                            ✦
+                          </div>
                         )}
                       </div>
-                      <p className="text-[9px] text-[var(--txt2)] mt-0.5 font-semibold">
-                        {r.detail}
-                      </p>
-                    </div>
-                  </div>
 
-                  <span className="font-mono text-[10px] md:text-xs font-black text-[var(--txt)] text-right">
-                    {r.pts} <span className="text-[8px] text-[var(--txt3)] font-sans">pts</span>
-                  </span>
-                </div>
-              ))}
+                      <div>
+                        <div className="flex items-center gap-1.5 font-sans">
+                          {isAisha ? (
+                            <span
+                              className="text-xs font-black leading-none"
+                              style={{ color: "#f472b6", textShadow: "0 0 6px rgba(244,114,182,0.6)" }}
+                            >
+                              {r.name}
+                            </span>
+                          ) : isYuki ? (
+                            <span
+                              className="text-xs font-black leading-none"
+                              style={{ color: "#38bdf8", textShadow: "0 0 6px rgba(56,189,248,0.6)" }}
+                            >
+                              {r.name}
+                            </span>
+                          ) : (
+                            <span className="text-xs font-bold text-[var(--txt)] leading-none">{r.name}</span>
+                          )}
+                          <span className="text-[10px] select-none" title={r.code.toUpperCase()}>{r.flag}</span>
+                          {r.badge && (
+                            <span className="text-[8px] font-mono leading-none font-bold bg-[var(--amber)]/10 text-[var(--amber)] px-1.5 py-0.5 rounded ml-1">
+                              {r.badge}
+                            </span>
+                          )}
+                          {isElite && (
+                            <span className="text-[7px] font-mono font-black bg-indigo-500/20 text-indigo-400 px-1 py-0.5 rounded uppercase leading-none select-none tracking-wide">
+                              Elite
+                            </span>
+                          )}
+                        </div>
+                        <p className="text-[9px] text-[var(--txt2)] mt-0.5 font-semibold">
+                          {r.detail}
+                        </p>
+                      </div>
+                    </div>
+
+                    <span className="font-mono text-[10px] md:text-xs font-black text-[var(--txt)] text-right">
+                      {r.pts} <span className="text-[8px] text-[var(--txt3)] font-sans">pts</span>
+                    </span>
+                  </div>
+                );
+              })}
             </div>
 
             {/* Live Indicator footer */}

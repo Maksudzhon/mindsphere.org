@@ -6,6 +6,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Send, Sparkles, Mic, MicOff, Volume2, Play, MousePointer, HelpCircle } from "lucide-react";
+import { i18n } from "../lib/i18n";
 
 interface AIChatSimulatorProps {
   lang: "en" | "ru" | "uz";
@@ -97,7 +98,7 @@ const tutorialScripts = {
     placeholder: "Ask or press Mic to talk...",
     userTag: "You",
     aiTag: "AI Tutor",
-    tryYourself: "Switch to Play Sandbox Mode 🎯",
+    tryYourself: "Switch to Play Sandbox Mode",
     playingDemo: "Playing Demo Loop",
     simulatedMic: "Translating Voice Speech..."
   },
@@ -109,7 +110,7 @@ const tutorialScripts = {
     placeholder: "Спросите или нажмите на микрофон...",
     userTag: "Вы",
     aiTag: "ИИ Тьютор",
-    tryYourself: "Перейти в режим песочницы 🎯",
+    tryYourself: "Перейти в режим песочницы",
     playingDemo: "Демонстрация работы",
     simulatedMic: "Распознавание вашей речи..."
   },
@@ -121,13 +122,14 @@ const tutorialScripts = {
     placeholder: "Yozing yoki Mikrofondan gapiring...",
     userTag: "Siz",
     aiTag: "AI Tutor",
-    tryYourself: "Erkin rejimga o'tish 🎯",
+    tryYourself: "Erkin rejimga o'tish",
     playingDemo: "Demo namoyishi",
     simulatedMic: "Ovozni aniqlash..."
   }
 };
 
 export const AIChatSimulator: React.FC<AIChatSimulatorProps> = ({ lang }) => {
+  const t = i18n[lang] || i18n.en;
   const currentScript = tutorialScripts[lang] || tutorialScripts.en;
 
   // Mode: "autoplay" (automatic sequence tutorial loop) or "sandbox" (user types or speaks)
@@ -135,11 +137,7 @@ export const AIChatSimulator: React.FC<AIChatSimulatorProps> = ({ lang }) => {
   const [messages, setMessages] = useState<Message[]>([
     {
       sender: "ai",
-      text: lang === "uz" 
-        ? "Salom! Men hamkorlikdagi MindSphere sun'iy intellekt asistentiman. Klanlar, jamoaviy bahslar yoki kunlik qiyin mashqlar haqida so'rang!"
-        : lang === "ru"
-        ? "Привет! Я умный ассистент MindSphere. Спросите про кланы, групповое общение, ежедневные сложные задачи или скажите голосом!"
-        : "Hello! I am MindSphere's cooperative assistant. Ask me about clans, student group chats, daily challenging exercises, or speak up!",
+      text: t.chat.welcomeMsg,
       time: "12:04"
     }
   ]);
@@ -175,11 +173,7 @@ export const AIChatSimulator: React.FC<AIChatSimulatorProps> = ({ lang }) => {
       setMessages([
         {
           sender: "ai",
-          text: lang === "uz"
-            ? "Erkin rejim faollashtirildi! Sun'iy intellekt sizni eshitmoqda. Klanlar, guruh chatlari yoki qiyin mashqlar haqida yozing yoki mikrofonga ayting!"
-            : lang === "ru"
-            ? "Режим песочницы включен! Напишите свой вопрос про кланы, чаты или сложные задачи, либо скажите в микрофон."
-            : "Sandbox controller activated! Type your own query about competitive clans, group chats, daily exercises, or try the Microphone input.",
+          text: t.chat.sandboxMsg,
           time: "12:04"
         }
       ]);
@@ -208,11 +202,7 @@ export const AIChatSimulator: React.FC<AIChatSimulatorProps> = ({ lang }) => {
       setMessages([
         {
           sender: "ai",
-          text: lang === "uz"
-            ? "Mindsphere darsxonasiga xush kelibsiz! Avtomatik qo'llanmani tomosha qiling yoki istalgan vaqtda kiritishni boshlang!"
-            : lang === "ru"
-            ? "Добро пожаловать в класс Mindsphere! Посмотрите авто-презентацию или начните вводить в любой момент!"
-            : "Welcome to Mindsphere classroom! Watch this quick autoplay guide or start typing at any moment!",
+          text: t.chat.autoplayMsg,
           time: "12:01"
         }
       ]);
@@ -335,13 +325,7 @@ export const AIChatSimulator: React.FC<AIChatSimulatorProps> = ({ lang }) => {
 
       recognition.onstart = () => {
         setIsListening(true);
-        setSpeechStatus(
-          lang === "uz"
-            ? "Tinglanmoqda, gapiring..."
-            : lang === "ru"
-            ? "Слушаю, говорите..."
-            : "Listening, microactive..."
-        );
+        setSpeechStatus(t.chat.listeningStatus);
       };
 
       recognition.onerror = (event: any) => {
@@ -432,11 +416,7 @@ export const AIChatSimulator: React.FC<AIChatSimulatorProps> = ({ lang }) => {
 
       if (!matchedAnswer) {
         // Broad cool cooperative back-up
-        matchedAnswer = {
-          en: "Amazing query! Mindsphere coordinates 48K courses with daily student clan matches, exercises from high-scored students, and structural teacher channels. Connect with your peers and learn as a cooperative community!",
-          ru: "Интересный вопрос! На платформе MindSphere доступно 48 000+ бесплатных курсов, ежедневные битвы кланов, упражнения от лучших учеников и прямое общение с преподавателями.",
-          uz: "Ajoyib savol! MindSphere hamjamiyatida 48 000 dan ortiq bepul darslar, klanlar o'rtasidagi kunlik janglar, yuqori balli o'quvchilar mashqlari va o'qituvchi bilan muloqot tizimi mavjud."
-        }[lang] || "Amazing!";
+        matchedAnswer = t.chat.defaultAiResponse;
       }
 
       setMessages((prev) => [
@@ -453,7 +433,7 @@ export const AIChatSimulator: React.FC<AIChatSimulatorProps> = ({ lang }) => {
         <div className="flex items-center gap-1">
           <span className="flex h-1.5 w-1.5 rounded-full bg-[var(--ac)] animate-ping" />
           <span className="font-extrabold text-[9px] uppercase tracking-wide text-[var(--txt2)]">
-            Control Room:
+            {t.chat.controlRoom}
           </span>
         </div>
         <div className="flex items-center gap-2">
@@ -468,7 +448,7 @@ export const AIChatSimulator: React.FC<AIChatSimulatorProps> = ({ lang }) => {
             }`}
           >
             <Play size={8} />
-            <span>Auto Help</span>
+            <span>{t.chat.autoHelp}</span>
           </button>
           <button
             onClick={handleInteractionStart}
@@ -479,7 +459,7 @@ export const AIChatSimulator: React.FC<AIChatSimulatorProps> = ({ lang }) => {
             }`}
           >
             <MousePointer size={8} />
-            <span>Interactive Play (Type / Ask) 🎯</span>
+            <span>{t.chat.interactivePlay}</span>
           </button>
         </div>
       </div>
@@ -515,7 +495,7 @@ export const AIChatSimulator: React.FC<AIChatSimulatorProps> = ({ lang }) => {
             }}
             className="px-2 py-0.5 rounded border border-[var(--bd)] bg-[var(--sur2)] hover:border-[var(--ac)]/60 text-[8px] font-extrabold text-[var(--txt3)] hover:text-[var(--ac)] transition-all cursor-pointer"
           >
-            ⚔️ Clans
+            {t.chat.suggestClans}
           </button>
           <button
             onClick={() => {
@@ -528,7 +508,7 @@ export const AIChatSimulator: React.FC<AIChatSimulatorProps> = ({ lang }) => {
             }}
             className="px-2 py-0.5 rounded border border-[var(--bd)] bg-[var(--sur2)] hover:border-[var(--ac)]/60 text-[8px] font-extrabold text-[var(--txt3)] hover:text-[var(--ac)] transition-all cursor-pointer"
           >
-            🧠 Daily Tasks
+            {t.chat.suggestTasks}
           </button>
         </div>
       </div>
@@ -580,7 +560,7 @@ export const AIChatSimulator: React.FC<AIChatSimulatorProps> = ({ lang }) => {
                 <span className="w-1.5 h-1.5 rounded-full bg-[var(--ac)] animate-bounce" style={{ animationDelay: "300ms" }} />
               </div>
               <span className="text-[7.5px] text-[var(--txt3)] mt-1 font-mono leading-none select-none">
-                {currentScript.aiTag} typing...
+                {currentScript.aiTag} {t.chat.typing}
               </span>
             </motion.div>
           )}
@@ -626,7 +606,7 @@ export const AIChatSimulator: React.FC<AIChatSimulatorProps> = ({ lang }) => {
         <button
           type="button"
           onClick={toggleSpeechRecognition}
-          title="Speech to Text (Voice Input)"
+          title={t.chat.voiceTooltip}
           className={`p-2 rounded-full border transition-all duration-300 relative cursor-pointer ${
             isListening
               ? "bg-rose-500/10 border-rose-500/40 text-rose-500 shadow-sm"

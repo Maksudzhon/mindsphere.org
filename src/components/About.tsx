@@ -5,7 +5,7 @@
 
 import React from "react";
 import { motion } from "motion/react";
-import { BookOpen, Users, Compass, Code, Landmark, Award, ArrowUpRight, MessageSquare, Mail, Github } from "lucide-react";
+import { BookOpen, Users, Compass, Code, Landmark, Award, ArrowUpRight, MessageSquare, Mail, Github, GraduationCap, Laptop, Cpu, Trophy } from "lucide-react";
 import { useApp } from "./AppProvider";
 import { SectionHeader } from "./Sections";
 
@@ -87,32 +87,51 @@ export const About: React.FC = () => {
             
             {/* Free education */}
             <div className="p-5 rounded-xl border border-[var(--bd)] bg-[var(--sur2)]/30 space-y-2">
-              <span className="text-lg select-none">🎓</span>
+              <GraduationCap className="text-[var(--ac)] mb-1" size={20} />
               <h3 className="text-xs font-bold text-[var(--txt)]">{t.about.v1Title}</h3>
               <p className="text-[10px] text-[var(--txt2)] font-semibold leading-relaxed">{t.about.v1Desc}</p>
             </div>
 
             {/* Open software */}
             <div className="p-5 rounded-xl border border-[var(--bd)] bg-[var(--sur2)]/30 space-y-2">
-              <span className="text-lg select-none">💻</span>
+              <Laptop className="text-[var(--ac)] mb-1" size={20} />
               <h3 className="text-xs font-bold text-[var(--txt)]">{t.about.v2Title}</h3>
               <p className="text-[10px] text-[var(--txt2)] font-semibold leading-relaxed">{t.about.v2Desc}</p>
             </div>
 
             {/* AI companion */}
             <div className="p-5 rounded-xl border border-[var(--bd)] bg-[var(--sur2)]/30 space-y-2">
-              <span className="text-lg select-none">🤖</span>
+              <Cpu className="text-[var(--ac)] mb-1" size={20} />
               <h3 className="text-xs font-bold text-[var(--txt)]">{t.about.v3Title}</h3>
               <p className="text-[10px] text-[var(--txt2)] font-semibold leading-relaxed">{t.about.v3Desc}</p>
             </div>
 
             {/* Local groups */}
             <div className="p-5 rounded-xl border border-[var(--bd)] bg-[var(--sur2)]/30 space-y-2">
-              <span className="text-lg select-none">🏆</span>
+              <Trophy className="text-[var(--ac)] mb-1" size={20} />
               <h3 className="text-xs font-bold text-[var(--txt)]">{t.about.v4Title}</h3>
               <p className="text-[10px] text-[var(--txt2)] font-semibold leading-relaxed">{t.about.v4Desc}</p>
             </div>
 
+          </div>
+        </section>
+
+        {/* What makes us different from others? */}
+        <section className="space-y-6 max-w-4xl mx-auto border-t border-[var(--bd)]/60 pt-16">
+          <div className="flex flex-col md:flex-row gap-6 items-start">
+            <div className="md:w-1/3">
+              <span className="text-[10px] font-mono font-bold text-[var(--cyan)] uppercase tracking-wider block mb-1">
+                ✦ Unique Advantages ✦
+              </span>
+              <h2 className="text-xl md:text-2xl font-display font-black leading-tight text-[var(--txt)] animate-pulse">
+                {t.about.differentTitle}
+              </h2>
+            </div>
+            <div className="md:w-2/3 p-6 rounded-2xl border border-indigo-500/20 bg-gradient-to-br from-indigo-950/25 to-purple-950/25 shadow-glow-sm">
+              <p className="text-xs text-[var(--txt2)] font-semibold leading-relaxed">
+                {t.about.differentDesc}
+              </p>
+            </div>
           </div>
         </section>
 

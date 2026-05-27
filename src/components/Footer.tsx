@@ -44,9 +44,6 @@ export const Footer: React.FC = () => {
                 <span className="font-display font-black text-lg tracking-tight text-grad-main">
                   MindSphere
                 </span>
-                {/* <span className="text-[10px] text-[var(--txt3)] font-mono ml-0.5 tracking-wider">
-                  .org
-                </span> */}
               </div>
             </div>
             
@@ -198,7 +195,7 @@ export const Footer: React.FC = () => {
         {/* Bottom Bar */}
         <div className="flex flex-col md:flex-row items-center justify-between gap-4 pt-8">
           <p className="text-[10px] leading-none text-[var(--txt3)] font-mono font-bold">
-            © {new Date().getFullYear()} Mindsphere.org cooperations. All rights reserved.
+            © {new Date().getFullYear()} MindSphere. All rights reserved.
           </p>
           <div className="flex items-center gap-1">
             <span className="text-[10px] leading-none text-[var(--txt3)] font-mono font-bold uppercase tracking-wider">

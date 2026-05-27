@@ -5,7 +5,7 @@
 
 import React from "react";
 import { motion } from "motion/react";
-import { Play, Sparkles, BookOpen, Clock, Heart, Award, Shield, Cpu, Flame } from "lucide-react";
+import { Play, Sparkles, BookOpen, Clock, Heart, Award, Shield, Cpu, Flame, Leaf, Scale, Paintbrush, Ruler, Briefcase, Music, Unlock } from "lucide-react";
 import { useApp } from "./AppProvider";
 
 export const Hero: React.FC = () => {
@@ -28,12 +28,12 @@ export const Hero: React.FC = () => {
 
   // Mock course representations for the platform preview
   const previewCourses = [
-    { name: t.hero.mockup.domains.biology, hours: "34h", prog: 78, color: "var(--green)", bg: "rgba(0,229,160,0.1)", icon: "🌿" },
-    { name: t.hero.mockup.domains.law, hours: "48h", prog: 45, color: "var(--ac)", bg: "rgba(124,111,255,0.1)", icon: "⚖️" },
-    { name: t.hero.mockup.domains.fineArts, hours: "21h", prog: 92, color: "var(--amber)", bg: "rgba(255,179,71,0.1)", icon: "🎨" },
-    { name: t.hero.mockup.domains.math, hours: "60h", prog: 12, color: "var(--cyan)", bg: "rgba(0,212,255,0.1)", icon: "📐" },
-    { name: t.hero.mockup.domains.business, hours: "40h", prog: 60, color: "var(--rose)", bg: "rgba(255,107,138,0.1)", icon: "💼" },
-    { name: t.hero.mockup.domains.music, hours: "15h", prog: 85, color: "var(--ac2)", bg: "rgba(196,184,255,0.1)", icon: "🎶" },
+    { name: t.hero.mockup.domains.biology, hours: "34h", prog: 78, color: "var(--green)", bg: "rgba(0,229,160,0.1)", icon: Leaf },
+    { name: t.hero.mockup.domains.law, hours: "48h", prog: 45, color: "var(--ac)", bg: "rgba(124,111,255,0.1)", icon: Scale },
+    { name: t.hero.mockup.domains.fineArts, hours: "21h", prog: 92, color: "var(--amber)", bg: "rgba(255,179,71,0.1)", icon: Paintbrush },
+    { name: t.hero.mockup.domains.math, hours: "60h", prog: 12, color: "var(--cyan)", bg: "rgba(0,212,255,0.1)", icon: Ruler },
+    { name: t.hero.mockup.domains.business, hours: "40h", prog: 60, color: "var(--rose)", bg: "rgba(255,107,138,0.1)", icon: Briefcase },
+    { name: t.hero.mockup.domains.music, hours: "15h", prog: 85, color: "var(--ac2)", bg: "rgba(196,184,255,0.1)", icon: Music },
   ];
 
   return (
@@ -215,18 +215,20 @@ export const Hero: React.FC = () => {
 
               {/* 6 Subject paths preview grid */}
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4">
-                {previewCourses.map((c, i) => (
-                  <div
-                    key={i}
-                    className="p-3.5 rounded-xl border border-[var(--bd)] bg-[var(--sur)] hover:border-[var(--bd2)] transition-all flex flex-col justify-between"
-                  >
-                    <div>
-                      <div className="flex items-center justify-between mb-2">
-                        <span className="text-sm select-none">{c.icon}</span>
-                        <span className="text-[8px] font-mono px-1.5 py-0.5 rounded text-[var(--txt2)] bg-[var(--sur2)]">
-                          {c.hours}
-                        </span>
-                      </div>
+                {previewCourses.map((c, i) => {
+                  const Icon = c.icon;
+                  return (
+                    <div
+                      key={i}
+                      className="p-3.5 rounded-xl border border-[var(--bd)] bg-[var(--sur)] hover:border-[var(--bd2)] transition-all flex flex-col justify-between"
+                    >
+                      <div>
+                        <div className="flex items-center justify-between mb-2">
+                          <Icon size={14} style={{ color: c.color }} />
+                          <span className="text-[8px] font-mono px-1.5 py-0.5 rounded text-[var(--txt2)] bg-[var(--sur2)]">
+                            {c.hours}
+                          </span>
+                        </div>
                       <h4 className="text-xs font-bold font-sans text-[var(--txt)] line-clamp-1 mb-3">
                         {c.name}
                       </h4>
@@ -245,14 +247,15 @@ export const Hero: React.FC = () => {
                       </div>
                     </div>
                   </div>
-                ))}
+                );
+                })}
               </div>
             </main>
 
             {/* Floating Card 1: AI Tutor (Hidden Mobile) */}
             <div className="hidden md:flex absolute -top-5 -left-10 p-3 rounded-xl border border-[var(--bd2)] bg-[var(--sur)] shadow-lg animate-float max-w-[190px] items-start gap-2.5 z-20 hover:scale-[1.02] transition-transform">
-              <span className="p-2 rounded-lg bg-[var(--ac)]/15 text-[var(--ac)] text-xs font-bold leading-none select-none">
-                🤖
+              <span className="p-2 rounded-lg bg-[var(--ac)]/15 text-[var(--ac)] flex items-center justify-center select-none">
+                <Cpu size={14} className="animate-pulse" />
               </span>
               <div>
                 <h5 className="text-[10px] font-extrabold text-[var(--txt)]">
@@ -266,8 +269,8 @@ export const Hero: React.FC = () => {
 
             {/* Floating Card 2: 100% Free Campaign (Hidden Mobile) */}
             <div className="hidden md:flex absolute -bottom-5 -right-6 p-3 rounded-xl border border-[var(--bd2)] bg-[var(--sur)] shadow-lg animate-float-delayed max-w-[170px] items-start gap-2.5 z-20 hover:scale-[1.02] transition-transform">
-              <span className="p-2 rounded-lg bg-[var(--green)]/15 text-[var(--green)] text-xs font-bold leading-none select-none">
-                🆓
+              <span className="p-2 rounded-lg bg-[var(--green)]/15 text-[var(--green)] flex items-center justify-center select-none">
+                <Unlock size={14} />
               </span>
               <div>
                 <h5 className="text-[10px] font-extrabold text-[var(--txt)]">

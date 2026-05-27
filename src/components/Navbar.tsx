@@ -111,9 +111,6 @@ export const Navbar: React.FC = () => {
             <span className="font-display font-black text-xl tracking-tight text-grad-main">
               MindSphere
             </span>
-            {/* <span className="text-xs text-[var(--txt3)] font-mono ml-0.5 tracking-wider">
-              .org
-            </span> */}
           </div>
         </div>
 
@@ -245,37 +242,37 @@ export const Navbar: React.FC = () => {
               onClick={() => handleNavClick("features")}
               className="w-full text-center text-sm font-bold text-[var(--txt)] hover:text-[var(--ac)] hover:bg-[var(--sur2)]/60 py-2.5 rounded-xl transition-all cursor-pointer border border-transparent hover:border-[var(--bd)]/40 select-none"
             >
-              🚀 {t.nav.features}
+              {t.nav.features}
             </button>
             <button
               onClick={() => handleNavClick("roles")}
               className="w-full text-center text-sm font-bold text-[var(--txt)] hover:text-[var(--ac)] hover:bg-[var(--sur2)]/60 py-2.5 rounded-xl transition-all cursor-pointer border border-transparent hover:border-[var(--bd)]/40 select-none"
             >
-              💎 {t.nav.benefits}
+              {t.nav.benefits}
             </button>
             <button
               onClick={() => handleNavClick("pricing")}
               className="w-full text-center text-sm font-bold text-[var(--txt)] hover:text-[var(--ac)] hover:bg-[var(--sur2)]/60 py-2.5 rounded-xl transition-all cursor-pointer border border-transparent hover:border-[var(--bd)]/40 select-none"
             >
-              🏷️ {t.nav.pricing}
+              {t.nav.pricing}
             </button>
             <button
               onClick={() => handleNavClick("guide")}
               className="w-full text-center text-sm font-bold text-[var(--txt)] hover:text-[var(--ac)] hover:bg-[var(--sur2)]/60 py-2.5 rounded-xl transition-all cursor-pointer border border-transparent hover:border-[var(--bd)]/40 select-none"
             >
-              📚 {t.nav.guide}
+              {t.nav.guide}
             </button>
             <button
               onClick={() => handleNavClick("faq")}
               className="w-full text-center text-sm font-bold text-[var(--txt)] hover:text-[var(--ac)] hover:bg-[var(--sur2)]/60 py-2.5 rounded-xl transition-all cursor-pointer border border-transparent hover:border-[var(--bd)]/40 select-none"
             >
-              ❓ {t.nav.faq}
+              {t.nav.faq}
             </button>
             <button
               onClick={() => handleNavClick("about")}
               className="w-full text-center text-sm font-bold text-[var(--txt)] hover:text-[var(--ac)] hover:bg-[var(--sur2)]/60 py-2.5 rounded-xl transition-all cursor-pointer border border-transparent hover:border-[var(--bd)]/40 select-none"
             >
-              ℹ️ {t.nav.about}
+              {t.nav.about}
             </button>
           </nav>
 

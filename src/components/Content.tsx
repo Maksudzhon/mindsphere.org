@@ -20,7 +20,33 @@ import {
   Send,
   Search,
   Link,
-  Copy
+  Copy,
+  MessageSquare,
+  // 24 disciplines icons
+  Stethoscope,
+  Scale,
+  FlaskConical,
+  Ruler,
+  Settings,
+  Code,
+  Scroll,
+  BrainCircuit,
+  Briefcase,
+  Paintbrush,
+  Music,
+  Map,
+  BookOpen,
+  Orbit,
+  Pipette,
+  Leaf,
+  Landmark,
+  Newspaper,
+  Vote,
+  Brain,
+  BarChart2,
+  Languages,
+  Activity,
+  Flame
 } from "lucide-react";
 import { useApp } from "./AppProvider";
 import { AIChatSimulator } from "./AIChatSimulator";
@@ -44,9 +70,9 @@ export const Content: React.FC = () => {
   const [quizSubmitted, setQuizSubmitted] = useState<boolean>(false);
   const [selectedClanId, setSelectedClanId] = useState<number>(1);
   const [clanRatings, setClanRatings] = useState([
-    { id: 1, name: "Sovereign Minds ⚡", members: 24, xp: 48900, tag: "CS & Logic", weeklyProgress: [12000, 15000, 18000, 22000, 25000, 48900] },
-    { id: 2, name: "Cosmic Devs 🌌", members: 19, xp: 45200, tag: "Astro Systems", weeklyProgress: [9000, 13000, 17000, 21000, 31000, 45200] },
-    { id: 3, name: "Quantum Alchemists 💎", members: 15, xp: 42100, tag: "Quantum Math", weeklyProgress: [15000, 19000, 22000, 28000, 34000, 42100] }
+    { id: 1, name: "Sovereign Minds", members: 24, xp: 48900, tag: "CS & Logic", weeklyProgress: [12000, 15000, 18000, 22000, 25000, 48900] },
+    { id: 2, name: "Cosmic Devs", members: 19, xp: 45200, tag: "Astro Systems", weeklyProgress: [9000, 13000, 17000, 21000, 31000, 45200] },
+    { id: 3, name: "Quantum Alchemists", members: 15, xp: 42100, tag: "Quantum Math", weeklyProgress: [15000, 19000, 22000, 28000, 34000, 42100] }
   ]);
   const [chatChannel, setChatChannel] = useState<"clan" | "friends" | "teacher">("clan");
   
@@ -79,6 +105,13 @@ export const Content: React.FC = () => {
   const [selectedUpgradePlan, setSelectedUpgradePlan] = useState<string | null>(null);
   const [isPremiumUser, setIsPremiumUser] = useState<boolean>(false);
 
+  // Discord Nitro Customizer states
+  const [nitroNick, setNitroNick] = useState("AlphaScholar");
+  const [nitroColor, setNitroColor] = useState("#c084fc"); // purple default
+  const [nitroRing, setNitroRing] = useState("cyber"); // cyber, neon, gold, none
+  const [nitroTheme, setNitroTheme] = useState("nebula"); // nebula, obsidian, vaporwave, matrix
+  const [nitroBadge, setNitroBadge] = useState("elite"); // elite, instructor, both, none
+
   // States for quiz stats and interactive clan challenges
   const [quizCorrectCount, setQuizCorrectCount] = useState<number>(5);
   const [quizIncorrectCount, setQuizIncorrectCount] = useState<number>(2);
@@ -106,7 +139,7 @@ export const Content: React.FC = () => {
     setTimeout(() => {
       const channelNames = ["clan", "friends", "teacher"] as const;
       const randomChannel = channelNames[Math.floor(Math.random() * 3)];
-      const senders = ["Zara 🌌", "Alex ⚙️", "Prof. Sophia 🏆", "Dr. Victor 💎"];
+      const senders = ["Zara", "Alex", "Prof. Sophia", "Dr. Victor"];
       const messagesSource = [
         "Incredible work! We just unlocked the bronze achievement award!",
         "Check out this extreme backpropagation flowchart in our cloud system.",
@@ -145,12 +178,12 @@ export const Content: React.FC = () => {
     const channelNames = ["clan", "friends", "teacher"] as const;
     const randomChannel = channelNames[Math.floor(Math.random() * 3)];
     const responses = [
-      "Wait, did you see the new Clan Achievement Medals on our guild dashboard? 🏅",
-      "Wow! Sovereign Minds ⚡ is taking over the weekly XP chart race!",
+      "Wait, did you see the new Clan Achievement Medals on our guild dashboard?",
+      "Wow! Sovereign Minds is taking over the weekly XP chart race!",
       "Professor Albert posted a brand new mathematical research paper on Quantum dynamics.",
       "Today's logic challenge option B is correct! Let's boost our guild XP stat!"
     ];
-    const senders = ["Javohir 🌌", "Sarah ⚡", "Dr. Elena 🎓", "Quantum Bot 🤖"];
+    const senders = ["Javohir", "Sarah", "Dr. Elena", "Quantum Specialist"];
     const text = responses[Math.floor(Math.random() * responses.length)];
     const sender = senders[Math.floor(Math.random() * senders.length)];
 
@@ -304,30 +337,30 @@ export const Content: React.FC = () => {
 
   // 24 Domains structure for "All Fields" Tab (Translated keys in i18n are mapped)
   const domainKeys = [
-    { emoji: "🩺", key: "medicine", id: "en_medicine" },
-    { emoji: "⚖️", key: "law", id: "en_law" },
-    { emoji: "🔬", key: "science", id: "en_science" },
-    { emoji: "📐", key: "math", id: "en_math" },
-    { emoji: "⚙️", key: "engineering", id: "en_engineering" },
-    { emoji: "💻", key: "cs", id: "en_cs" },
-    { emoji: "📜", key: "history", id: "en_history" },
-    { emoji: "🧠", key: "psychology", id: "en_psychology" },
-    { emoji: "💼", key: "business", id: "en_business" },
-    { emoji: "🎨", key: "arts", id: "en_arts" },
-    { emoji: "🎶", key: "music", id: "en_music" },
-    { emoji: "🗺️", key: "geography", id: "en_geography" },
-    { emoji: "📚", key: "literature", id: "en_literature" },
-    { emoji: "🌌", key: "physics", id: "en_physics" },
-    { emoji: "🧪", key: "chemistry", id: "en_chemistry" },
-    { emoji: "🌿", key: "biology", id: "en_biology" },
-    { emoji: "🏛️", key: "architecture", id: "en_architecture" },
-    { emoji: "📰", key: "journalism", id: "en_journalism" },
-    { emoji: "🗳️", key: "politics", id: "en_politics" },
-    { emoji: "💭", key: "philosophy", id: "en_philosophy" },
-    { emoji: "📈", key: "stats", id: "en_stats" },
-    { emoji: "🗣️", key: "linguistics", id: "en_linguistics" },
-    { emoji: "🏃", key: "sports", id: "en_sports" },
-    { emoji: "🍳", key: "culinary", id: "en_culinary" }
+    { icon: Stethoscope, key: "medicine", id: "en_medicine" },
+    { icon: Scale, key: "law", id: "en_law" },
+    { icon: FlaskConical, key: "science", id: "en_science" },
+    { icon: Ruler, key: "math", id: "en_math" },
+    { icon: Settings, key: "engineering", id: "en_engineering" },
+    { icon: Code, key: "cs", id: "en_cs" },
+    { icon: Scroll, key: "history", id: "en_history" },
+    { icon: BrainCircuit, key: "psychology", id: "en_psychology" },
+    { icon: Briefcase, key: "business", id: "en_business" },
+    { icon: Paintbrush, key: "arts", id: "en_arts" },
+    { icon: Music, key: "music", id: "en_music" },
+    { icon: Map, key: "geography", id: "en_geography" },
+    { icon: BookOpen, key: "literature", id: "en_literature" },
+    { icon: Orbit, key: "physics", id: "en_physics" },
+    { icon: Pipette, key: "chemistry", id: "en_chemistry" },
+    { icon: Leaf, key: "biology", id: "en_biology" },
+    { icon: Landmark, key: "architecture", id: "en_architecture" },
+    { icon: Newspaper, key: "journalism", id: "en_journalism" },
+    { icon: Vote, key: "politics", id: "en_politics" },
+    { icon: Brain, key: "philosophy", id: "en_philosophy" },
+    { icon: BarChart2, key: "stats", id: "en_stats" },
+    { icon: Languages, key: "linguistics", id: "en_linguistics" },
+    { icon: Activity, key: "sports", id: "en_sports" },
+    { icon: Flame, key: "culinary", id: "en_culinary" }
   ];
 
   return (
@@ -360,7 +393,7 @@ export const Content: React.FC = () => {
               transition={{ type: "spring", stiffness: 350, damping: 25 }}
               className="p-6 rounded-2xl border border-[var(--bd)] bg-[var(--sur2)]/40 hover:bg-[var(--sur2)]/85 transition-colors"
             >
-              <span className="text-xl mb-3 block select-none">🤖</span>
+              <Sparkles className="text-[var(--ac)] mb-3" size={24} />
               <h3 className="text-sm font-bold font-sans text-[var(--txt)] mb-2">{t.benefits.card1Title}</h3>
               <p className="text-xs text-[var(--txt2)] leading-relaxed font-semibold">{t.benefits.card1Desc}</p>
             </motion.div>
@@ -371,7 +404,7 @@ export const Content: React.FC = () => {
               transition={{ type: "spring", stiffness: 350, damping: 25 }}
               className="p-6 rounded-2xl border border-[var(--bd)] bg-[var(--sur2)]/40 hover:bg-[var(--sur2)]/85 transition-colors"
             >
-              <span className="text-xl mb-3 block select-none">🌐</span>
+              <Globe className="text-[var(--ac)] mb-3" size={24} />
               <h3 className="text-sm font-bold font-sans text-[var(--txt)] mb-2">{t.benefits.card2Title}</h3>
               <p className="text-xs text-[var(--txt2)] leading-relaxed font-semibold">{t.benefits.card2Desc}</p>
             </motion.div>
@@ -382,7 +415,7 @@ export const Content: React.FC = () => {
               transition={{ type: "spring", stiffness: 350, damping: 25 }}
               className="p-6 rounded-2xl border border-[var(--bd)] bg-[var(--sur2)]/40 hover:bg-[var(--sur2)]/85 transition-colors"
             >
-              <span className="text-xl mb-3 block select-none">🏆</span>
+              <Trophy className="text-[var(--ac)] mb-3" size={24} />
               <h3 className="text-sm font-bold font-sans text-[var(--txt)] mb-2">{t.benefits.card3Title}</h3>
               <p className="text-xs text-[var(--txt2)] leading-relaxed font-semibold">{t.benefits.card3Desc}</p>
             </motion.div>
@@ -393,7 +426,7 @@ export const Content: React.FC = () => {
               transition={{ type: "spring", stiffness: 350, damping: 25 }}
               className="p-6 rounded-2xl border border-[var(--bd)] bg-[var(--sur2)]/40 hover:bg-[var(--sur2)]/85 transition-colors"
             >
-              <span className="text-xl mb-3 block select-none">🎯</span>
+              <HelpCircle className="text-[var(--ac)] mb-3" size={24} />
               <h3 className="text-sm font-bold font-sans text-[var(--txt)] mb-2">{t.benefits.card4Title}</h3>
               <p className="text-xs text-[var(--txt2)] leading-relaxed font-semibold">{t.benefits.card4Desc}</p>
             </motion.div>
@@ -404,7 +437,7 @@ export const Content: React.FC = () => {
               transition={{ type: "spring", stiffness: 350, damping: 25 }}
               className="p-6 rounded-2xl border border-[var(--bd)] bg-[var(--sur2)]/40 hover:bg-[var(--sur2)]/85 transition-colors"
             >
-              <span className="text-xl mb-3 block select-none">💎</span>
+              <Award className="text-[var(--ac)] mb-3" size={24} />
               <h3 className="text-sm font-bold font-sans text-[var(--txt)] mb-2">{t.benefits.card5Title}</h3>
               <p className="text-xs text-[var(--txt2)] leading-relaxed font-semibold">{t.benefits.card5Desc}</p>
             </motion.div>
@@ -415,7 +448,7 @@ export const Content: React.FC = () => {
               transition={{ type: "spring", stiffness: 350, damping: 25 }}
               className="p-6 rounded-2xl border border-[var(--bd)] bg-[var(--sur2)]/40 hover:bg-[var(--sur2)]/85 transition-colors"
             >
-              <span className="text-xl mb-3 block select-none">🔓</span>
+              <Unlock className="text-[var(--ac)] mb-3" size={24} />
               <h3 className="text-sm font-bold font-sans text-[var(--txt)] mb-2">{t.benefits.card6Title}</h3>
               <p className="text-xs text-[var(--txt2)] leading-relaxed font-semibold">{t.benefits.card6Desc}</p>
             </motion.div>
@@ -462,7 +495,7 @@ export const Content: React.FC = () => {
               </button>
             </motion.div>
 
-            {/* Pro Pass Card (💎) */}
+            {/* Pro Pass Card */}
             <motion.div
               whileHover={{ y: -6, scale: 1.02, boxShadow: "0 12px 30px rgba(124, 111, 255, 0.3)" }}
               transition={{ type: "spring", stiffness: 350, damping: 25 }}
@@ -474,7 +507,7 @@ export const Content: React.FC = () => {
               <div>
                 <div className="flex items-center gap-1.5">
                   <h4 className="text-xs font-bold text-[var(--txt)] uppercase tracking-wider">{t.benefits.passes.proTitle}</h4>
-                  <span className="text-xs leading-none">💎</span>
+                  <Sparkles size={11} className="text-[var(--ac)] animate-pulse" />
                 </div>
                 <div className="my-3 flex items-baseline gap-1">
                   <span className="text-2xl font-black font-display text-grad-main">{t.benefits.passes.proPrice}</span>
@@ -560,10 +593,10 @@ export const Content: React.FC = () => {
             {[
               { id: "ai", label: t.features.tabs.ai },
               { id: "community", label: {
-                  en: "🏆 Clans & Group Chats",
-                  ru: "🏆 Кланы и Чат-Группы",
-                  uz: "🏆 Klanlar va Guruhlar"
-                }[lang] || "🏆 Clans & Chats"
+                  en: "Clans & Group Chats",
+                  ru: "Кланы и Чат-Группы",
+                  uz: "Klanlar va Guruhlar"
+                }[lang] || "Clans & Chats"
               },
               { id: "fields", label: t.features.tabs.fields },
               { id: "lang", label: t.features.tabs.lang },
@@ -647,7 +680,7 @@ export const Content: React.FC = () => {
                           transition={{ type: "spring", stiffness: 400, damping: 20 }}
                           className="p-3 rounded-xl border border-[var(--bd)] bg-[var(--sur)] flex flex-col justify-between h-[80px] cursor-pointer"
                         >
-                          <span className="text-lg select-none">{domain.emoji}</span>
+                          <domain.icon size={18} className="text-[var(--ac)]" />
                           <div>
                             <h4 className="text-[10px] font-bold text-[var(--txt)] leading-tight line-clamp-1">
                               {domainName}
@@ -765,15 +798,15 @@ export const Content: React.FC = () => {
                   className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"
                 >
                   {[
-                    { title: t.features.access.c1Title, desc: t.features.access.c1Desc, emoji: "📱" },
-                    { title: t.features.access.c2Title, desc: t.features.access.c2Desc, emoji: "🛡️" },
-                    { title: t.features.access.c3Title, desc: t.features.access.c3Desc, emoji: "🌓" },
-                    { title: t.features.access.c4Title, desc: t.features.access.c4Desc, emoji: "💾" },
-                    { title: t.features.access.c5Title, desc: t.features.access.c5Desc, emoji: "🔒" },
-                    { title: t.features.access.c6Title, desc: t.features.access.c6Desc, emoji: "⚡" },
+                    { title: t.features.access.c1Title, desc: t.features.access.c1Desc },
+                    { title: t.features.access.c2Title, desc: t.features.access.c2Desc },
+                    { title: t.features.access.c3Title, desc: t.features.access.c3Desc },
+                    { title: t.features.access.c4Title, desc: t.features.access.c4Desc },
+                    { title: t.features.access.c5Title, desc: t.features.access.c5Desc },
+                    { title: t.features.access.c6Title, desc: t.features.access.c6Desc },
                   ].map((card, i) => (
                     <div key={i} className="p-5 rounded-xl border border-[var(--bd)] bg-[var(--sur)] flex items-start gap-3">
-                      <span className="text-lg shrink-0 select-none mt-1">{card.emoji}</span>
+                      <CheckCircle className="text-[var(--ac)] shrink-0 mt-0.5" size={14} />
                       <div className="space-y-1">
                         <h4 className="text-xs font-bold text-[var(--txt)]">{card.title}</h4>
                         <p className="text-[10px] text-[var(--txt2)] leading-relaxed font-semibold">
@@ -799,7 +832,7 @@ export const Content: React.FC = () => {
                   <div className="p-5 rounded-2xl border border-[var(--bd)] bg-[var(--sur)] hover:border-[var(--bd2)] transition-all flex flex-col justify-between space-y-4">
                     <div>
                       <div className="flex items-center gap-2 mb-3">
-                        <span className="text-lg">🛡️</span>
+                        <Trophy className="text-[var(--cyan)]" size={16} />
                         <h3 className="text-xs font-black uppercase tracking-wider text-[var(--cyan)] font-mono">
                           {lang === "uz" ? "Talabalar klanlari" : lang === "ru" ? "Студенческие Кланы" : "Student Cooperatives"}
                         </h3>
@@ -860,7 +893,7 @@ export const Content: React.FC = () => {
                       {/* NEW SECTION A: Clan Achievement Medals cabinet */}
                       <div className="mt-4 border-t border-[var(--bd)]/40 pt-4">
                         <h5 className="text-[10px] font-black uppercase tracking-wider text-[var(--txt3)] font-mono mb-2 flex items-center justify-between">
-                          <span>🏅 {lang === "en" ? "Clan Medals & Trophies" : lang === "ru" ? "Медали и Награды Клана" : "Klan Medallari & Kuboklari"}</span>
+                          <span>{lang === "en" ? "Clan Medals & Trophies" : lang === "ru" ? "Медали и Награды Клана" : "Klan Medallari & Kuboklari"}</span>
                           <span className="text-[9px] text-[var(--ac)] font-bold font-mono">
                             {selectedClanId === 1 ? "3 Earned" : selectedClanId === 2 ? "2 Earned" : "2 Earned"}
                           </span>
@@ -868,24 +901,26 @@ export const Content: React.FC = () => {
                         
                         <div className="grid grid-cols-3 gap-2">
                           {(selectedClanId === 1 ? [
-                            { name: "Logic Oracle", emoji: "🏆", desc: "For completing 10 consecutive Hardcore orbital mechanics challenges.", color: "border-yellow-500/30 text-yellow-500 bg-yellow-500/5" },
-                            { name: "Streak Hero", emoji: "🏅", desc: "Obtained 30 days continuous study streak as a unified guild.", color: "border-purple-500/30 text-purple-400 bg-purple-500/5" },
-                            { name: "Guild Pioneer", emoji: "🛡️", desc: "Invited 20 members to the cooperative workspace.", color: "border-amber-600/30 text-amber-500 bg-amber-600/5" }
+                            { name: "Logic Oracle", desc: "For completing 10 consecutive Hardcore orbital mechanics challenges.", color: "border-yellow-500/30 text-yellow-500 bg-yellow-500/5" },
+                            { name: "Streak Hero", desc: "Obtained 30 days continuous study streak as a unified guild.", color: "border-purple-500/30 text-purple-400 bg-purple-500/5" },
+                            { name: "Guild Pioneer", desc: "Invited 20 members to the cooperative workspace.", color: "border-amber-600/30 text-amber-500 bg-amber-600/5" }
                           ] : selectedClanId === 2 ? [
-                            { name: "Cosmic Master", emoji: "🌌", desc: "Constructed three complete universe simulators concurrently.", color: "border-yellow-500/30 text-yellow-500 bg-yellow-500/5" },
-                            { name: "Velocity Hack", emoji: "⚡", desc: "Solved 5 physics assignments with >95% precision in 5 minutes.", color: "border-sky-500/30 text-sky-400 bg-sky-500/5" }
+                            { name: "Cosmic Master", desc: "Constructed three complete universe simulators concurrently.", color: "border-yellow-500/30 text-yellow-500 bg-yellow-500/5" },
+                            { name: "Velocity Hack", desc: "Solved 5 physics assignments with >95% precision in 5 minutes.", color: "border-sky-500/30 text-sky-400 bg-sky-500/5" }
                           ] : [
-                            { name: "Alchemist Pro", emoji: "💎", desc: "Discovered a hidden spiral prime sequence algorithm.", color: "border-yellow-500/30 text-yellow-500 bg-yellow-500/5" },
-                            { name: "Forum Scribe", emoji: "🌱", desc: "Provided 50 verified answers inside the student logic board.", color: "border-emerald-500/30 text-emerald-400 bg-emerald-500/5" }
+                            { name: "Alchemist Pro", desc: "Discovered a hidden spiral prime sequence algorithm.", color: "border-yellow-500/30 text-yellow-500 bg-yellow-500/5" },
+                            { name: "Forum Scribe", desc: "Provided 50 verified answers inside the student logic board.", color: "border-emerald-500/30 text-emerald-400 bg-emerald-500/5" }
                           ]).map((badge, idx) => (
                             <div
                               key={idx}
-                              className={`p-1.5 rounded-lg border ${badge.color} text-center transition-all hover:scale-[1.03] cursor-pointer`}
-                              onClick={() => alert(`🏅 "${badge.name}" Medal:\n\n${badge.desc}`)}
+                              className={`p-1.5 rounded-lg border ${badge.color} text-center transition-all hover:scale-[1.03] cursor-pointer flex flex-col items-center justify-center`}
+                              onClick={() => alert(`"${badge.name}" Medal:\n\n${badge.desc}`)}
                               title="Click for Medal requirements"
                             >
-                              <span className="text-sm block select-none">{badge.emoji}</span>
-                              <p className="text-[8px] font-black leading-tight select-none mt-0.5 truncate">{badge.name}</p>
+                              <div className="h-5 w-5 rounded-full border border-current flex items-center justify-center text-[9px] font-black font-mono mb-1">
+                                {badge.name[0]}
+                              </div>
+                              <p className="text-[8px] font-black leading-tight select-none truncate w-full">{badge.name}</p>
                             </div>
                           ))}
                         </div>
@@ -894,8 +929,8 @@ export const Content: React.FC = () => {
                       {/* NEW SECTION B: Clan Weekly XP Race Chart (Dynamic Visual Progress Chart) */}
                       <div className="mt-4 border-t border-[var(--bd)]/40 pt-4">
                         <h5 className="text-[10px] font-black uppercase tracking-wider text-[var(--txt3)] font-mono mb-2.5 flex items-center justify-between">
-                          <span>📈 {lang === "en" ? "Weekly XP Progress Chart" : lang === "ru" ? "Рейтинговый Забег XP" : "Haftalik XP Musobaqasi"}</span>
-                          <span className="px-1.5 py-0.5 rounded text-[7px] font-mono bg-emerald-500/10 text-emerald-500 border border-emerald-500/20 font-bold">LIVE METRIC</span>
+                          <span>{lang === "en" ? "Weekly XP Progress Chart" : lang === "ru" ? "Рейтинговый Забег XP" : "Haftalik XP Musobaqasi"}</span>
+                          <span className="text-[9px] font-mono text-[var(--txt3)] font-semibold uppercase">{lang === "en" ? "Updated" : lang === "ru" ? "Обновлено" : "Yangilangan"}</span>
                         </h5>
                         
                         <div className="space-y-2.5 p-2.5 rounded-xl bg-[var(--sur2)]/35 border border-[var(--bd)]">
@@ -904,11 +939,11 @@ export const Content: React.FC = () => {
                             const maxXP = Math.max(...clanRatings.map((c) => c.xp));
                             const percentage = (clan.xp / maxXP) * 100;
                             return (
-                              <div key={clan.id} className="space-y-1 text-[10px]">
-                                <div className="flex justify-between items-center">
-                                  <span className={`font-bold text-[10px] ${isSelected ? "text-[var(--ac)]" : "text-[var(--txt)]"}`}>
-                                    {clan.name} {isSelected && "🎯"}
-                                  </span>
+                                <div key={clan.id} className="space-y-1 text-[10px]">
+                                  <div className="flex justify-between items-center">
+                                    <span className={`font-bold text-[10px] ${isSelected ? "text-[var(--ac)]" : "text-[var(--txt)]"}`}>
+                                      {clan.name} {isSelected && " (Active)"}
+                                    </span>
                                   <span className="font-mono text-[8px] font-black text-[var(--ac)]">{clan.xp} XP</span>
                                 </div>
                                 <div className="h-2 bg-[var(--sur2)] rounded-full overflow-hidden relative">
@@ -928,7 +963,7 @@ export const Content: React.FC = () => {
                     </div>
 
                     <div className="p-3 rounded-lg border border-dashed border-[var(--ac)]/45 bg-[var(--ac)]/5 text-[9px] font-mono font-extrabold text-[var(--ac)] text-center animate-pulse uppercase tracking-wider">
-                      🏆 {lang === "uz" ? "Navbatdagi turnir: 15 soatdan so'ng" : lang === "ru" ? "След. турнир через: 15 часов" : "Next Guild Tournament In: 15 Hours"}
+                      {lang === "uz" ? "Navbatdagi turnir: 15 soatdan so'ng" : lang === "ru" ? "След. турнир через: 15 часов" : "Next Guild Tournament In: 15 Hours"}
                     </div>
                   </div>
 
@@ -936,7 +971,7 @@ export const Content: React.FC = () => {
                   <div className="p-5 rounded-2xl border border-[var(--bd)] bg-[var(--sur)] hover:border-[var(--bd2)] transition-all flex flex-col justify-between">
                     <div>
                       <div className="flex items-center gap-2 mb-3">
-                        <span className="text-lg">🧠</span>
+                        <Sparkles className="text-emerald-500" size={14} />
                         <h3 className="text-xs font-black uppercase tracking-wider text-emerald-500 font-mono">
                           {lang === "uz" ? "Kunlik murakkab mashq" : lang === "ru" ? "Сложные Задачи" : "Administrator Hardcore Match"}
                         </h3>
@@ -956,7 +991,7 @@ export const Content: React.FC = () => {
                       {/* Real quiz solver implementation */}
                       <div className="p-3.5 rounded-xl border border-[var(--bd)] bg-[var(--sur2)] text-left flex flex-col space-y-3">
                         <div className="border-b border-[var(--bd)]/40 pb-2 flex items-center justify-between">
-                          <span className="text-[8px] font-bold text-[var(--txt3)] font-mono uppercase">💡 Mathematics & Physics</span>
+                          <span className="text-[8px] font-bold text-[var(--txt3)] font-mono uppercase">Mathematics & Physics</span>
                           <span className="text-[9px] font-extrabold text-emerald-500 font-mono">+250 Rep Tokens</span>
                         </div>
                         <p className="text-[11px] font-bold text-[var(--txt)] leading-normal pr-1">
@@ -1004,9 +1039,9 @@ export const Content: React.FC = () => {
                     <div className="mt-4">
                       {quizSubmitted ? (
                         <div className="p-2.5 rounded-lg text-center bg-emerald-500/10 border border-emerald-500/20 text-[9.5px] font-bold text-emerald-500 animate-fadeIn">
-                          🎉 {quizSelection === 2 
-                            ? (lang === "uz" ? "To'g'ri javob! Klaningizga +250 XP qo'shildi!" : lang === "ru" ? "Правильно! Зачислено +250 XP гильдии." : "Bingo! Correct answer. +250 XP awarded to your clan.")
-                            : (lang === "uz" ? "Noto'g'ri! Ammo o'rganish bepul. Davom eting!" : lang === "ru" ? "Неверно, но обучение бесплатно! Попробуйте еще раз." : "Incorrect, but trials are free! Try again.")}
+                          {quizSelection === 2 
+                            ? (lang === "uz" ? "Correct answer! +250 XP added to clan!" : lang === "ru" ? "Правильно! Зачислено +250 XP гильдии." : "Correct answer. +250 XP awarded to your clan.")
+                            : (lang === "uz" ? "Incorrect! Try again to learn!" : lang === "ru" ? "Неверно, но обучение бесплатно! Попробуйте еще раз." : "Incorrect, but trials are free! Try again.")}
                           <button
                             onClick={() => {
                               setQuizSubmitted(false);
@@ -1037,7 +1072,7 @@ export const Content: React.FC = () => {
                               : "bg-[var(--sur2)] text-[var(--txt3)] border border-[var(--bd)] cursor-not-allowed"
                           }`}
                         >
-                          ✔️ {lang === "uz" ? "Javobni Tekshirish" : lang === "ru" ? "Проверить Решение" : "Validate Response"}
+                          {lang === "uz" ? "Javobni Tekshirish" : lang === "ru" ? "Проверить Решение" : "Validate Response"}
                         </button>
                       )}
                     </div>
@@ -1045,7 +1080,7 @@ export const Content: React.FC = () => {
                     {/* Interactive Quiz Performance Stats */}
                     <div className="mt-5 border-t border-[var(--bd)]/40 pt-4">
                       <h5 className="text-[10px] font-black uppercase tracking-wider text-[var(--txt3)] font-mono mb-2 flex items-center justify-between">
-                        <span>📊 {lang === "en" ? "Quiz Performance Stats" : lang === "ru" ? "Статистика Решений" : "Yechimlar Statistikasi"}</span>
+                        <span>{lang === "en" ? "Quiz Performance Stats" : lang === "ru" ? "Статистика Решений" : "Yechimlar Statistikasi"}</span>
                         <span className="font-mono text-[9px] text-[var(--ac)] font-bold">
                           {lang === "en" ? "ACCURACY:" : lang === "ru" ? "ТОЧНОСТЬ:" : "ANIQLIK:"} {Math.round((quizCorrectCount / (quizCorrectCount + quizIncorrectCount || 1)) * 100)}%
                         </span>
@@ -1074,8 +1109,8 @@ export const Content: React.FC = () => {
                     {/* Daily Clan Challenges */}
                     <div className="mt-5 border-t border-[var(--bd)]/40 pt-4">
                       <h5 className="text-[10px] font-black uppercase tracking-wider text-[var(--txt3)] font-mono mb-2.5 flex items-center justify-between">
-                        <span>🎯 {lang === "en" ? "Daily Clan Challenges" : lang === "ru" ? "Ежедневные Испытания" : "Kunlik Klan Vazifalari"}</span>
-                        <span className="px-1.5 py-0.5 rounded text-[7px] font-mono bg-amber-500/10 text-amber-500 border border-amber-500/20 font-bold uppercase tracking-wider">GUILD COOP</span>
+                        <span>{lang === "en" ? "Daily Clan Challenges" : lang === "ru" ? "Ежедневные Испытания" : "Kunlik Klan Vazifalari"}</span>
+                        <span className="text-[9px] font-mono text-amber-500/90 font-bold">{dailyClanChallenges.filter(c => c.done).length}/{dailyClanChallenges.length} {lang === "en" ? "COMPLETED" : lang === "ru" ? "ВЫПОЛНЕНО" : "BAJARILDI"}</span>
                       </h5>
 
                       <div className="space-y-1.5">
@@ -1094,21 +1129,25 @@ export const Content: React.FC = () => {
                                   // Show toast notification
                                   const activeClanName = clanRatings.find(c => c.id === selectedClanId)?.name || "your clan";
                                   setLiveToast({
-                                    sender: "Clan Herald 🛡️",
+                                    sender: "Clan Herald",
                                     channel: "challenges",
-                                    text: `🎉 Unlocked "${title}"! +150 XP added to ${activeClanName}!`
+                                    text: `Unlocked "${title}"! +150 XP added to ${activeClanName}!`
                                   });
                                   setTimeout(() => setLiveToast(null), 5000);
                                 }
                               }}
-                              className={`p-2 rounded-lg border transition-all cursor-pointer text-[10px] flex items-start gap-2 ${
+                              className={`p-2 rounded-lg border transition-all cursor-pointer text-[10px] flex items-center gap-2 ${
                                 challenge.done
                                   ? "bg-amber-500/5 border-amber-500/25 opacity-70"
                                   : "bg-[var(--sur2)]/30 border border-[var(--bd)] hover:border-[var(--bd2)]"
                               }`}
                             >
-                              <span className={`text-xs select-none mt-0.5 ${challenge.done ? "text-amber-500" : "text-[var(--txt3)]"}`}>
-                                {challenge.done ? "🏅" : "🔓"}
+                              <span className="shrink-0 select-none">
+                                {challenge.done ? (
+                                  <Check className="text-amber-500" size={12} />
+                                ) : (
+                                  <div className="h-1.5 w-1.5 rounded-full bg-[var(--txt3)] ml-1" />
+                                )}
                               </span>
                               <div className="flex-1 min-w-0">
                                 <div className="flex justify-between items-center gap-2">
@@ -1137,7 +1176,7 @@ export const Content: React.FC = () => {
                       {/* Section Title */}
                       <div>
                         <div className="flex items-center gap-2 mb-3">
-                          <span className="text-lg">💬</span>
+                          <MessageSquare className="text-[var(--ac)]" size={14} />
                           <h3 className="text-xs font-black uppercase tracking-wider text-[var(--ac)] font-mono">
                             {lang === "uz" ? "Hamkorlik muloqoti" : lang === "ru" ? "Прямое общение" : "Peer-To-Peer Hotline"}
                           </h3>
@@ -1154,7 +1193,7 @@ export const Content: React.FC = () => {
                               chatChannel === "clan" ? "bg-[var(--sur)] text-[var(--ac)] shadow-sm font-black" : "text-[var(--txt3)] hover:text-[var(--txt)]"
                             }`}
                           >
-                            <span>🛡️ Clan</span>
+                            <span>Clan</span>
                             {chatNotifications.clan > 0 && (
                               <span className="px-1 py-0.2 rounded-full bg-red-500 text-white text-[7px] font-bold font-mono animate-pulse shrink-0">
                                 {chatNotifications.clan}
@@ -1171,7 +1210,7 @@ export const Content: React.FC = () => {
                               chatChannel === "friends" ? "bg-[var(--sur)] text-[var(--ac)] shadow-sm font-black" : "text-[var(--txt3)] hover:text-[var(--txt)]"
                             }`}
                           >
-                            <span>👥 Friends</span>
+                            <span>Friends</span>
                             {chatNotifications.friends > 0 && (
                               <span className="px-1 py-0.2 rounded-full bg-red-500 text-white text-[7px] font-bold font-mono animate-pulse shrink-0">
                                 {chatNotifications.friends}
@@ -1188,7 +1227,7 @@ export const Content: React.FC = () => {
                               chatChannel === "teacher" ? "bg-[var(--sur)] text-[var(--ac)] shadow-sm font-black" : "text-[var(--txt3)] hover:text-[var(--txt)]"
                             }`}
                           >
-                            <span>🎓 Teacher</span>
+                            <span>Teacher</span>
                             {chatNotifications.teacher > 0 && (
                               <span className="px-1 py-0.2 rounded-full bg-red-500 text-white text-[7px] font-bold font-mono animate-pulse shrink-0">
                                 {chatNotifications.teacher}
@@ -1245,15 +1284,6 @@ export const Content: React.FC = () => {
                             Send
                           </button>
                         </form>
-
-                        {/* Interactive simulation button for active testing */}
-                        <button
-                          type="button"
-                          onClick={simulateIncomingMessageNotification}
-                          className="w-full mt-2 py-1 bg-[var(--ac)]/5 hover:bg-[var(--ac)]/15 border border-[var(--ac)]/25 rounded text-[8px] font-black uppercase tracking-wider text-[var(--ac)] transition-all cursor-pointer flex items-center justify-center gap-1.5"
-                        >
-                          📬 {lang === "uz" ? "Yangi xabarni simulyatsiya qilish (+1 Xabar)" : lang === "ru" ? "Симулировать новое сообщение (+1)" : "Simulate Incoming Activity (+1 Notification)"}
-                        </button>
                       </div>
 
                     </div>
@@ -1275,20 +1305,20 @@ export const Content: React.FC = () => {
           
           <div className="text-center max-w-2xl mx-auto mb-10">
             <span className="inline-block text-[9px] font-mono font-bold tracking-widest uppercase px-3 py-1 rounded-full mb-3 text-[var(--ac)] bg-[var(--ac)]/10">
-              Sustainable Pricing Models
+              {t.checkout.pricingBadge}
             </span>
             <h2 className="text-2xl md:text-3xl font-display font-black leading-tight tracking-tight text-[var(--txt)]">
-              Flexible Tiers for Every Mind
+              {t.checkout.pricingTitle}
             </h2>
             <p className="text-sm text-[var(--txt2)] mt-3 leading-relaxed font-medium">
-              Core learning is and will always remain free. Boost your education or creator royalties with premium features.
+              {t.checkout.pricingSubtitle}
             </p>
           </div>
 
           {/* Interactive Billing Toggle */}
           <div className="flex justify-center items-center gap-3.5 mb-12 select-none">
             <span className={`text-xs font-bold transition-colors ${billingCycle === "monthly" ? "text-[var(--ac)]" : "text-[var(--txt3)]"}`}>
-              {lang === "uz" ? "Oylik To'lov" : lang === "ru" ? "Ежемесячно" : "Monthly"}
+              {t.checkout.monthly}
             </span>
             <button
               onClick={() => setBillingCycle(billingCycle === "monthly" ? "annually" : "monthly")}
@@ -1297,7 +1327,7 @@ export const Content: React.FC = () => {
               <div className={`w-5 h-5 rounded-full bg-[var(--ac)] transition-transform ${billingCycle === "annually" ? "translate-x-6" : ""}`} />
             </button>
             <span className={`text-xs font-bold transition-colors flex items-center gap-1.5 ${billingCycle === "annually" ? "text-[var(--ac)]" : "text-[var(--txt3)]"}`}>
-              <span>{lang === "uz" ? "Yillik To'lov" : lang === "ru" ? "Ежегодно" : "Annually"}</span>
+              <span>{t.checkout.annually}</span>
               <span className="px-1.5 py-0.5 rounded text-[8px] font-mono text-white bg-emerald-500 font-bold uppercase tracking-wider shrink-0 animate-bounce">
                 20% OFF
               </span>
@@ -1321,10 +1351,10 @@ export const Content: React.FC = () => {
                 <h3 className="text-sm font-bold font-display text-[var(--txt)]">{t.pricing.c1Title}</h3>
                 <div className="my-3 flex items-baseline gap-1">
                   <span className="text-2xl font-black font-display text-[var(--txt)]">$0</span>
-                  <span className="text-xs text-[var(--txt3)] font-semibold">/ {lang === "uz" ? "umrbod" : lang === "ru" ? "навсегда" : "forever"}</span>
+                  <span className="text-xs text-[var(--txt3)] font-semibold">/ {t.checkout.forever}</span>
                 </div>
                 <p className="text-[10px] text-[var(--txt2)] mb-5 font-medium leading-normal">
-                  {lang === "uz" ? "Barcha talabalar uchun mutlaqo ochiq" : lang === "ru" ? "Полный доступ для всех студентов" : "Absolute free core path limits"}
+                  {t.checkout.freeTierDesc}
                 </p>
 
                 <ul className="space-y-3 text-[10px] text-[var(--txt2)] border-t border-[var(--bd)] pt-4 mb-6">
@@ -1353,7 +1383,7 @@ export const Content: React.FC = () => {
                 }}
                 className="w-full py-2 rounded-xl bg-[var(--sur2)] hover:bg-[var(--sur)] border border-[var(--bd2)] text-[10px] font-black uppercase text-[var(--txt)] transition-all cursor-pointer text-center"
               >
-                {lang === "en" ? "Active Plan" : "Текущий аккаунт"}
+                {t.checkout.activePlan}
               </button>
             </motion.div>
 
@@ -1375,7 +1405,7 @@ export const Content: React.FC = () => {
                 <h3 className="text-sm font-bold font-display text-[var(--txt)]">AI Learner Pro</h3>
                 <div className="my-3 flex items-baseline gap-1">
                   <span className="text-2xl font-black font-display text-[var(--ac)]">
-                    {billingCycle === "monthly" ? "$3.99" : "$3.19"}
+                    {billingCycle === "monthly" ? "$5.99" : "$4.49"}
                   </span>
                   <span className="text-xs text-[var(--txt3)] font-semibold font-mono">/ mo</span>
                 </div>
@@ -1426,12 +1456,12 @@ export const Content: React.FC = () => {
                 <h3 className="text-sm font-bold font-display text-[var(--txt)]">{t.pricing.c2Title}</h3>
                 <div className="my-3 flex items-baseline gap-1">
                   <span className="text-2xl font-black font-display text-[var(--txt)]">
-                    {billingCycle === "monthly" ? "$9.99" : "$7.99"}
+                    {billingCycle === "monthly" ? "$15.00" : "$11.25"}
                   </span>
                   <span className="text-xs text-[var(--txt3)] font-semibold font-mono font-bold">/ mo</span>
                 </div>
                 <p className="text-[10px] text-[var(--txt2)] mb-5 font-medium leading-normal">
-                  {t.pricing.c2Sub}
+                  {lang === "uz" ? "Yillik tarifda darslar uchun 10% chegirma beriladi" : lang === "ru" ? "При годовой подписке скидка 10% на все платные курсы" : "Get 10% discount on every course platform-wide on annual option!"}
                 </p>
 
                 <ul className="space-y-3 text-[10px] text-[var(--txt2)] border-t border-[var(--bd)] pt-4 mb-6">
@@ -1441,7 +1471,7 @@ export const Content: React.FC = () => {
                   </li>
                   <li className="flex items-center gap-2">
                     <span className="text-[var(--ac)] font-bold">✓</span>
-                    <span className="font-bold text-[var(--txt)]">100% Royalty Share Option</span>
+                    <span className="font-bold text-[var(--txt)]">Annual Special: 10% Discount logic</span>
                   </li>
                   <li className="flex items-center gap-2">
                     <span className="text-[var(--ac)] font-bold">✓</span>
@@ -1455,72 +1485,296 @@ export const Content: React.FC = () => {
               </div>
 
               <button
-                onClick={() => setSelectedUpgradePlan("Educator Studio Pro")}
+                onClick={() => setSelectedUpgradePlan("Creator & Teacher")}
                 className="w-full py-2 rounded-xl bg-[var(--sur2)] hover:bg-[var(--sur)] border border-[var(--bd2)] text-[10px] font-black uppercase text-[var(--txt)] transition-all cursor-pointer text-center"
               >
                 {lang === "en" ? "Publish Pro" : "Запустить Студию"}
               </button>
             </motion.div>
 
-            {/* School / Guild Master tier card */}
+            {/* Elite Pass card */}
             <motion.div
               whileHover={{ y: -6, scale: 1.015, borderColor: "rgba(124, 111, 255, 0.2)" }}
               transition={{ type: "spring", stiffness: 350, damping: 25 }}
-              className="p-5 rounded-2xl border border-[var(--bd)] bg-[var(--sur)] flex flex-col justify-between"
+              className="p-5 rounded-2xl border border-[var(--ac2)] bg-[var(--sur)] flex flex-col justify-between relative overflow-hidden"
             >
+              <div className="absolute top-0 right-0 h-12 w-12 bg-indigo-500/10 rounded-bl-full border-b border-l border-indigo-500/35 pointer-events-none flex items-center justify-center">
+                <span className="text-[9px] translate-x-1.5 -translate-y-1.5 rotate-45 font-black text-indigo-400">NITRO</span>
+              </div>
               <div>
                 <div className="flex justify-between items-start mb-2">
-                  <span className="text-[9px] font-mono uppercase bg-[var(--sur2)] border border-[var(--bd)] px-2 py-0.5 rounded font-black text-[var(--txt3)]">
-                    Teams
+                  <span className="text-[9px] font-mono uppercase bg-indigo-500/15 border border-indigo-500/30 px-2 py-0.5 rounded font-black text-indigo-400">
+                    Elite
                   </span>
                 </div>
-                <h3 className="text-sm font-bold font-display text-[var(--txt)]">Guild & School Master</h3>
+                <h3 className="text-sm font-bold font-display text-grad-main">{t.pricing.c3Title}</h3>
                 <div className="my-3 flex items-baseline gap-1">
                   <span className="text-2xl font-black font-display text-[var(--txt)]">
-                    {billingCycle === "monthly" ? "$29.00" : "$23.20"}
+                    {billingCycle === "monthly" ? "$43.00" : "$32.25"}
                   </span>
                   <span className="text-xs text-[var(--txt3)] font-semibold font-mono">/ mo</span>
                 </div>
                 <p className="text-[10px] text-[var(--txt2)] mb-5 font-medium leading-normal">
-                  Perfect for schools, student clans, and coaching centers.
+                  {lang === "uz" ? "Discord Nitro uslubi, avatar bezaklari va doimiy 25% chegirma!" : lang === "ru" ? "Discord Nitro стиль, яркие аватары и постоянная 25% скидка!" : "Includes elite custom name glows and 25% course discount logic."}
                 </p>
 
                 <ul className="space-y-3 text-[10px] text-[var(--txt2)] border-t border-[var(--bd)] pt-4 mb-6">
                   <li className="flex items-center gap-2">
-                    <span className="text-[var(--ac)] font-bold">✓</span>
-                    <span>Custom private brackets & arenas</span>
+                    <span className="text-indigo-500 font-bold">✓</span>
+                    <span className="font-bold text-[var(--txt)]">Platform-wide 25% Course Discount</span>
                   </li>
                   <li className="flex items-center gap-2">
-                    <span className="text-[var(--ac)] font-bold">✓</span>
-                    <span className="font-bold text-[var(--txt)]">Interactive Clan charts engine</span>
+                    <span className="text-indigo-500 font-bold">✓</span>
+                    <span>Neon Nickname & Discord Nitro glowing glows</span>
                   </li>
                   <li className="flex items-center gap-2">
-                    <span className="text-[var(--ac)] font-bold">✓</span>
-                    <span>Up to 150 student members seats</span>
+                    <span className="text-indigo-500 font-bold">✓</span>
+                    <span>Custom cyber avatar rings and profile decorations</span>
                   </li>
                   <li className="flex items-center gap-2">
-                    <span className="text-[var(--ac)] font-bold">✓</span>
-                    <span>Automated parent monitoring logins</span>
+                    <span className="text-indigo-500 font-bold">✓</span>
+                    <span>High-tier server priority streaming limits</span>
                   </li>
                 </ul>
               </div>
 
               <button
-                onClick={() => setSelectedUpgradePlan("Guild & School Master")}
-                className="w-full py-2 rounded-xl bg-[var(--sur2)] hover:bg-[var(--sur)] border border-[var(--bd2)] text-[10px] font-black uppercase text-[var(--txt)] transition-all cursor-pointer text-center"
+                onClick={() => {
+                  setSelectedUpgradePlan("Elite Pass");
+                  setIsPremiumUser(true);
+                }}
+                className="w-full py-2 rounded-xl bg-grad-main text-[10px] font-black uppercase text-white transition-all cursor-pointer text-center font-bold"
               >
-                {lang === "en" ? "Deploy Guild" : "Активировать Клан"}
+                {lang === "en" ? "Get Elite Pass" : "Получить Elite Pass"}
               </button>
             </motion.div>
 
           </div>
 
           {/* Pricing Bottom Notice container */}
-          <div className="max-w-2xl mx-auto p-4 rounded-xl border border-[var(--bd)] bg-[var(--sur)] flex items-start gap-2.5 text-[10px] leading-relaxed select-none">
-            <span className="text-xs mt-0.5">💡</span>
+          <div className="max-w-2xl mx-auto p-4 rounded-xl border border-[var(--bd)] bg-[var(--sur)] flex items-start gap-2.5 text-[10px] leading-relaxed select-none mb-14">
+            <Sparkles className="text-amber-500 shrink-0 mt-0.5" size={12} />
             <p className="text-[var(--txt2)] font-medium">
               We charge 0% on free education pathways. MindSphere Premium supports host bandwith, localized translation modules, and unhindered server hosting fees.
             </p>
+          </div>
+
+          {/* ======================================================================
+              INTERACTIVE DISCORD NITRO CUSTOMIZER PLAYGROUND (Requested)
+              ====================================================================== */}
+          <div className="max-w-4xl mx-auto rounded-3xl border border-indigo-500/20 bg-gradient-to-r from-indigo-950/15 to-purple-950/15 p-6 backdrop-blur-sm shadow-xl select-none relative overflow-hidden">
+            <div className="absolute top-0 right-0 p-3 pointer-events-none opacity-10">
+              <span className="text-9xl font-display font-black tracking-normal">NITRO</span>
+            </div>
+
+            <div className="flex flex-col md:flex-row gap-8 items-center justify-between">
+              
+              {/* Left Panel: Settings Controls */}
+              <div className="flex-1 w-full space-y-5">
+                <div>
+                  <span className="inline-block text-[8px] font-mono font-bold tracking-widest text-indigo-400 bg-indigo-500/10 px-2.5 py-0.5 rounded-full mb-1.5 uppercase">
+                    {lang === "uz" ? "Customizer boshqaruvi" : lang === "ru" ? "Студия настроек" : "Customizer Control"}
+                  </span>
+                  <h3 className="text-base font-bold font-display text-[var(--txt)] flex items-center gap-1.5">
+                    <span>
+                      {lang === "uz" ? "Elite Pass & Nitro-Stil Shaxsiy Sozlamalar" : lang === "ru" ? "Студия кастомизации Elite Pass & Nitro-стиль" : "Elite Pass & Discord Nitro Customs Playground"}
+                    </span>
+                    <Sparkles size={14} className="text-indigo-400 shrink-0 animate-pulse" />
+                  </h3>
+                  <p className="text-[10px] text-[var(--txt2)] mt-1.5 font-medium leading-relaxed">
+                    {lang === "uz" ? "Neon uslubida porlaydigan nomlarni, kiber-ramkalarni va unikal profil kartalarini jonli sozlang!" : lang === "ru" ? "Настройте неоновое свечение никнейма, кастомные кибер-рамки аватарок и стильные темы профиля прямо сейчас!" : "Simulate exclusive visual perks including custom neon nickname glow effects, kiber profile cards, and custom avatar borders live!"}
+                  </p>
+                </div>
+
+                <div className="border-t border-[var(--bd)]/40 pt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  {/* Nickname Input */}
+                  <div className="space-y-1.5">
+                    <label className="text-[9px] font-mono font-bold text-[var(--txt3)] uppercase tracking-wider block">
+                      {lang === "uz" ? "Taxallusingiz (Nick)" : lang === "ru" ? "Ваш Никнейм" : "Your Nickname"}
+                    </label>
+                    <input
+                      type="text"
+                      maxLength={18}
+                      value={nitroNick}
+                      onChange={(e) => setNitroNick(e.target.value || "AlphaScholar")}
+                      className="w-full bg-[var(--sur)] border border-[var(--bd)] rounded-xl px-3 py-2 text-xs text-[var(--txt)] focus:outline-none focus:border-indigo-500 transition-colors font-semibold font-mono"
+                    />
+                  </div>
+
+                  {/* Nickname Glow Color Select */}
+                  <div className="space-y-1.5">
+                    <label className="text-[9px] font-mono font-bold text-[var(--txt3)] uppercase tracking-wider block">
+                      {lang === "uz" ? "Neon rangdagi taxallus" : lang === "ru" ? "Цвет неонового имени" : "Neon Username Color"}
+                    </label>
+                    <div className="flex items-center gap-2">
+                      {[
+                        { color: "#c084fc", name: "Purple" },
+                        { color: "#f472b6", name: "Pink" },
+                        { color: "#38bdf8", name: "Cyan" },
+                        { color: "#4ade80", name: "Green" },
+                        { color: "#fbbf24", name: "Amber" },
+                      ].map((c) => (
+                        <button
+                          key={c.color}
+                          onClick={() => setNitroColor(c.color)}
+                          className={`w-6.5 h-6.5 rounded-full border transition-transform hover:scale-110 cursor-pointer ${nitroColor === c.color ? "border-white scale-110" : "border-transparent"}`}
+                          style={{ backgroundColor: c.color }}
+                          title={c.name}
+                        />
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Avatar Border Decoration Select */}
+                  <div className="space-y-1.5">
+                    <label className="text-[9px] font-mono font-bold text-[var(--txt3)] uppercase tracking-wider block">
+                      {lang === "uz" ? "Avatar kiber-ramkasi" : lang === "ru" ? "Кибер-рамка для аватара" : "Cyber Avatar Ring decoration"}
+                    </label>
+                    <div className="grid grid-cols-4 gap-1.5 text-center">
+                      {[
+                        { value: "cyber", label: "Pink Hex" },
+                        { value: "neon", label: "Laser Rose" },
+                        { value: "gold", label: "Golden Wreath" },
+                        { value: "none", label: "None" },
+                      ].map((item) => (
+                        <button
+                          key={item.value}
+                          onClick={() => setNitroRing(item.value)}
+                          className={`py-1 rounded-lg border text-[8px] font-mono font-bold uppercase transition-all ${nitroRing === item.value ? "bg-indigo-500/25 border-indigo-500 text-white" : "bg-[var(--sur2)] text-[var(--txt2)] border-[var(--bd)] hover:bg-[var(--sur)]"}`}
+                        >
+                          {item.label}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Profile Cards Theme theme option */}
+                  <div className="space-y-1.5">
+                    <label className="text-[9px] font-mono font-bold text-[var(--txt3)] uppercase tracking-wider block">
+                      {lang === "uz" ? "Profil kartasi mavzusi" : lang === "ru" ? "Тема карточки профиля" : "Profile Card Theme"}
+                    </label>
+                    <div className="grid grid-cols-4 gap-1.5 text-center">
+                      {[
+                        { value: "nebula", label: "Nebula" },
+                        { value: "obsidian", label: "Obsidian" },
+                        { value: "vaporwave", label: "Vapor" },
+                        { value: "matrix", label: "Matrix" },
+                      ].map((item) => (
+                        <button
+                          key={item.value}
+                          onClick={() => setNitroTheme(item.value)}
+                          className={`py-1 rounded-lg border text-[8px] font-mono font-bold uppercase transition-all ${nitroTheme === item.value ? "bg-indigo-500/25 border-indigo-500 text-white" : "bg-[var(--sur2)] text-[var(--txt2)] border-[var(--bd)] hover:bg-[var(--sur)]"}`}
+                        >
+                          {item.label}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                </div>
+
+                {/* Subtext info */}
+                <div className="flex gap-2 bg-indigo-500/5 rounded-xl p-3 border border-indigo-500/10 text-[9px] text-indigo-400 font-semibold leading-relaxed">
+                  <span className="text-xs font-mono select-none shrink-0 font-bold">ℹ</span>
+                  <p>
+                    {lang === "uz" ? "Ushbu sozlamalar faol Elite Pass foydalanuvchilariga mindsphere.org platformasida barcha chatlarda va peshqadamlar jadvalida avtomatik porlashini ta'minlaydi!"
+                      : lang === "ru" ? "Эти настройки предоставляют владельцам Elite Pass автоматическое свечение никнеймов в общих чатах на mindsphere.org, а также во всех рейтинговых таблицах!"
+                      : "These custom styles are applied automatically for Elite Pass owners in all community chats, discussion boards, and scoreboard leaderboards platform-wide!"}
+                  </p>
+                </div>
+
+              </div>
+
+              {/* Right Panel: Live Mock Profile Card Preview */}
+              <div className="w-full md:w-64 shrink-0 flex justify-center">
+                <motion.div
+                  key={`${nitroTheme}-${nitroRing}-${nitroColor}`}
+                  initial={{ scale: 0.95, opacity: 0.9 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  className={`w-full max-w-[240px] rounded-2xl relative p-5 overflow-hidden transition-all ${
+                    nitroTheme === "nebula"
+                      ? "bg-gradient-to-br from-indigo-950 via-purple-900 to-indigo-900 shadow-xl shadow-purple-500/15 border border-purple-500/35"
+                      : nitroTheme === "obsidian"
+                      ? "bg-gradient-to-br from-neutral-900 to-neutral-850 shadow-xl border border-neutral-700"
+                      : nitroTheme === "vaporwave"
+                      ? "bg-gradient-to-tr from-fuchsia-950 via-rose-900 to-cyan-950 border border-fuchsia-400/40 shadow-xl shadow-pink-500/10"
+                      : "bg-gradient-to-b from-black to-emerald-950 border border-emerald-500/30 shadow-xl shadow-emerald-500/10"
+                  }`}
+                >
+                  {/* Decorative card background overlay */}
+                  <div className="absolute top-0 inset-x-0 h-16 bg-gradient-to-b from-white/5 to-transparent pointer-events-none" />
+
+                  {/* Elite Pass Badge Icon on the Top Right */}
+                  <div className="absolute top-4 right-4 flex gap-1 items-center">
+                    {nitroBadge !== "none" && (
+                      <span className="text-[7px] font-mono select-none px-1.5 py-0.5 rounded-full bg-indigo-500 text-white font-black uppercase tracking-wider animate-pulse flex items-center gap-0.5 shadow">
+                        <span>✦</span>ELITE
+                      </span>
+                    )}
+                  </div>
+
+                  <div className="flex flex-col items-center text-center space-y-4 pt-4">
+                    {/* Glowing Avatar frame based on choice */}
+                    <div className="relative">
+                      <img
+                        src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=200&auto=format&fit=crop"
+                        alt="Avatar preview"
+                        referrerPolicy="no-referrer"
+                        className={`w-16 h-16 rounded-full object-cover transition-all ${
+                          nitroRing === "cyber"
+                            ? "ring-4 ring-offset-2 ring-purple-400 ring-offset-purple-950"
+                            : nitroRing === "neon"
+                            ? "ring-4 ring-offset-2 ring-pink-500 ring-offset-pink-950"
+                            : nitroRing === "gold"
+                            ? "ring-4 ring-offset-2 ring-amber-400 ring-offset-amber-950"
+                            : "ring-0"
+                        }`}
+                      />
+                      {nitroRing !== "none" && (
+                        <div className="absolute -bottom-1 -right-1 bg-indigo-500 border border-indigo-900 w-5 h-5 rounded-full flex items-center justify-center text-[8px] text-white">
+                          ✦
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Glowing Neon Nickname */}
+                    <div className="space-y-1">
+                      <h4
+                        className="text-sm font-extrabold font-display leading-tight tracking-wide font-mono transition-colors"
+                        style={{
+                          color: nitroColor,
+                          textShadow: `0 0 10px ${nitroColor}dd, 0 0 20px ${nitroColor}44`,
+                        }}
+                      >
+                        {nitroNick}
+                      </h4>
+                      <p className="text-[8px] text-white/50 font-mono tracking-widest font-black uppercase">
+                        {lang === "uz" ? "ELITE CLASS O'QUVCHISI" : lang === "ru" ? "ЭЛИТНЫЙ НАБЛЮДАТЕЛЬ" : "ELITE CLASS SCHOLAR"}
+                      </p>
+                    </div>
+
+                    {/* Fake micro Stats */}
+                    <div className="grid grid-cols-2 gap-2 border-t border-white/10 pt-3.5 w-full text-center">
+                      <div>
+                        <span className="text-[10px] font-black font-display text-white">48,290</span>
+                        <span className="text-[7px] text-white/40 block font-mono uppercase">Course XP</span>
+                      </div>
+                      <div>
+                        <span className="text-[10px] font-black font-display text-amber-400">#1 Global</span>
+                        <span className="text-[7px] text-white/40 block font-mono uppercase">Leaderboard</span>
+                      </div>
+                    </div>
+
+                    <div className="w-full bg-white/5 rounded-xl p-2 border border-white/5 text-[8px] text-white/75 leading-tight text-left font-serif italic">
+                      "Knowledge is a sphere with infinite dimensional paths..."
+                    </div>
+
+                  </div>
+                </motion.div>
+              </div>
+
+            </div>
+
           </div>
 
         </div>
@@ -1704,10 +1958,10 @@ export const Content: React.FC = () => {
                   }`}
                 >
                   <div className="flex items-center gap-1.5">
-                    {cat === "all" && <span>📚</span>}
-                    {cat === "platform" && <span>🌐</span>}
-                    {cat === "ai" && <span>🤖</span>}
-                    {cat === "pricing" && <span>💎</span>}
+                    {cat === "all" && <BookOpen size={12} className="opacity-80 text-[var(--ac)]" />}
+                    {cat === "platform" && <Globe size={12} className="opacity-80 text-[var(--ac)]" />}
+                    {cat === "ai" && <Sparkles size={12} className="opacity-80 text-[var(--ac)]" />}
+                    {cat === "pricing" && <Trophy size={12} className="opacity-80 text-[var(--ac)]" />}
                     <span>{catLabel}</span>
                   </div>
                 </button>
@@ -1829,7 +2083,7 @@ export const Content: React.FC = () => {
                                     {/* FAQ Helpful Verification Widget */}
                                     <div className="mt-4 pt-4 border-t border-[var(--bd)]/20 flex flex-col sm:flex-row items-center justify-between gap-3 bg-[var(--sur2)]/10 p-3 rounded-xl">
                                       <span className="text-[10px] md:text-[11px] font-bold text-[var(--txt2)] flex items-center gap-1.5 select-none">
-                                        💡 {localFAQTranslations.feedbackTitle}
+                                        {localFAQTranslations.feedbackTitle}
                                       </span>
                                       <div className="flex items-center gap-2 select-none">
                                         {feedback[idx] ? (
@@ -1944,7 +2198,7 @@ export const Content: React.FC = () => {
               setLiveToast(null);
             }}
           >
-            <span className="text-xl">💬</span>
+            <MessageSquare className="text-[var(--ac)] shrink-0 mt-0.5" size={18} />
             <div className="flex-1 space-y-1">
               <div className="flex items-center justify-between">
                 <span className="text-[9px] font-mono font-black uppercase text-[var(--ac)] tracking-wider">
@@ -1986,65 +2240,73 @@ export const Content: React.FC = () => {
 
               <div className="space-y-4 pt-1">
                 <div className="flex items-center gap-2">
-                  <span className="text-xl">👑</span>
                   <div>
                     <h3 className="text-base font-black font-display text-[var(--txt)]">
-                      Subscribe to {selectedUpgradePlan}
+                      {t.checkout.subscribeTo} {selectedUpgradePlan}
                     </h3>
                     <p className="text-[9px] text-[var(--txt3)] uppercase tracking-widest font-mono">
-                      Simulator Payment Gateway
+                      {t.checkout.checkoutGateway}
                     </p>
                   </div>
                 </div>
 
                 <p className="text-xs text-[var(--txt2)] leading-relaxed">
-                  You are subscribing to the <strong>{selectedUpgradePlan}</strong> plan billed <strong>{billingCycle}</strong>. Experience high-tier reasoning engines, live interactive sandboxes, and community bonuses.
+                  {t.checkout.description
+                    .replace("{tier}", selectedUpgradePlan || "")
+                    .replace("{cycle}", billingCycle === "monthly" ? t.checkout.monthly : t.checkout.annually)
+                  }
                 </p>
 
                 <div className="bg-[var(--sur2)]/60 border border-[var(--bd)]/60 rounded-2xl p-4 space-y-3">
                   <div className="flex justify-between text-xs">
-                    <span className="text-[var(--txt2)]">Selected Tier</span>
+                    <span className="text-[var(--txt2)]">{t.checkout.selectedTier}</span>
                     <span className="font-bold text-[var(--txt)]">{selectedUpgradePlan}</span>
                   </div>
                   <div className="flex justify-between text-xs">
-                    <span className="text-[var(--txt2)] font-semibold">Billing Frequency</span>
-                    <span className="font-bold capitalize text-[var(--ac)]">{billingCycle}</span>
+                    <span className="text-[var(--txt2)] font-semibold">{t.checkout.billingFrequency}</span>
+                    <span className="font-bold capitalize text-[var(--ac)]">
+                      {billingCycle === "monthly" ? t.checkout.monthly : t.checkout.annually}
+                    </span>
                   </div>
                   <div className="border-t border-[var(--bd)]/40 my-2 pt-2 flex justify-between text-xs text-[var(--txt)] font-black">
-                    <span>Due Now</span>
+                    <span>{t.checkout.dueNow}</span>
                     <span>
-                      {selectedUpgradePlan.includes("Free")
+                      {selectedUpgradePlan?.includes("Free")
                         ? "$0.00"
-                        : selectedUpgradePlan.includes("AI")
-                        ? billingCycle === "monthly" ? "$3.99" : "$38.28 / year"
-                        : selectedUpgradePlan.includes("Educator")
-                        ? billingCycle === "monthly" ? "$9.99" : "$95.88 / year"
-                        : billingCycle === "monthly" ? "$29.00" : "$278.40 / year"
+                        : selectedUpgradePlan?.includes("AI")
+                        ? billingCycle === "monthly" ? "$5.99" : "$53.88 / " + (lang === "uz" ? "yil" : lang === "ru" ? "год" : "year")
+                        : selectedUpgradePlan?.includes("Creator")
+                        ? billingCycle === "monthly" ? "$15.00" : "$135.00 / " + (lang === "uz" ? "yil" : lang === "ru" ? "год" : "year")
+                        : billingCycle === "monthly" ? "$43.00" : "$387.00 / " + (lang === "uz" ? "yil" : lang === "ru" ? "год" : "year")
                       }
                     </span>
                   </div>
                 </div>
 
-                {/* Simulated payment inputs */}
+                {/* Card Details Input form */}
                 <div className="space-y-2 text-left">
-                  <label className="text-[10px] font-mono text-[var(--txt3)] uppercase tracking-wider font-bold">Simulated Card Details</label>
-                  <div className="grid grid-cols-3 gap-2">
+                  <label className="text-[10px] font-mono text-[var(--txt3)] uppercase tracking-wider font-bold">{t.checkout.paymentDetails}</label>
+                  <div className="space-y-2">
                     <input
                       type="text"
-                      disabled
-                      placeholder="4242 •••• •••• 1234"
-                      className="col-span-2 bg-[var(--sur2)]/60 border border-[var(--bd)] rounded-xl px-3 py-2 text-xs text-[var(--txt2)] outline-none"
+                      placeholder={t.checkout.cardholderName}
+                      className="w-full bg-[var(--sur2)]/60 border border-[var(--bd)] rounded-xl px-3 py-2 text-xs text-[var(--txt)] focus:outline-none focus:border-[var(--ac)]"
                     />
-                    <input
-                      type="text"
-                      disabled
-                      placeholder="MM/YY"
-                      className="bg-[var(--sur2)]/60 border border-[var(--bd)] rounded-xl px-3 py-2 text-xs text-[var(--txt2)] text-center outline-none"
-                    />
+                    <div className="grid grid-cols-3 gap-2">
+                      <input
+                        type="text"
+                        maxLength={19}
+                        placeholder={t.checkout.cardNumber}
+                        className="col-span-2 bg-[var(--sur2)]/60 border border-[var(--bd)] rounded-xl px-3 py-2 text-xs text-[var(--txt)] focus:outline-none focus:border-[var(--ac)]"
+                      />
+                      <input
+                        type="text"
+                        maxLength={5}
+                        placeholder={t.checkout.expiryDate}
+                        className="bg-[var(--sur2)]/60 border border-[var(--bd)] rounded-xl px-3 py-2 text-xs text-[var(--txt)] text-center focus:outline-none focus:border-[var(--ac)]"
+                      />
+                    </div>
                   </div>
-                  <span className="text-[8.5px] text-[var(--txt3)] italic block">
-                    * This is a fully functional demonstration environment. No real funds are moved.
-                  </span>
                 </div>
 
                 <div className="flex gap-2 pt-2">
@@ -2052,16 +2314,16 @@ export const Content: React.FC = () => {
                     onClick={() => setSelectedUpgradePlan(null)}
                     className="flex-1 py-2.5 rounded-xl border border-[var(--bd)] text-xs text-[var(--txt2)] hover:bg-[var(--sur2)] cursor-pointer font-black uppercase text-center"
                   >
-                    Cancel
+                    {t.checkout.btnCancel}
                   </button>
                   <button
                     onClick={() => {
                       setIsPremiumUser(true);
                       setSelectedUpgradePlan(null);
                       setLiveToast({
-                        sender: "System Broker",
+                        sender: t.checkout.toastSender,
                         channel: "billing",
-                        text: "👑 Congratulations! Your Premium Subscription is fully updated!"
+                        text: t.checkout.successToast
                       });
                       setTimeout(() => {
                         setLiveToast(null);
@@ -2069,7 +2331,7 @@ export const Content: React.FC = () => {
                     }}
                     className="flex-1 py-2.5 rounded-xl bg-grad-main text-white text-xs font-black uppercase shadow-lg shadow-[var(--ac)]/25 hover:opacity-90 active:scale-[0.98] transition-all cursor-pointer text-center"
                   >
-                    Confirm & Unlock
+                    {t.checkout.btnConfirm}
                   </button>
                 </div>
               </div>
