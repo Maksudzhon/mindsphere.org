@@ -70,9 +70,9 @@ export const Content: React.FC = () => {
   const [quizSubmitted, setQuizSubmitted] = useState<boolean>(false);
   const [selectedClanId, setSelectedClanId] = useState<number>(1);
   const [clanRatings, setClanRatings] = useState([
-    { id: 1, name: "Sovereign Minds", members: 24, xp: 48900, tag: "CS & Logic", weeklyProgress: [12000, 15000, 18000, 22000, 25000, 48900] },
-    { id: 2, name: "Cosmic Devs", members: 19, xp: 45200, tag: "Astro Systems", weeklyProgress: [9000, 13000, 17000, 21000, 31000, 45200] },
-    { id: 3, name: "Quantum Alchemists", members: 15, xp: 42100, tag: "Quantum Math", weeklyProgress: [15000, 19000, 22000, 28000, 34000, 42100] }
+    { id: 1, name: "Sovereign Minds", members: 12, xp: 48900, tag: "CS & Logic", weeklyProgress: [12000, 15000, 18000, 22000, 25000, 48900] },
+    { id: 2, name: "Cosmic Devs", members: 11, xp: 45200, tag: "Astro Systems", weeklyProgress: [9000, 13000, 17000, 21000, 31000, 45200] },
+    { id: 3, name: "Quantum Alchemists", members: 8, xp: 42100, tag: "Quantum Math", weeklyProgress: [15000, 19000, 22000, 28000, 34000, 42100] }
   ]);
   const [chatChannel, setChatChannel] = useState<"clan" | "friends" | "teacher">("clan");
   
@@ -223,7 +223,7 @@ export const Content: React.FC = () => {
   };
 
   const launchLMS = () => {
-    window.location.href = "https://mindsphere.com";
+    window.location.href = "https://mindsphere.space";
   };
 
   const localFAQTranslations = {
@@ -676,8 +676,13 @@ export const Content: React.FC = () => {
                       return (
                         <motion.div
                           key={i}
-                          whileHover={{ scale: 1.05, y: -2, borderColor: "rgba(124, 111, 255, 0.4)", boxShadow: "0 8px 18px rgba(124, 111, 255, 0.12)" }}
-                          transition={{ type: "spring", stiffness: 400, damping: 20 }}
+                          whileHover={{
+                            scale: 1.03,
+                            y: -4,
+                            borderColor: "var(--ac)",
+                            boxShadow: "0 10px 20px -10px rgba(124, 111, 255, 0.2)"
+                          }}
+                          transition={{ type: "spring", stiffness: 350, damping: 25 }}
                           className="p-3 rounded-xl border border-[var(--bd)] bg-[var(--sur)] flex flex-col justify-between h-[80px] cursor-pointer"
                         >
                           <domain.icon size={18} className="text-[var(--ac)]" />
@@ -1358,21 +1363,17 @@ export const Content: React.FC = () => {
                 </p>
 
                 <ul className="space-y-3 text-[10px] text-[var(--txt2)] border-t border-[var(--bd)] pt-4 mb-6">
-                  <li className="flex items-center gap-2">
-                    <span className="text-emerald-500 font-bold">✓</span>
-                    <span>{t.pricing.c1Features[0]}</span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <span className="text-emerald-500 font-bold">✓</span>
-                    <span>Basic AI tutor access (Gemini)</span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <span className="text-emerald-500 font-bold">✓</span>
-                    <span>Standard Community Clans access</span>
-                  </li>
+                  {t.pricing.c1Features.map((feat, fidx) => (
+                    <li key={fidx} className="flex items-center gap-2 animate-fade-in">
+                      <span className="text-emerald-500 font-bold">✓</span>
+                      <span>{feat}</span>
+                    </li>
+                  ))}
                   <li className="flex items-center gap-2 text-[var(--txt3)] border-t border-[var(--bd)]/30 pt-2 mt-2">
                     <span className="font-bold">✗</span>
-                    <span className="line-through">Custom interactive sandbox playgrounds</span>
+                    <span className="line-through">
+                      {lang === "uz" ? "Maxsus interaktiv dasturlash qum qutilari" : lang === "ru" ? "Интерактивные песочницы для кодинга" : "Custom interactive sandbox playgrounds"}
+                    </span>
                   </li>
                 </ul>
               </div>
@@ -1402,33 +1403,41 @@ export const Content: React.FC = () => {
                     AI Premium
                   </span>
                 </div>
-                <h3 className="text-sm font-bold font-display text-[var(--txt)]">AI Learner Pro</h3>
+                <h3 className="text-sm font-bold font-display text-[var(--txt)]">AI Learner</h3>
                 <div className="my-3 flex items-baseline gap-1">
                   <span className="text-2xl font-black font-display text-[var(--ac)]">
                     {billingCycle === "monthly" ? "$5.99" : "$4.49"}
                   </span>
                   <span className="text-xs text-[var(--txt3)] font-semibold font-mono">/ mo</span>
                 </div>
-                <p className="text-[10px] text-[var(--txt2)] mb-5 font-medium leading-normal">
-                  Unlock advanced reasoning AI models for hyper-speed learning.
+                <p className="text-[10px] text-[var(--txt2)] mb-5 font-medium leading-normal animate-fade-in">
+                  {lang === "uz" ? "Katta mantiqiy sun'iy intellekt modellariga kirish va kuniga 300 ta so'rov." : lang === "ru" ? "Доступ к продвинутым ИИ-моделям глубокого рассуждения и 300 запросов в день." : "Unlock advanced reasoning AI models with 300 requests/day for hyper-speed study."}
                 </p>
 
                 <ul className="space-y-3 text-[10px] text-[var(--txt2)] border-t border-[var(--bd)] pt-4 mb-6">
                   <li className="flex items-center gap-2">
                     <span className="text-[var(--ac)] font-bold">✓</span>
-                    <span className="font-bold text-[var(--txt)]">Unlimited Deep-Reasoning AI Tutor</span>
+                    <span className="font-bold text-[var(--txt)]">
+                      {lang === "uz" ? "Kuniga 300 ta AI so'rovi" : lang === "ru" ? "300 ИИ-запросов в сутки" : "300 AI requests/day"}
+                    </span>
                   </li>
                   <li className="flex items-center gap-2">
                     <span className="text-[var(--ac)] font-bold">✓</span>
-                    <span>Audio Speech voiceover narration</span>
+                    <span>
+                      {lang === "uz" ? "Ilg'or fikrlovchi AI modellar" : lang === "ru" ? "Продвинутые модели рассуждения" : "Advanced reasoning AI models"}
+                    </span>
                   </li>
                   <li className="flex items-center gap-2">
                     <span className="text-[var(--ac)] font-bold">✓</span>
-                    <span>Advanced logic & coding sandbox</span>
+                    <span>
+                      {lang === "uz" ? "Audio darslik va amaliy testlar" : lang === "ru" ? "Аудио лекции и практические тесты" : "Audio voiceover & practice quizzes"}
+                    </span>
                   </li>
                   <li className="flex items-center gap-2">
                     <span className="text-[var(--ac)] font-bold">✓</span>
-                    <span>Exclusive Supporter profile card badge</span>
+                    <span>
+                      {lang === "uz" ? "Supporter profil belgisi" : lang === "ru" ? "Значок Supporter в профиле" : "Exclusive Supporter profile badge"}
+                    </span>
                   </li>
                 </ul>
               </div>
@@ -1461,26 +1470,16 @@ export const Content: React.FC = () => {
                   <span className="text-xs text-[var(--txt3)] font-semibold font-mono font-bold">/ mo</span>
                 </div>
                 <p className="text-[10px] text-[var(--txt2)] mb-5 font-medium leading-normal">
-                  {lang === "uz" ? "Yillik tarifda darslar uchun 10% chegirma beriladi" : lang === "ru" ? "При годовой подписке скидка 10% на все платные курсы" : "Get 10% discount on every course platform-wide on annual option!"}
+                  {lang === "uz" ? "Mualliflar uchun 500 ta kunlik AI so'rovi va boy darslik boshqaruvi." : lang === "ru" ? "500 ИИ-запросов в сутки, генерация учебных планов и глубокая аналитика." : "Publish paid courses with 90% revenue share, 500 daily requests, and analytical dashboards."}
                 </p>
 
                 <ul className="space-y-3 text-[10px] text-[var(--txt2)] border-t border-[var(--bd)] pt-4 mb-6">
-                  <li className="flex items-center gap-2">
-                    <span className="text-[var(--ac)] font-bold">✓</span>
-                    <span>Publish infinite paid path streams</span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <span className="text-[var(--ac)] font-bold">✓</span>
-                    <span className="font-bold text-[var(--txt)]">Annual Special: 10% Discount logic</span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <span className="text-[var(--ac)] font-bold">✓</span>
-                    <span>AI Automatic Syllabus generator</span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <span className="text-[var(--ac)] font-bold">✓</span>
-                    <span>Deep statistics and grading panels</span>
-                  </li>
+                  {t.pricing.c2Features.map((feat, fidx) => (
+                    <li key={fidx} className="flex items-center gap-2 animate-fade-in">
+                      <span className="text-[var(--ac)] font-bold">✓</span>
+                      <span>{feat}</span>
+                    </li>
+                  ))}
                 </ul>
               </div>
 
@@ -1499,53 +1498,61 @@ export const Content: React.FC = () => {
               className="p-5 rounded-2xl border border-[var(--ac2)] bg-[var(--sur)] flex flex-col justify-between relative overflow-hidden"
             >
               <div className="absolute top-0 right-0 h-12 w-12 bg-indigo-500/10 rounded-bl-full border-b border-l border-indigo-500/35 pointer-events-none flex items-center justify-center">
-                <span className="text-[9px] translate-x-1.5 -translate-y-1.5 rotate-45 font-black text-indigo-400">NITRO</span>
+                <span className="text-[9px] translate-x-1.5 -translate-y-1.5 rotate-45 font-black text-indigo-400">AETHER</span>
               </div>
               <div>
                 <div className="flex justify-between items-start mb-2">
                   <span className="text-[9px] font-mono uppercase bg-indigo-500/15 border border-indigo-500/30 px-2 py-0.5 rounded font-black text-indigo-400">
-                    Elite
+                    Aether Tier
                   </span>
                 </div>
-                <h3 className="text-sm font-bold font-display text-grad-main">{t.pricing.c3Title}</h3>
+                <h3 className="text-sm font-bold font-display text-grad-main">{lang === "uz" ? "Aether Pass" : lang === "ru" ? "Aether Pass" : "Aether Pass"}</h3>
                 <div className="my-3 flex items-baseline gap-1">
                   <span className="text-2xl font-black font-display text-[var(--txt)]">
                     {billingCycle === "monthly" ? "$43.00" : "$32.25"}
                   </span>
                   <span className="text-xs text-[var(--txt3)] font-semibold font-mono">/ mo</span>
                 </div>
-                <p className="text-[10px] text-[var(--txt2)] mb-5 font-medium leading-normal">
-                  {lang === "uz" ? "Discord Nitro uslubi, avatar bezaklari va doimiy 25% chegirma!" : lang === "ru" ? "Discord Nitro стиль, яркие аватары и постоянная 25% скидка!" : "Includes elite custom name glows and 25% course discount logic."}
+                <p className="text-[10px] text-[var(--txt2)] mb-5 font-medium leading-normal animate-fade-in">
+                  {lang === "uz" ? "Aether Pass — qat'iyan 1,000 AI so'rovi, darslarga 20% chegirma (Aqlli Hamkorlik modeli), klan tajribasi va neon hoshiyalar!" : lang === "ru" ? "Aether Pass — строго 1,000 ИИ-запросов, скидка 20% на курсы-участники (Партнерская модель), буст клана и неоновые рамки!" : "Strictly 1,000 requests/day, flat 20% participating course discount (Smart Partnership Model), clan XP boost, and dynamic animated profiles."}
                 </p>
 
                 <ul className="space-y-3 text-[10px] text-[var(--txt2)] border-t border-[var(--bd)] pt-4 mb-6">
                   <li className="flex items-center gap-2">
                     <span className="text-indigo-500 font-bold">✓</span>
-                    <span className="font-bold text-[var(--txt)]">Platform-wide 25% Course Discount</span>
+                    <span className="font-bold text-[var(--txt)]">
+                      {lang === "uz" ? "Qat'iyan kuniga 1,000 AI so'rovi & 24/7 tezkor xizmat (FUP)" : lang === "ru" ? "Строго 1,000 ИИ-запросов/день + поддержка 24/7 (FUP)" : "Strictly 1,000 AI requests/day & 24/7 Priority Live AI (FUP)"}
+                    </span>
                   </li>
                   <li className="flex items-center gap-2">
                     <span className="text-indigo-500 font-bold">✓</span>
-                    <span>Neon Nickname & Discord Nitro glowing glows</span>
+                    <span>
+                      {lang === "uz" ? "Kurslarga 20% chegirma (Aqlli Hamkorlik: platforma 0% fee)" : lang === "ru" ? "Скидка 20% на курсы-участники (Партнерская модель)" : "Flat 20% Course Discount (Smart Partnership: 0% Platform fee)"}
+                    </span>
                   </li>
                   <li className="flex items-center gap-2">
                     <span className="text-indigo-500 font-bold">✓</span>
-                    <span>Custom cyber avatar rings and profile decorations</span>
+                    <span>
+                      {lang === "uz" ? "+15% XP klan tajribasi multiplier ko'paytirgichi (max 12)" : lang === "ru" ? "+15% умножитель опыта клана для всего отряда из 12 человек" : "+15% Clan XP Boost multiplier for the entire 12-person squad"}
+                    </span>
                   </li>
                   <li className="flex items-center gap-2">
                     <span className="text-indigo-500 font-bold">✓</span>
-                    <span>High-tier server priority streaming limits</span>
+                    <span>
+                      {lang === "uz" ? "Yo'nalishga moslanuvchi ramkalar, golografik statuslar, porlovchi nik" : lang === "ru" ? "Рамки аватара, хромовые ники, голографические значки & темы" : "Dynamic science-reactive borders, chrome glows & status badges"}
+                    </span>
                   </li>
                 </ul>
               </div>
 
               <button
                 onClick={() => {
-                  setSelectedUpgradePlan("Elite Pass");
+                  setSelectedUpgradePlan("Aether Pass");
                   setIsPremiumUser(true);
                 }}
                 className="w-full py-2 rounded-xl bg-grad-main text-[10px] font-black uppercase text-white transition-all cursor-pointer text-center font-bold"
               >
-                {lang === "en" ? "Get Elite Pass" : "Получить Elite Pass"}
+                {lang === "uz" ? "Aether Pass Olish" : lang === "ru" ? "Активировать Aether Pass" : "Acquire Aether Pass"}
               </button>
             </motion.div>
 
@@ -1577,7 +1584,7 @@ export const Content: React.FC = () => {
                   </span>
                   <h3 className="text-base font-bold font-display text-[var(--txt)] flex items-center gap-1.5">
                     <span>
-                      {lang === "uz" ? "Elite Pass & Nitro-Stil Shaxsiy Sozlamalar" : lang === "ru" ? "Студия кастомизации Elite Pass & Nitro-стиль" : "Elite Pass & Discord Nitro Customs Playground"}
+                      {lang === "uz" ? "Aether Pass & Nitro-Stil Shaxsiy Sozlamalar" : lang === "ru" ? "Студия кастомизации Aether Pass & Nitro-стиль" : "Aether Pass & Discord Nitro Customs Playground"}
                     </span>
                     <Sparkles size={14} className="text-indigo-400 shrink-0 animate-pulse" />
                   </h3>
@@ -1677,9 +1684,9 @@ export const Content: React.FC = () => {
                 <div className="flex gap-2 bg-indigo-500/5 rounded-xl p-3 border border-indigo-500/10 text-[9px] text-indigo-400 font-semibold leading-relaxed">
                   <span className="text-xs font-mono select-none shrink-0 font-bold">ℹ</span>
                   <p>
-                    {lang === "uz" ? "Ushbu sozlamalar faol Elite Pass foydalanuvchilariga mindsphere.org platformasida barcha chatlarda va peshqadamlar jadvalida avtomatik porlashini ta'minlaydi!"
-                      : lang === "ru" ? "Эти настройки предоставляют владельцам Elite Pass автоматическое свечение никнеймов в общих чатах на mindsphere.org, а также во всех рейтинговых таблицах!"
-                      : "These custom styles are applied automatically for Elite Pass owners in all community chats, discussion boards, and scoreboard leaderboards platform-wide!"}
+                    {lang === "uz" ? "Ushbu sozlamalar faol Aether Pass foydalanuvchilariga mindsphere.org platformasida barcha chatlarda va peshqadamlar jadvalida avtomatik porlashini ta'minlaydi!"
+                      : lang === "ru" ? "Эти настройки предоставляют владельцам Aether Pass автоматическое свечение никнеймов в общих чатах на mindsphere.org, а также во всех рейтинговых таблицах!"
+                      : "These custom styles are applied automatically for Aether Pass owners in all community chats, discussion boards, and scoreboard leaderboards platform-wide!"}
                   </p>
                 </div>
 
@@ -1708,7 +1715,7 @@ export const Content: React.FC = () => {
                   <div className="absolute top-4 right-4 flex gap-1 items-center">
                     {nitroBadge !== "none" && (
                       <span className="text-[7px] font-mono select-none px-1.5 py-0.5 rounded-full bg-indigo-500 text-white font-black uppercase tracking-wider animate-pulse flex items-center gap-0.5 shadow">
-                        <span>✦</span>ELITE
+                        <span>✦</span>AETHER
                       </span>
                     )}
                   </div>
@@ -1749,7 +1756,7 @@ export const Content: React.FC = () => {
                         {nitroNick}
                       </h4>
                       <p className="text-[8px] text-white/50 font-mono tracking-widest font-black uppercase">
-                        {lang === "uz" ? "ELITE CLASS O'QUVCHISI" : lang === "ru" ? "ЭЛИТНЫЙ НАБЛЮДАТЕЛЬ" : "ELITE CLASS SCHOLAR"}
+                        {lang === "uz" ? "AETHER CLASS O'QUVCHISI" : lang === "ru" ? "AETHER НАБЛЮДАТЕЛЬ" : "AETHER CLASS SCHOLAR"}
                       </p>
                     </div>
 
@@ -1983,11 +1990,12 @@ export const Content: React.FC = () => {
                 { q: t.faq.q8, a: t.faq.a8 },
                 { q: t.faq.q9, a: t.faq.a9 },
                 { q: t.faq.q10, a: t.faq.a10 },
+                { q: t.faq.q11, a: t.faq.a11 },
               ];
 
               const getCategory = (idx: number): "platform" | "ai" | "pricing" => {
-                if ([0, 3, 7, 8].includes(idx)) return "platform";
-                if ([1, 6, 9].includes(idx)) return "ai";
+                if ([0, 3, 7, 8, 9].includes(idx)) return "platform";
+                if ([1, 10].includes(idx)) return "ai";
                 return "pricing";
               };
 

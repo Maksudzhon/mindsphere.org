@@ -235,7 +235,7 @@ export const LeaderboardSection: React.FC = () => {
           badge="Gamification Matrix"
           badgeColor="text-[var(--cyan)] bg-[var(--cyan)]/10"
           title="Consolidate Knowledge Through Action"
-          subtitle="Real-time scoreboard trackers and weekly administration challenges motivate student sprint habits on mindsphere.com."
+          subtitle="Real-time scoreboard trackers and weekly administration challenges motivate student sprint habits on mindsphere.space."
         />
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start mt-8">

@@ -30,8 +30,8 @@ export const AuthModal: React.FC = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // In marketing site, we simulate success and redirect to livesite mindsphere.com
-    window.location.href = "https://mindsphere.com";
+    // In marketing site, we simulate success and redirect to livesite mindsphere.space
+    window.location.href = "https://mindsphere.space";
   };
 
   return (
@@ -229,7 +229,7 @@ export const AuthModal: React.FC = () => {
             {/* Direct Redirect link */}
             <div className="mt-5 pt-4 border-t border-[var(--bd)] text-center">
               <a
-                href="https://mindsphere.com"
+                href="https://mindsphere.space"
                 className="text-xs text-[var(--green)] hover:underline inline-flex items-center gap-1 font-medium transition-all"
               >
                 {t.auth.orLink}

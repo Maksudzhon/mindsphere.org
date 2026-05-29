@@ -108,7 +108,7 @@ export const Footer: React.FC = () => {
               </li>
               <li>
                 <a
-                  href="https://mindsphere.com"
+                  href="https://mindsphere.space"
                   className="hover:text-[var(--ac)] transition-colors cursor-pointer"
                 >
                   {t.footer.c1Link3}
