@@ -6,7 +6,7 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { Play, Sparkles, BookOpen, Clock, Heart, Award, Shield, Cpu, Flame, Leaf, Scale, Paintbrush, Ruler, Briefcase, Music, Unlock, Eye, X, Check } from "lucide-react";
-import { useApp } from "./AppProvider";
+import { useApp } from "../providers/AppProvider";
 
 export const Hero: React.FC = () => {
   const { t, setIsAuthOpen, setAuthTab, lang } = useApp();
@@ -106,7 +106,7 @@ export const Hero: React.FC = () => {
       {/* Three Ambient Soft-Glow Gradients behind everything */}
       <div className="absolute top-[10%] left-[5%] w-[300px] h-[300px] rounded-full bg-[var(--ac)]/15 blur-[90px] pointer-events-none" />
       <div className="absolute bottom-[20%] right-[5%] w-[350px] h-[350px] rounded-full bg-[var(--cyan)]/10 blur-[100px] pointer-events-none" />
-      <div className="absolute top-[40%] left-[50%] -translate-x-1/2 w-[280px] h-[280px] rounded-full bg-[var(--green)]/10 blur-[85px] pointer-events-none" />
+      <div className="absolute top-[40%] left-[50%] -translate-x-1/2 w-[280px] h-[280px] rounded-full bg-[var(--green)]/15 blur-[85px] pointer-events-none" />
 
       {/* Grid Pattern overlay with masked fadeout towards the bottom */}
       <div className="absolute inset-0 dot-grid opacity-35 max-h-[920px] [mask-image:linear-gradient(to_bottom,black_70%,transparent_100%)] pointer-events-none" />
@@ -191,7 +191,7 @@ export const Hero: React.FC = () => {
                 src={img}
                 referrerPolicy="no-referrer"
                 alt="Active Student avatar representation"
-                className="w-7 h-7 rounded-full border-1 border-[var(--bg)] object-cover bg-neutral-800"
+                className="w-7 h-7 rounded-full border-1 border-[var(--bg)] object-cover bg-neutral-800 animate-fadeIn"
               />
             ))}
           </div>
@@ -343,7 +343,7 @@ export const Hero: React.FC = () => {
                     return (
                       <motion.div
                         key={c.id}
-                        onClick={() => setQuickViewCourse({ ...c, index: c.id })}
+                        onClick={() => setQuickViewCourse({ ...c, index: c.id, name: courseName })}
                         whileHover={{
                           scale: 1.03,
                           y: -4,
@@ -359,7 +359,7 @@ export const Hero: React.FC = () => {
                             type="button"
                             onClick={(e) => {
                               e.stopPropagation();
-                              setQuickViewCourse({ ...c, index: c.id });
+                              setQuickViewCourse({ ...c, index: c.id, name: courseName });
                             }}
                             className="px-3 py-1.5 rounded-lg bg-[var(--ac)] text-white hover:opacity-90 font-sans font-extrabold text-[10px] uppercase tracking-wider shadow-md hover:scale-105 active:scale-95 transition-all flex items-center justify-center gap-1.5 select-none cursor-pointer w-32"
                           >
@@ -387,8 +387,8 @@ export const Hero: React.FC = () => {
                           </div>
                           <div className="h-1 bg-[var(--sur2)] rounded-full overflow-hidden">
                             <div
-                              className="h-full rounded-full transition-all duration-1000"
-                              style={{ width: `${c.prog}%`, backgroundColor: c.color }}
+                               className="h-full rounded-full transition-all duration-1000"
+                               style={{ width: `${c.prog}%`, backgroundColor: c.color }}
                             />
                           </div>
                         </div>
@@ -445,7 +445,7 @@ export const Hero: React.FC = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="fixed inset-0 z-[100] bg-black/85 backdrop-blur-md flex items-center justify-center p-4"
+              className="fixed inset-0 z-[100] bg-black/85 backdrop-blur-md flex items-center justify-center p-4 shadow-2xl"
               onClick={() => setQuickViewCourse(null)}
             >
               <motion.div
@@ -474,7 +474,7 @@ export const Hero: React.FC = () => {
                   {/* Header */}
                   <div className="flex items-start gap-4">
                     <div 
-                      className="p-3.5 rounded-2xl flex items-center justify-center text-white shrink-0 shadow-lg animate-pulse"
+                      className="p-3.5 rounded-2xl flex items-center justify-center text-white shrink-0 shadow-lg"
                       style={{ backgroundColor: quickViewCourse.color }}
                     >
                       <SelectedIcon size={24} />

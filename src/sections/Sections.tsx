@@ -6,7 +6,7 @@
 import React from "react";
 import { motion } from "motion/react";
 import { Award, GraduationCap, PenTool, Users, MapPin, Zap, Flame, Trophy } from "lucide-react";
-import { useApp } from "./AppProvider";
+import { useApp } from "../providers/AppProvider";
 
 // 1. Reusable Section Header Component
 interface SectionHeaderProps {
@@ -123,7 +123,7 @@ export const RolesSection: React.FC = () => {
                 t.roles.studentBullet4,
                 t.roles.studentBullet5,
               ].map((bullet, i) => (
-                <li key={i} className="flex items-start gap-2.5 leading-relaxed text-[var(--txt2)]">
+                <li key={i} className="flex items-start gap-2.5 leading-relaxed text-[var(--txt2)] font-semibold">
                   <span className="text-[var(--green)] text-xs mt-0.5 font-mono select-none">✓</span>
                   <span>{bullet}</span>
                 </li>
@@ -161,7 +161,7 @@ export const RolesSection: React.FC = () => {
                 t.roles.teacherBullet4,
                 t.roles.teacherBullet5,
               ].map((bullet, i) => (
-                <li key={i} className="flex items-start gap-2.5 leading-relaxed text-[var(--txt2)]">
+                <li key={i} className="flex items-start gap-2.5 leading-relaxed text-[var(--txt2)] font-semibold">
                   <span className="text-[var(--ac)] text-xs mt-0.5 font-mono select-none">✓</span>
                   <span className={i === 2 ? "font-bold text-[var(--txt)]" : ""}>{bullet}</span>
                 </li>
@@ -169,9 +169,9 @@ export const RolesSection: React.FC = () => {
             </ul>
 
             {/* Income Commission Yellow Alert box */}
-            <div className="p-3.5 rounded-xl border border-[var(--amber)]/25 bg-[var(--amber)]/5 text-[10px] leading-relaxed text-[var(--txt)] font-medium">
+            <div className="p-3.5 rounded-xl border border-[var(--amber)]/25 bg-[var(--amber)]/5 text-[10px] leading-relaxed text-[var(--txt)] font-semibold">
               <span className="font-extrabold text-[var(--amber)] text-xs inline-block mb-1 font-mono">Revenue Share Details</span>
-              <p className="text-[var(--txt2)] leading-normal">{t.roles.teacherRevenueCallout}</p>
+              <p className="text-[var(--txt2)] leading-normal font-semibold">{t.roles.teacherRevenueCallout}</p>
             </div>
           </motion.div>
 
@@ -200,7 +200,7 @@ export const RolesSection: React.FC = () => {
                 t.roles.teamBullet3,
                 t.roles.teamBullet4,
               ].map((bullet, i) => (
-                <li key={i} className="flex items-start gap-2.5 leading-relaxed text-[var(--txt2)]">
+                <li key={i} className="flex items-start gap-2.5 leading-relaxed text-[var(--txt2)] font-semibold">
                   <span className="text-[var(--cyan)] text-xs mt-0.5 font-mono select-none">✓</span>
                   <span>{bullet}</span>
                 </li>
@@ -228,14 +228,14 @@ export const LeaderboardSection: React.FC = () => {
   ];
 
   return (
-    <section className="py-20 border-b border-[var(--bd)]">
+    <section className="py-20 border-b border-[var(--bd)] bg-[var(--bg)]">
       <div className="max-w-7xl mx-auto px-4 md:px-8">
         
         <SectionHeader
-          badge="Gamification Matrix"
+          badge={t.leaderboard.headerBadge}
           badgeColor="text-[var(--cyan)] bg-[var(--cyan)]/10"
-          title="Consolidate Knowledge Through Action"
-          subtitle="Real-time scoreboard trackers and weekly administration challenges motivate student sprint habits on mindsphere.space."
+          title={t.leaderboard.headerTitle}
+          subtitle={t.leaderboard.headerSubtitle}
         />
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start mt-8">
@@ -322,7 +322,7 @@ export const LeaderboardSection: React.FC = () => {
                           )}
                           <span className="text-[10px] select-none" title={r.code.toUpperCase()}>{r.flag}</span>
                           {r.badge && (
-                            <span className="text-[8px] font-mono leading-none font-bold bg-[var(--amber)]/10 text-[var(--amber)] px-1.5 py-0.5 rounded ml-1">
+                            <span className="text-[8px] font-mono leading-none font-bold bg-[var(--amber)]/10 text-[var(--amber)] px-1.5 py-0.5 rounded ml-1 font-semibold">
                               {r.badge}
                             </span>
                           )}
@@ -339,7 +339,7 @@ export const LeaderboardSection: React.FC = () => {
                     </div>
 
                     <span className="font-mono text-[10px] md:text-xs font-black text-[var(--txt)] text-right">
-                      {r.pts} <span className="text-[8px] text-[var(--txt3)] font-sans">pts</span>
+                      {r.pts} <span className="text-[8px] text-[var(--txt3)] font-sans font-semibold">pts</span>
                     </span>
                   </div>
                 );

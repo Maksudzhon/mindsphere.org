@@ -3,29 +3,35 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { createContext, useContext, useState, useEffect } from "react";
+import React, { createContext, useContext, useState, useEffect, useCallback, useMemo } from "react";
 import { Translations, i18n } from "../lib/i18n";
 
 type Language = "en" | "ru" | "uz";
 type Theme = "dark" | "light";
 type PageState = "home" | "about";
 
+interface ThemeContextType {
+  theme: Theme;
+  toggleTheme: () => void;
+}
+
 interface AppContextType {
   lang: Language;
   setLang: (lang: Language) => void;
   langCode: Language;
   t: Translations;
-  theme: Theme;
-  toggleTheme: () => void;
   page: PageState;
   setPage: (page: PageState) => void;
   isAuthOpen: boolean;
   setIsAuthOpen: (open: boolean) => void;
   authTab: "signin" | "signup";
   setAuthTab: (tab: "signin" | "signup") => void;
+  showLangModal: boolean;
+  setShowLangModal: (show: boolean) => void;
 }
 
 const AppContext = createContext<AppContextType | undefined>(undefined);
+const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   // Load initial settings with fallback
@@ -34,7 +40,11 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     if (saved === "ru" || saved === "uz" || saved === "en") {
       return saved as Language;
     }
-    return "en";
+    return "uz";
+  });
+
+  const [showLangModal, setShowLangModal] = useState<boolean>(() => {
+    return !localStorage.getItem("ms_lang");
   });
 
   const [theme, setThemeRaw] = useState<Theme>(() => {
@@ -58,22 +68,25 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const [authTab, setAuthTab] = useState<"signin" | "signup">("signin");
 
   // Sync state actions to localStorage & HTML Attributes
-  const setLang = (newLang: Language) => {
+  const setLang = useCallback((newLang: Language) => {
     setLangRaw(newLang);
     localStorage.setItem("ms_lang", newLang);
-  };
+    setShowLangModal(false);
+  }, []);
 
-  const toggleTheme = () => {
-    const nextTheme = theme === "dark" ? "light" : "dark";
-    setThemeRaw(nextTheme);
-    localStorage.setItem("ms_theme", nextTheme);
-  };
+  const toggleTheme = useCallback(() => {
+    setThemeRaw((prev) => {
+      const nextTheme = prev === "dark" ? "light" : "dark";
+      localStorage.setItem("ms_theme", nextTheme);
+      return nextTheme;
+    });
+  }, []);
 
-  const setPage = (newPage: PageState) => {
+  const setPage = useCallback((newPage: PageState) => {
     setPageRaw(newPage);
     window.location.hash = newPage === "about" ? "about" : "";
     window.scrollTo({ top: 0, behavior: "smooth" });
-  };
+  }, []);
 
   // Sync theme to root class and data-theme attribute
   useEffect(() => {
@@ -97,26 +110,71 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     return () => window.removeEventListener("hashchange", handleHashChange);
   }, []);
 
-  const t = i18n[lang] || i18n.en;
+  const [t, setT] = useState<Translations>(() => i18n[lang] || i18n.uz);
+
+  useEffect(() => {
+    let isMounted = true;
+    if (i18n[lang]) {
+      setT(i18n[lang]);
+    } else {
+      if (lang === "en") {
+        import("../lib/locales/en").then((m) => {
+          if (!isMounted) return;
+          i18n.en = m.en;
+          setT(m.en);
+        }).catch((err) => {
+          console.error("Failed to lazy load en layout dictionary", err);
+        });
+      } else if (lang === "ru") {
+        import("../lib/locales/ru").then((m) => {
+          if (!isMounted) return;
+          i18n.ru = m.ru;
+          setT(m.ru);
+        }).catch((err) => {
+          console.error("Failed to lazy load ru layout dictionary", err);
+        });
+      }
+    }
+    return () => {
+      isMounted = false;
+    };
+  }, [lang]);
+
+  const themeContextValue = useMemo(() => ({
+    theme,
+    toggleTheme,
+  }), [theme, toggleTheme]);
+
+  // Memoize context value to shield downstream listeners from needless rendering
+  const contextValue = useMemo(() => ({
+    lang,
+    setLang,
+    langCode: lang,
+    t,
+    page,
+    setPage,
+    isAuthOpen,
+    setIsAuthOpen,
+    authTab,
+    setAuthTab,
+    showLangModal,
+    setShowLangModal,
+  }), [
+    lang,
+    setLang,
+    t,
+    page,
+    setPage,
+    isAuthOpen,
+    authTab,
+    showLangModal,
+  ]);
 
   return (
-    <AppContext.Provider
-      value={{
-        lang,
-        setLang,
-        langCode: lang,
-        t,
-        theme,
-        toggleTheme,
-        page,
-        setPage,
-        isAuthOpen,
-        setIsAuthOpen,
-        authTab,
-        setAuthTab,
-      }}
-    >
-      {children}
+    <AppContext.Provider value={contextValue}>
+      <ThemeContext.Provider value={themeContextValue}>
+        {children}
+      </ThemeContext.Provider>
     </AppContext.Provider>
   );
 };
@@ -125,6 +183,14 @@ export const useApp = () => {
   const context = useContext(AppContext);
   if (!context) {
     throw new Error("useApp must be used inside an AppProvider");
+  }
+  return context;
+};
+
+export const useTheme = () => {
+  const context = useContext(ThemeContext);
+  if (!context) {
+    throw new Error("useTheme must be used inside an AppProvider");
   }
   return context;
 };

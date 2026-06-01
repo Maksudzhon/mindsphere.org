@@ -5,20 +5,22 @@
 
 import React, { useState, useEffect } from "react";
 import { Menu, X, Sun, Moon, Globe, ChevronDown, Wifi, WifiOff } from "lucide-react";
-import { useApp } from "./AppProvider";
+import { motion, AnimatePresence } from "motion/react";
+import { useApp, useTheme } from "../../providers/AppProvider";
 
 export const Navbar: React.FC = () => {
   const {
     lang,
     setLang,
     t,
-    theme,
-    toggleTheme,
     page,
     setPage,
     setIsAuthOpen,
     setAuthTab,
+    setShowLangModal,
   } = useApp();
+
+  const { theme, toggleTheme } = useTheme();
 
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -87,6 +89,12 @@ export const Navbar: React.FC = () => {
     en: "EN",
     ru: "RU",
     uz: "UZ",
+  };
+
+  const mobileLangDisplay = {
+    en: "English",
+    ru: "Русский",
+    uz: "O'zbekcha",
   };
 
   return (
@@ -160,47 +168,36 @@ export const Navbar: React.FC = () => {
 
         {/* Right buttons array (Desktop) */}
         <div className="hidden lg:flex items-center gap-4">
-          {/* Custom Language Switcher pill style */}
-          <div className="flex items-center rounded-full bg-[var(--sur)] border border-[var(--bd)] p-0.5 relative">
-            <button
-              onClick={() => setLang("en")}
-              className={`px-2.5 py-1 text-[10px] font-bold rounded-full transition-all cursor-pointer ${
-                lang === "en"
-                  ? "bg-grad-main text-white shadow-sm"
-                  : "text-[var(--txt2)] hover:text-[var(--txt)]"
-              }`}
-            >
-              EN
-            </button>
-            <button
-              onClick={() => setLang("ru")}
-              className={`px-2.5 py-1 text-[10px] font-bold rounded-full transition-all cursor-pointer ${
-                lang === "ru"
-                  ? "bg-grad-main text-white shadow-sm"
-                  : "text-[var(--txt2)] hover:text-[var(--txt)]"
-              }`}
-            >
-              RU
-            </button>
-            <button
-              onClick={() => setLang("uz")}
-              className={`px-2.5 py-1 text-[10px] font-bold rounded-full transition-all cursor-pointer ${
-                lang === "uz"
-                  ? "bg-grad-main text-white shadow-sm"
-                  : "text-[var(--txt2)] hover:text-[var(--txt)]"
-              }`}
-            >
-              UZ
-            </button>
-          </div>
+          {/* Manual Select Language Modal Trigger */}
+          <button
+            onClick={() => setShowLangModal(true)}
+            className="flex items-center px-3 py-2 rounded-full border border-[var(--bd)] bg-[var(--sur)] text-[var(--txt2)] hover:text-[var(--ac)] hover:border-[var(--ac)]/45 transition-all cursor-pointer select-none"
+            title="Select Language / Tilni tanlash"
+          >
+            <Globe size={15} />
+            <span className="text-[10px] font-bold uppercase tracking-wider ml-1.5">
+              {lang.toUpperCase()}
+            </span>
+          </button>
 
           {/* Theme Switcher Toggle */}
           <button
             onClick={toggleTheme}
-            className="p-2 rounded-full border border-[var(--bd)] bg-[var(--sur)] text-[var(--txt2)] hover:text-[var(--ac)] transition-colors cursor-pointer"
+            className="relative p-2 rounded-full border border-[var(--bd)] bg-[var(--sur)] text-[var(--txt2)] hover:text-[var(--ac)] transition-colors cursor-pointer overflow-hidden flex items-center justify-center w-8 h-8 focus:outline-none"
             aria-label="Toggle theme"
           >
-            {theme === "dark" ? <Sun size={15} /> : <Moon size={15} />}
+            <AnimatePresence mode="wait" initial={false}>
+              <motion.div
+                key={theme}
+                initial={{ y: -12, scale: 0.5, rotate: -90, opacity: 0 }}
+                animate={{ y: 0, scale: 1, rotate: 0, opacity: 1 }}
+                exit={{ y: 12, scale: 0.5, rotate: 90, opacity: 0 }}
+                transition={{ duration: 0.18, ease: "easeInOut" }}
+                className="flex items-center justify-center p-0.5"
+              >
+                {theme === "dark" ? <Sun size={15} /> : <Moon size={15} />}
+              </motion.div>
+            </AnimatePresence>
           </button>
 
           {/* Sign In Trigger CTA */}
@@ -214,13 +211,37 @@ export const Navbar: React.FC = () => {
 
         {/* Hamburger (Mobile) */}
         <div className="flex lg:hidden items-center gap-2">
+          {/* Manual Language trigger icon */}
+          <button
+            onClick={() => {
+              setMobileOpen(false);
+              setShowLangModal(true);
+            }}
+            className="p-2 rounded-full border border-[var(--bd)] bg-[var(--sur)] text-[var(--txt2)] mr-1 cursor-pointer"
+            aria-label="Select Language"
+            title="Select Language / Tilni tanlash"
+          >
+            <Globe size={14} />
+          </button>
+
           {/* Theme switcher on mobile nav header directly */}
           <button
             onClick={toggleTheme}
-            className="p-2 rounded-full border border-[var(--bd)] bg-[var(--sur)] text-[var(--txt2)] mr-1 cursor-pointer"
+            className="relative p-2 rounded-full border border-[var(--bd)] bg-[var(--sur)] text-[var(--txt2)] mr-1 cursor-pointer overflow-hidden flex items-center justify-center w-8 h-8 focus:outline-none"
             aria-label="Toggle theme"
           >
-            {theme === "dark" ? <Sun size={14} /> : <Moon size={14} />}
+            <AnimatePresence mode="wait" initial={false}>
+              <motion.div
+                key={theme}
+                initial={{ y: -12, scale: 0.5, rotate: -90, opacity: 0 }}
+                animate={{ y: 0, scale: 1, rotate: 0, opacity: 1 }}
+                exit={{ y: 12, scale: 0.5, rotate: 90, opacity: 0 }}
+                transition={{ duration: 0.18, ease: "easeInOut" }}
+                className="flex items-center justify-center p-0.5"
+              >
+                {theme === "dark" ? <Sun size={14} /> : <Moon size={14} />}
+              </motion.div>
+            </AnimatePresence>
           </button>
 
           <button
@@ -275,30 +296,6 @@ export const Navbar: React.FC = () => {
               {t.nav.about}
             </button>
           </nav>
-
-          {/* Languages mobile switch list */}
-          <div className="w-full">
-            <p className="text-[10px] font-bold text-[var(--txt3)] uppercase tracking-widest mb-2">
-              Select Language
-            </p>
-            <div className="flex justify-center gap-2">
-              {["en", "ru", "uz"].map((l) => (
-                <button
-                  key={l}
-                  onClick={() => {
-                    setLang(l as "en" | "ru" | "uz");
-                  }}
-                  className={`px-4 py-1.5 text-xs font-bold rounded-full border transition-all ${
-                    lang === l
-                      ? "bg-grad-main text-white border-transparent"
-                      : "bg-[var(--sur2)] text-[var(--txt2)] border-[var(--bd)]"
-                  }`}
-                >
-                  {langNames[l as "en" | "ru" | "uz"]}
-                </button>
-              ))}
-            </div>
-          </div>
 
           {/* Action Trigger in mobile menu */}
           <button

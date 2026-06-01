@@ -5,7 +5,7 @@
 
 import React from "react";
 import { Globe, Github, MessageSquare, Twitter, PlayCircle } from "lucide-react";
-import { useApp } from "./AppProvider";
+import { useApp } from "../../providers/AppProvider";
 
 export const Footer: React.FC = () => {
   const { t, setPage } = useApp();
@@ -109,6 +109,8 @@ export const Footer: React.FC = () => {
               <li>
                 <a
                   href="https://mindsphere.space"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="hover:text-[var(--ac)] transition-colors cursor-pointer"
                 >
                   {t.footer.c1Link3}

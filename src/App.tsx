@@ -3,16 +3,30 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, memo, Suspense } from "react";
 import { ArrowUp } from "lucide-react";
-import { AppProvider, useApp } from "./components/AppProvider";
-import { Navbar } from "./components/Navbar";
-import { Hero } from "./components/Hero";
-import { StatsBar, RolesSection, LeaderboardSection } from "./components/Sections";
-import { Content } from "./components/Content";
-import { Footer } from "./components/Footer";
-import { AuthModal } from "./components/AuthModal";
-import { About } from "./components/About";
+import { AppProvider, useApp } from "./providers/AppProvider";
+import { Navbar } from "./components/shared/Navbar";
+import { Hero } from "./sections/Hero";
+import { StatsBar, RolesSection, LeaderboardSection } from "./sections/Sections";
+import { Content } from "./sections/Content";
+import { Footer } from "./components/shared/Footer";
+import { About } from "./sections/About";
+import { LanguageModal } from "./components/shared/LanguageModal";
+
+// Lazy load heavy interactive Modal components to optimize first-contentful paint and bundle sizes
+const AuthModalLazy = React.lazy(() =>
+  import("./features/auth/AuthModal").then((module) => ({ default: module.AuthModal }))
+);
+
+// Memoize heavy page blocks to prevent performance drop during scroll-state changes or context-updates
+const MemoizedNavbar = memo(Navbar);
+const MemoizedHero = memo(Hero);
+const MemoizedStatsBar = memo(StatsBar);
+const MemoizedRolesSection = memo(RolesSection);
+const MemoizedLeaderboardSection = memo(LeaderboardSection);
+const MemoizedContent = memo(Content);
+const MemoizedAbout = memo(About);
 
 function AppContent() {
   const { page } = useApp();
@@ -34,23 +48,30 @@ function AppContent() {
   return (
     <div className="min-h-screen flex flex-col justify-between bg-[var(--bg)] text-[var(--txt)] transition-colors duration-400 relative">
       {/* Sticky navigation header */}
-      <Navbar />
+      <MemoizedNavbar />
       
       {/* Route Render View state */}
       <main className="flex-grow">
         <div className="animate-fadeIn">
-          <Hero />
-          <StatsBar />
-          <RolesSection />
-          <LeaderboardSection />
-          <Content />
-          <About />
+          <MemoizedHero />
+          <MemoizedStatsBar />
+          <MemoizedRolesSection />
+          <MemoizedLeaderboardSection />
+          <MemoizedContent />
+          <MemoizedAbout />
         </div>
       </main>
 
       {/* Universal layout items */}
       <Footer />
-      <AuthModal />
+      
+      {/* Lazy loaded auth panel modal with React Suspense safe boundaries */}
+      <Suspense fallback={null}>
+        <AuthModalLazy />
+      </Suspense>
+
+      {/* Language select on first load modal */}
+      <LanguageModal />
 
       {/* Floating Action: scroll back to top */}
       {showScrollTop && (

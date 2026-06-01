@@ -6,7 +6,7 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { X, Mail, Lock, User, Check, ArrowRight } from "lucide-react";
-import { useApp } from "./AppProvider";
+import { useApp } from "../../providers/AppProvider";
 
 export const AuthModal: React.FC = () => {
   const { isAuthOpen, setIsAuthOpen, authTab, setAuthTab, t } = useApp();
@@ -16,6 +16,11 @@ export const AuthModal: React.FC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
+
+  // States for validation feedback
+  const [emailError, setEmailError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+  const [nameError, setNameError] = useState("");
 
   // Close on Escape key press
   useEffect(() => {
@@ -28,10 +33,49 @@ export const AuthModal: React.FC = () => {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [isAuthOpen, setIsAuthOpen]);
 
+  // Reset error states when switching tabs or loading modal
+  useEffect(() => {
+    setEmailError("");
+    setPasswordError("");
+    setNameError("");
+  }, [authTab, isAuthOpen]);
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // In marketing site, we simulate success and redirect to livesite mindsphere.space
-    window.location.href = "https://mindsphere.space";
+    
+    // Reset errors
+    setEmailError("");
+    setPasswordError("");
+    setNameError("");
+
+    let hasError = false;
+
+    // Validate email
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    if (!emailRegex.test(email)) {
+      setEmailError(t.auth.errorInvalidEmail);
+      hasError = true;
+    }
+
+    // Validate password
+    if (password.length < 8) {
+      setPasswordError(t.auth.errorShortPassword);
+      hasError = true;
+    }
+
+    // Validate name (Signup only)
+    if (authTab === "signup" && !name.trim()) {
+      setNameError(t.auth.errorRequiredName);
+      hasError = true;
+    }
+
+    if (hasError) return;
+
+    // Close the modal upon successful login simulator
+    setIsAuthOpen(false);
+
+    // Opening mindsphere.space in blank - opening a new tab
+    window.open("https://mindsphere.space", "_blank", "noopener,noreferrer");
   };
 
   return (
@@ -73,6 +117,7 @@ export const AuthModal: React.FC = () => {
             {/* Custom Tab Switchers */}
             <div className="flex border-b border-[var(--bd)] mb-6">
               <button
+                type="button"
                 onClick={() => setAuthTab("signin")}
                 className={`flex-1 pb-3 text-sm font-semibold transition-colors relative ${
                   authTab === "signin" ? "text-[var(--ac)]" : "text-[var(--txt2)] hover:text-[var(--txt)]"
@@ -87,6 +132,7 @@ export const AuthModal: React.FC = () => {
                 )}
               </button>
               <button
+                type="button"
                 onClick={() => setAuthTab("signup")}
                 className={`flex-1 pb-3 text-sm font-semibold transition-colors relative ${
                   authTab === "signup" ? "text-[var(--ac)]" : "text-[var(--txt2)] hover:text-[var(--txt)]"
@@ -106,9 +152,9 @@ export const AuthModal: React.FC = () => {
             <form onSubmit={handleSubmit} className="space-y-4">
               {authTab === "signup" && (
                 <div className="space-y-3">
-                  <label className="text-xs font-semibold uppercase tracking-wider text-[var(--txt2)] block">
+                  <span className="text-xs font-semibold uppercase tracking-wider text-[var(--txt2)] block">
                     {t.auth.roleLabel}
-                  </label>
+                  </span>
                   <div className="grid grid-cols-2 gap-3">
                     {/* Student Card */}
                     <div
@@ -164,56 +210,101 @@ export const AuthModal: React.FC = () => {
               {/* Name Field (Sign Up Only) */}
               {authTab === "signup" && (
                 <div className="space-y-1">
-                  <label className="text-xs font-medium text-[var(--txt2)] block">{t.auth.fullName}</label>
+                  <label htmlFor="auth-name-input" className="text-xs font-medium text-[var(--txt2)] block">
+                    {t.auth.fullName}
+                  </label>
                   <div className="relative">
                     <span className="absolute left-3 top-1/2 -translate-y-1/2 text-[var(--txt3)]">
                       <User size={16} />
                     </span>
                     <input
                       required
+                      id="auth-name-input"
                       type="text"
+                      className={`w-full pl-9 pr-4 py-2 text-sm bg-[var(--sur2)] rounded-xl border focus:outline-none transition-all text-[var(--txt)] ${
+                        nameError ? "border-red-500 focus:border-red-500" : "border-[var(--bd)] focus:border-[var(--ac)]"
+                      }`}
                       value={name}
-                      onChange={(e) => setName(e.target.value)}
+                      onChange={(e) => {
+                        setName(e.target.value);
+                        if (nameError) setNameError("");
+                      }}
                       placeholder="Jane Doe"
-                      className="w-full pl-9 pr-4 py-2 text-sm bg-[var(--sur2)] rounded-xl border border-[var(--bd)] focus:outline-none focus:border-[var(--ac)] transition-all text-[var(--txt)]"
+                      aria-invalid={!!nameError}
+                      aria-describedby={nameError ? "auth-name-error" : undefined}
                     />
                   </div>
+                  {nameError && (
+                    <p id="auth-name-error" className="text-xs text-red-500 mt-1" role="alert">
+                      {nameError}
+                    </p>
+                  )}
                 </div>
               )}
 
               {/* Common Fields */}
               <div className="space-y-1">
-                <label className="text-xs font-medium text-[var(--txt2)] block">{t.auth.email}</label>
+                <label htmlFor="auth-email-input" className="text-xs font-medium text-[var(--txt2)] block">
+                  {t.auth.email}
+                </label>
                 <div className="relative">
                   <span className="absolute left-3 top-1/2 -translate-y-1/2 text-[var(--txt3)]">
                     <Mail size={16} />
                   </span>
                   <input
                     required
+                    id="auth-email-input"
                     type="email"
+                    className={`w-full pl-9 pr-4 py-2 text-sm bg-[var(--sur2)] rounded-xl border focus:outline-none transition-all text-[var(--txt)] ${
+                      emailError ? "border-red-500 focus:border-red-500" : "border-[var(--bd)] focus:border-[var(--ac)]"
+                    }`}
                     value={email}
-                    onChange={(e) => setEmail(e.target.value)}
+                    onChange={(e) => {
+                      setEmail(e.target.value);
+                      if (emailError) setEmailError("");
+                    }}
                     placeholder="learner@mindsphere.org"
-                    className="w-full pl-9 pr-4 py-2 text-sm bg-[var(--sur2)] rounded-xl border border-[var(--bd)] focus:outline-none focus:border-[var(--ac)] transition-all text-[var(--txt)]"
+                    aria-invalid={!!emailError}
+                    aria-describedby={emailError ? "auth-email-error" : undefined}
                   />
                 </div>
+                {emailError && (
+                  <p id="auth-email-error" className="text-xs text-red-500 mt-1" role="alert">
+                    {emailError}
+                  </p>
+                )}
               </div>
 
               <div className="space-y-1">
-                <label className="text-xs font-medium text-[var(--txt2)] block">{t.auth.password}</label>
+                <label htmlFor="auth-password-input" className="text-xs font-medium text-[var(--txt2)] block">
+                  {t.auth.password}
+                </label>
                 <div className="relative">
                   <span className="absolute left-3 top-1/2 -translate-y-1/2 text-[var(--txt3)]">
                     <Lock size={16} />
                   </span>
                   <input
                     required
+                    id="auth-password-input"
                     type="password"
+                    className={`w-full pl-9 pr-4 py-2 text-sm bg-[var(--sur2)] rounded-xl border focus:outline-none transition-all text-[var(--txt)] ${
+                      passwordError ? "border-red-500 focus:border-red-500" : "border-[var(--bd)] focus:border-[var(--ac)]"
+                    }`}
                     value={password}
-                    onChange={(e) => setPassword(e.target.value)}
+                    onChange={(e) => {
+                      setPassword(e.target.value);
+                      if (passwordError) setPasswordError("");
+                    }}
                     placeholder="••••••••"
-                    className="w-full pl-9 pr-4 py-2 text-sm bg-[var(--sur2)] rounded-xl border border-[var(--bd)] focus:outline-none focus:border-[var(--ac)] transition-all text-[var(--txt)]"
+                    aria-invalid={!!passwordError}
+                    aria-describedby={passwordError ? "auth-password-error" : undefined}
                   />
                 </div>
+                {passwordError && (
+                  <p id="auth-password-error" className="text-xs text-red-500 mt-1" role="alert">
+                    {passwordError}
+                  </p>
+                )}
               </div>
 
               {/* Action Button */}
@@ -230,6 +321,8 @@ export const AuthModal: React.FC = () => {
             <div className="mt-5 pt-4 border-t border-[var(--bd)] text-center">
               <a
                 href="https://mindsphere.space"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="text-xs text-[var(--green)] hover:underline inline-flex items-center gap-1 font-medium transition-all"
               >
                 {t.auth.orLink}

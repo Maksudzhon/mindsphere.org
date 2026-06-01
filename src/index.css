@@ -70,6 +70,16 @@ html {
 body {
   background-color: var(--bg);
   overflow-x: hidden;
+  transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+/* Smoothly transition backgrounds and borders for major elements to prevent sudden flash on theme toggle */
+header, footer, section, nav, button, input, select, textarea, 
+.rounded-3xl, .rounded-2xl, .rounded-xl, .border, .bg-var-bg {
+  transition: background-color 0.35s cubic-bezier(0.4, 0, 0.2, 1), 
+              border-color 0.35s cubic-bezier(0.4, 0, 0.2, 1), 
+              color 0.35s cubic-bezier(0.4, 0, 0.2, 1), 
+              box-shadow 0.35s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* Typography styles */

@@ -6,11 +6,10 @@
 import React from "react";
 import { motion } from "motion/react";
 import { BookOpen, Users, Compass, Code, Landmark, Award, ArrowUpRight, MessageSquare, Mail, Github, GraduationCap, Laptop, Cpu, Trophy } from "lucide-react";
-import { useApp } from "./AppProvider";
-import { SectionHeader } from "./Sections";
+import { useApp } from "../providers/AppProvider";
 
 export const About: React.FC = () => {
-  const { t } = useApp();
+  const { t, lang } = useApp();
 
   return (
     <section id="about" className="w-full py-16 scroll-mt-20 border-t border-[var(--bd)] relative overflow-hidden bg-[var(--bg)]">
@@ -127,7 +126,7 @@ export const About: React.FC = () => {
                 {t.about.differentTitle}
               </h2>
             </div>
-            <div className="md:w-2/3 p-6 rounded-2xl border border-indigo-500/20 bg-gradient-to-br from-indigo-950/25 to-purple-950/25 shadow-glow-sm">
+            <div className="md:w-2/3 p-6 rounded-2xl border border-indigo-500/20 bg-gradient-to-br from-indigo-950/25 to-purple-950/25 shadow-glow-sm animate-fadeIn">
               <p className="text-xs text-[var(--txt2)] font-semibold leading-relaxed">
                 {t.about.differentDesc}
               </p>
@@ -150,10 +149,10 @@ export const About: React.FC = () => {
                 <img
                   src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=150&auto=format&fit=crop"
                   referrerPolicy="no-referrer"
-                  alt="Zurich Executive Coordinator"
+                  alt="Kokand Executive Coordinator"
                   className="w-12 h-12 rounded-full object-cover mb-4 bg-neutral-800"
                 />
-                <h3 className="text-xs font-bold text-[var(--txt)]">Dr. Marc Keller</h3>
+                <h3 className="text-xs font-bold text-[var(--txt)]">Prof. Jamshidbek Mukhtorov</h3>
                 <p className="text-[9px] text-[var(--ac2)] font-semibold font-mono mt-0.5">{t.about.t1Role}</p>
               </div>
               <p className="text-[10px] text-[var(--txt2)] leading-relaxed font-semibold mt-3 pt-3 border-t border-[var(--bd)]/50">
@@ -184,10 +183,10 @@ export const About: React.FC = () => {
                 <img
                   src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=150&auto=format&fit=crop"
                   referrerPolicy="no-referrer"
-                  alt="Tokyo ML Optimizer Lead"
+                  alt="Samarkand ML Optimizer Lead"
                   className="w-12 h-12 rounded-full object-cover mb-4 bg-neutral-800"
                 />
-                <h3 className="text-xs font-bold text-[var(--txt)]">Kenji Takahashi</h3>
+                <h3 className="text-xs font-bold text-[var(--txt)]">Asadbek Toshpo'latov</h3>
                 <p className="text-[9px] text-[var(--ac2)] font-semibold font-mono mt-0.5">{t.about.t3Role}</p>
               </div>
               <p className="text-[10px] text-[var(--txt2)] leading-relaxed font-semibold mt-3 pt-3 border-t border-[var(--bd)]/50">
@@ -214,44 +213,124 @@ export const About: React.FC = () => {
           </div>
 
           <div className="space-y-5 text-[10px] font-semibold text-[var(--txt2)] select-none">
-            {/* Q1 */}
+            {/* Step 1 */}
             <div className="flex gap-4 items-start pl-2 relative border-l border-[var(--bd2)] ml-2">
               <span className="w-2 h-2 rounded-full bg-[var(--ac)] absolute -left-[4.5px] top-1" />
               <div>
-                <p className="font-mono text-[var(--ac2)] font-black">2024 Q1</p>
-                <p className="text-[var(--txt)] font-bold mt-0.5">Idea Inception & Structural Design</p>
-                <p className="mt-1 leading-normal text-[10px]">Assembled swiss-german text parser libraries and defined semantic schema trees.</p>
+                <p className="font-mono text-[var(--ac2)] font-black">{t.about.timelineSteps.step1Year}</p>
+                <p className="text-[var(--txt)] font-bold mt-0.5">{t.about.timelineSteps.step1Title}</p>
+                <p className="mt-1 leading-normal text-[10px]">{t.about.timelineSteps.step1Desc}</p>
               </div>
             </div>
 
-            {/* Q3 */}
+            {/* Step 2 */}
             <div className="flex gap-4 items-start pl-2 relative border-l border-[var(--bd2)] ml-2">
               <span className="w-2 h-2 rounded-full bg-[var(--cyan)] absolute -left-[4.5px] top-1" />
               <div>
-                <p className="font-mono text-[var(--cyan)] font-black">2024 Q3</p>
-                <p className="text-[var(--txt)] font-bold mt-0.5">Global Beta Test Deployment</p>
-                <p className="mt-1 leading-normal text-[10px]">Introduced micro-certifications, server side caching models, and registered 10K test minds.</p>
+                <p className="font-mono text-[var(--cyan)] font-black">{t.about.timelineSteps.step2Year}</p>
+                <p className="text-[var(--txt)] font-bold mt-0.5">{t.about.timelineSteps.step2Title}</p>
+                <p className="mt-1 leading-normal text-[10px]">{t.about.timelineSteps.step2Desc}</p>
               </div>
             </div>
 
-            {/* launch */}
+            {/* Step 3 */}
             <div className="flex gap-4 items-start pl-2 relative border-l border-[var(--bd2)] ml-2">
               <span className="w-2 h-2 rounded-full bg-[var(--green)] absolute -left-[4.5px] top-1" />
               <div>
-                <p className="font-mono text-[var(--green)] font-black">2025</p>
-                <p className="text-[var(--txt)] font-bold mt-0.5">Universal Open Launch Station</p>
-                <p className="mt-1 leading-normal text-[10px]">Scaled servers to Solar network clouds, deployed first LLM adapters, and hit 2.4M active readers.</p>
+                <p className="font-mono text-[var(--green)] font-black">{t.about.timelineSteps.step3Year}</p>
+                <p className="text-[var(--txt)] font-bold mt-0.5">{t.about.timelineSteps.step3Title}</p>
+                <p className="mt-1 leading-normal text-[10px]">{t.about.timelineSteps.step3Desc}</p>
               </div>
             </div>
 
-            {/* 20 langs */}
+            {/* Step 4 */}
             <div className="flex gap-4 items-start pl-2 relative">
               <span className="w-2 h-2 rounded-full bg-[var(--amber)] absolute -left-[4.5px] top-1" />
               <div>
-                <p className="font-mono text-[var(--amber)] font-black">2026</p>
-                <p className="text-[var(--txt)] font-bold mt-0.5">Phase 2 Language Broadcaster</p>
-                <p className="mt-1 leading-normal text-[10px]">Releasing semantic automated course translates across 20 global baseline languages.</p>
+                <p className="font-mono text-[var(--amber)] font-black">{t.about.timelineSteps.step4Year}</p>
+                <p className="text-[var(--txt)] font-bold mt-0.5">{t.about.timelineSteps.step4Title}</p>
+                <p className="mt-1 leading-normal text-[10px]">{t.about.timelineSteps.step4Desc}</p>
               </div>
+            </div>
+          </div>
+        </section>
+
+        {/* HQ Address & Google Maps Integration */}
+        <section className="max-w-4xl mx-auto border-t border-[var(--bd)] pt-16 space-y-8">
+          <div className="text-center space-y-2 font-display">
+            <span className="text-[10px] font-mono font-bold text-[var(--ac2)] uppercase tracking-wider block">
+              ✦ Physical Headquarters ✦
+            </span>
+            <h2 className="text-xl md:text-2xl font-black">
+              {lang === "uz" ? "Markaziy Ofisimiz va Kampus" : lang === "ru" ? "Центральный Офис и Кампус" : "Central Headquarters & Campus"}
+            </h2>
+            <p className="text-[11px] text-[var(--txt2)] font-semibold max-w-md mx-auto">
+              {lang === "uz" 
+                ? "Qo'qon shahrining tarixiy markazida joylashgan zamonaviy o'quv va server koinotimiz." 
+                : lang === "ru" 
+                ? "Наше современное учебное и серверное пространство, расположенное в историческом центре Коканда." 
+                : "Our modern learning and cloud-server space located in the historic center of Kokand."}
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-stretch select-none">
+            {/* Left side: Address details */}
+            <div className="md:col-span-5 p-6 rounded-2xl border border-[var(--bd)] bg-[var(--sur)] flex flex-col justify-between space-y-4">
+              <div className="space-y-4">
+                <div className="space-y-1">
+                  <h4 className="text-[10px] font-mono font-bold text-[var(--ac2)] uppercase tracking-wider">
+                    {lang === "uz" ? "Manzil" : lang === "ru" ? "Адрес" : "Address"}
+                  </h4>
+                  <p className="text-xs font-bold text-[var(--txt)]">
+                    Turon ko'chasi, 106-uy, Qo'qon, Farg'ona viloyati, O'zbekiston, 153000
+                  </p>
+                </div>
+
+                <div className="space-y-1">
+                  <h4 className="text-[10px] font-mono font-bold text-[var(--ac2)] uppercase tracking-wider">
+                    {lang === "uz" ? "Muloqot" : lang === "ru" ? "Контакты" : "Contacts"}
+                  </h4>
+                  <p className="text-xs text-[var(--txt2)] font-semibold leading-relaxed">
+                    Telefon: <span className="text-[var(--txt)] font-bold">+998990022057</span><br />
+                    Email: <span className="text-[var(--txt)] font-bold">vymdrix@gmail.com</span>
+                  </p>
+                </div>
+
+                <div className="space-y-1">
+                  <h4 className="text-[10px] font-mono font-bold text-[var(--ac2)] uppercase tracking-wider">
+                    {lang === "uz" ? "Ish vaqti" : lang === "ru" ? "Режим работы" : "Work Hours"}
+                  </h4>
+                  <p className="text-[10px] text-[var(--txt3)] font-semibold">
+                    Dushanba - Shanba: 09:00 - 18:00 (UTC+5)
+                  </p>
+                </div>
+              </div>
+
+              <div className="pt-4 border-t border-[var(--bd)]/50">
+                <a
+                  href="https://maps.google.com/?q=40.5315,70.9317"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1 text-[10px] font-bold text-[var(--ac)] hover:underline cursor-pointer"
+                >
+                  <span>{lang === "uz" ? "Google Maps'da ochish" : lang === "ru" ? "Открыть в Google Maps" : "Open in Google Maps"}</span>
+                  <ArrowUpRight size={12} />
+                </a>
+              </div>
+            </div>
+
+            {/* Right side: Google Map Embed with invert filter support for pristine dark mode integration */}
+            <div className="md:col-span-7 rounded-2xl border border-[var(--bd)] bg-[var(--sur2)]/30 overflow-hidden relative min-h-[250px] shadow-sm flex items-stretch">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3032.551694767228!2d70.931662!3d40.531535!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x38bfa17c0a6b4fa7%3A0xe6bf448f4b11fba!2sQo&#39;qon%2C%20Fergana%20Region%2C%20Uzbekistan!5e0!3m2!1sen!2s!4v1717000000000!5m2!1sen!2s"
+                width="100%"
+                style={{ border: 0 }}
+                allowFullScreen={true}
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                className="w-full h-full min-h-[250px]"
+                title="MindSphere Central Office & Digital Campus"
+              />
             </div>
           </div>
         </section>
@@ -278,11 +357,11 @@ export const About: React.FC = () => {
               <span>Discord</span>
             </a>
             <a
-              href="mailto:cooperations@mindsphere.org"
+              href="mailto:vymdrix@gmail.com"
               className="px-4 py-2 text-[10px] font-bold rounded-xl border border-[var(--bd)] bg-[var(--sur)] text-[var(--txt)] hover:border-[var(--ac)] transition-colors inline-flex items-center justify-center gap-1.5 cursor-pointer"
             >
               <Mail size={12} />
-              <span>cooperations@mindsphere.org</span>
+              <span>vymdrix@gmail.com</span>
             </a>
           </div>
         </section>

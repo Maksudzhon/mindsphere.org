@@ -3,20 +3,123 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState, useEffect, useRef } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import React, { useState, useEffect, useRef, memo } from "react";
+import { motion, AnimatePresence } from "motion/react";
 import { Send, Sparkles, Mic, MicOff, Volume2, Play, MousePointer, HelpCircle } from "lucide-react";
-import { i18n } from "../lib/i18n";
+import { i18n } from "../../lib/i18n";
 
 interface AIChatSimulatorProps {
   lang: "en" | "ru" | "uz";
 }
 
 interface Message {
+  id: string;
   sender: "user" | "ai";
   text: string;
   time: string;
 }
+
+interface MessageBubbleProps {
+  message: Message;
+  currentScript: any;
+}
+
+const MessageBubble = memo(({ message, currentScript }: MessageBubbleProps) => {
+  const isUser = message.sender === "user";
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 12, scale: 0.98 }}
+      animate={{ opacity: 1, y: 0, scale: 1 }}
+      exit={{ opacity: 0, scale: 0.98 }}
+      transition={{ type: "spring", stiffness: 350, damping: 26 }}
+      className={`flex flex-col ${isUser ? "items-end" : "items-start"} w-full`}
+    >
+      <div
+        className={`p-3 rounded-2xl max-w-[88%] sm:max-w-[80%] border ${
+          isUser
+            ? "bg-grad-main text-white border-transparent rounded-tr-sm font-semibold shadow-sm"
+            : "bg-[var(--sur2)] border border-[var(--bd)] text-[var(--txt)] rounded-tl-sm font-medium"
+        }`}
+      >
+        <p>{message.text}</p>
+      </div>
+      <span className="text-[7px] sm:text-[7.5px] text-[var(--txt3)] mt-1 font-mono leading-none select-none px-1">
+        {isUser ? currentScript.userTag : currentScript.aiTag} · {message.time}
+      </span>
+    </motion.div>
+  );
+}, (prev, next) => {
+  return (
+    prev.message.id === next.message.id &&
+    prev.message.text === next.message.text &&
+    prev.message.sender === next.message.sender &&
+    prev.message.time === next.message.time &&
+    prev.currentScript.userTag === next.currentScript.userTag &&
+    prev.currentScript.aiTag === next.currentScript.aiTag
+  );
+});
+MessageBubble.displayName = "MessageBubble";
+
+interface AIChatThreadProps {
+  messages: Message[];
+  isAiTyping: boolean;
+  currentScript: any;
+  t: any;
+  chatContainerRef: React.RefObject<HTMLDivElement | null>;
+}
+
+const AIChatThread = memo(({
+  messages,
+  isAiTyping,
+  currentScript,
+  t,
+  chatContainerRef
+}: AIChatThreadProps) => {
+  return (
+    <div
+      ref={chatContainerRef as any}
+      className="flex-1 p-4 space-y-4 overflow-y-auto text-[10px] leading-relaxed flex flex-col bg-gradient-to-b from-transparent to-[var(--sur2)]/5 select-text"
+    >
+      <AnimatePresence initial={false}>
+        {messages.map((m) => (
+          <MessageBubble
+            key={m.id}
+            message={m}
+            currentScript={currentScript}
+          />
+        ))}
+
+        {/* AI Typing loading indicator */}
+        {isAiTyping && (
+          <motion.div
+            key="ai-typing-indicator"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0 }}
+            className="flex flex-col items-start"
+          >
+            <div className="bg-[var(--sur2)] border border-[var(--bd)] px-3 py-2.5 rounded-2xl rounded-tl-sm flex items-center gap-1">
+              <span className="w-1.5 h-1.5 rounded-full bg-[var(--ac)] animate-bounce" style={{ animationDelay: "0ms" }} />
+              <span className="w-1.5 h-1.5 rounded-full bg-[var(--ac)] animate-bounce" style={{ animationDelay: "150ms" }} />
+              <span className="w-1.5 h-1.5 rounded-full bg-[var(--ac)] animate-bounce" style={{ animationDelay: "300ms" }} />
+            </div>
+            <span className="text-[7.5px] text-[var(--txt3)] mt-1 font-mono leading-none select-none">
+              {currentScript.aiTag} {t.chat.typing}
+            </span>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+}, (prev, next) => {
+  return (
+    prev.isAiTyping === next.isAiTyping &&
+    prev.messages === next.messages &&
+    prev.currentScript === next.currentScript &&
+    prev.t === next.t
+  );
+});
+AIChatThread.displayName = "AIChatThread";
 
 // Custom responses block mapped by language
 const smartAnswers = {
@@ -129,13 +232,14 @@ const tutorialScripts = {
 };
 
 export const AIChatSimulator: React.FC<AIChatSimulatorProps> = ({ lang }) => {
-  const t = i18n[lang] || i18n.en;
-  const currentScript = tutorialScripts[lang] || tutorialScripts.en;
+  const t = i18n[lang] || i18n.uz;
+  const currentScript = tutorialScripts[lang] || tutorialScripts.uz;
 
   // Mode: "autoplay" (automatic sequence tutorial loop) or "sandbox" (user types or speaks)
   const [mode, setMode] = useState<"autoplay" | "sandbox">("autoplay");
   const [messages, setMessages] = useState<Message[]>([
     {
+      id: "initial-welcome",
       sender: "ai",
       text: t.chat.welcomeMsg,
       time: "12:04"
@@ -150,6 +254,7 @@ export const AIChatSimulator: React.FC<AIChatSimulatorProps> = ({ lang }) => {
   const chatContainerRef = useRef<HTMLDivElement>(null);
   const playbackRef = useRef<boolean>(true);
   const timeoutIdsRef = useRef<NodeJS.Timeout[]>([]);
+  const intervalIdsRef = useRef<NodeJS.Timeout[]>([]);
 
   // Scroll logic (strictly local within the chat viewport to eliminate window jumping lag)
   useEffect(() => {
@@ -162,6 +267,8 @@ export const AIChatSimulator: React.FC<AIChatSimulatorProps> = ({ lang }) => {
   const clearAllTimeouts = () => {
     timeoutIdsRef.current.forEach((t) => clearTimeout(t));
     timeoutIdsRef.current = [];
+    intervalIdsRef.current.forEach((i) => clearInterval(i));
+    intervalIdsRef.current = [];
   };
 
   // Switch to sandbox and stop loop
@@ -172,6 +279,7 @@ export const AIChatSimulator: React.FC<AIChatSimulatorProps> = ({ lang }) => {
       // Keep only initial helpful tips
       setMessages([
         {
+          id: "sandbox-start",
           sender: "ai",
           text: t.chat.sandboxMsg,
           time: "12:04"
@@ -201,6 +309,7 @@ export const AIChatSimulator: React.FC<AIChatSimulatorProps> = ({ lang }) => {
       // 1. Reset messages to single welcome
       setMessages([
         {
+          id: `autoplay-welcome-${Date.now()}`,
           sender: "ai",
           text: t.chat.autoplayMsg,
           time: "12:01"
@@ -234,7 +343,7 @@ export const AIChatSimulator: React.FC<AIChatSimulatorProps> = ({ lang }) => {
               setInputVal("");
               setMessages((prev) => [
                 ...prev,
-                { sender: "user", text: textToType, time: "12:04" }
+                { id: `user-msg-${Date.now()}`, sender: "user", text: textToType, time: "12:04" }
               ]);
 
               // 4. Delay then AI starts typing dots
@@ -254,7 +363,7 @@ export const AIChatSimulator: React.FC<AIChatSimulatorProps> = ({ lang }) => {
                   // Add draft AI bubble
                   setMessages((prev) => [
                     ...prev,
-                    { sender: "ai", text: "", time: "12:04" }
+                    { id: `ai-stream-active`, sender: "ai", text: "", time: "12:04" }
                   ]);
 
                   const streamInterval = setInterval(() => {
@@ -283,6 +392,7 @@ export const AIChatSimulator: React.FC<AIChatSimulatorProps> = ({ lang }) => {
                       }, 9000);
                     }
                   }, 80); // Speed of words
+                  intervalIdsRef.current.push(streamInterval);
 
                 }, 1300); // Typing dots duration
 
@@ -291,6 +401,7 @@ export const AIChatSimulator: React.FC<AIChatSimulatorProps> = ({ lang }) => {
             }, 500); // Delay before sending
           }
         }, 22); // Character typing speed
+        intervalIdsRef.current.push(interval);
 
       }, 1500); // Initial delay
     };
@@ -380,6 +491,7 @@ export const AIChatSimulator: React.FC<AIChatSimulatorProps> = ({ lang }) => {
         setIsListening(false);
       }
     }, 25);
+    intervalIdsRef.current.push(interval);
   };
 
   // Custom send trigger
@@ -392,7 +504,7 @@ export const AIChatSimulator: React.FC<AIChatSimulatorProps> = ({ lang }) => {
     // 1. Append user bubble
     setMessages((prev) => [
       ...prev,
-      { sender: "user", text: userText, time: "12:05" }
+      { id: `user-sandbox-${Date.now()}`, sender: "user", text: userText, time: "12:05" }
     ]);
 
     // 2. Trigger AI thinking
@@ -421,7 +533,7 @@ export const AIChatSimulator: React.FC<AIChatSimulatorProps> = ({ lang }) => {
 
       setMessages((prev) => [
         ...prev,
-        { sender: "ai", text: matchedAnswer, time: "12:05" }
+        { id: `ai-sandbox-${Date.now()}`, sender: "ai", text: matchedAnswer, time: "12:05" }
       ]);
     }, 1200);
   };
@@ -513,59 +625,14 @@ export const AIChatSimulator: React.FC<AIChatSimulatorProps> = ({ lang }) => {
         </div>
       </div>
 
-      {/* Message Screen */}
-      <div
-        ref={chatContainerRef}
-        className="flex-1 p-4 space-y-4 overflow-y-auto text-[10px] leading-relaxed flex flex-col bg-gradient-to-b from-transparent to-[var(--sur2)]/5 select-text"
-      >
-        <AnimatePresence initial={false}>
-          {messages.map((m, index) => {
-            const isUser = m.sender === "user";
-            return (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 15, scale: 0.95 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.95 }}
-                transition={{ type: "spring", stiffness: 400, damping: 28 }}
-                className={`flex flex-col ${isUser ? "items-end" : "items-start"} w-full`}
-              >
-                <div
-                  className={`p-3 rounded-2xl max-w-[88%] sm:max-w-[80%] border ${
-                    isUser
-                      ? "bg-grad-main text-white border-transparent rounded-tr-sm font-semibold shadow-sm"
-                      : "bg-[var(--sur2)] border border-[var(--bd)] text-[var(--txt)] rounded-tl-sm font-medium"
-                  }`}
-                >
-                  <p>{m.text}</p>
-                </div>
-                <span className="text-[7px] sm:text-[7.5px] text-[var(--txt3)] mt-1 font-mono leading-none select-none px-1">
-                  {isUser ? currentScript.userTag : currentScript.aiTag} · {m.time}
-                </span>
-              </motion.div>
-            );
-          })}
-
-          {/* AI Typing loading indicator */}
-          {isAiTyping && (
-            <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0 }}
-              className="flex flex-col items-start"
-            >
-              <div className="bg-[var(--sur2)] border border-[var(--bd)] px-3 py-2.5 rounded-2xl rounded-tl-sm flex items-center gap-1">
-                <span className="w-1.5 h-1.5 rounded-full bg-[var(--ac)] animate-bounce" style={{ animationDelay: "0ms" }} />
-                <span className="w-1.5 h-1.5 rounded-full bg-[var(--ac)] animate-bounce" style={{ animationDelay: "150ms" }} />
-                <span className="w-1.5 h-1.5 rounded-full bg-[var(--ac)] animate-bounce" style={{ animationDelay: "300ms" }} />
-              </div>
-              <span className="text-[7.5px] text-[var(--txt3)] mt-1 font-mono leading-none select-none">
-                {currentScript.aiTag} {t.chat.typing}
-              </span>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </div>
+      {/* Message Screen (Optimized with Decoupled Thread Reconciliation) */}
+      <AIChatThread
+        messages={messages}
+        isAiTyping={isAiTyping}
+        currentScript={currentScript}
+        t={t}
+        chatContainerRef={chatContainerRef}
+      />
 
       {/* Voice Visualizer Waveform if Listening */}
       {isListening && (
