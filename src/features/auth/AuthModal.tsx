@@ -22,6 +22,11 @@ export const AuthModal: React.FC = () => {
   const [passwordError, setPasswordError] = useState("");
   const [nameError, setNameError] = useState("");
 
+  // Server action states
+  const [loading, setLoading] = useState(false);
+  const [generalError, setGeneralError] = useState("");
+  const [successMsg, setSuccessMsg] = useState("");
+
   // Close on Escape key press
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -38,15 +43,20 @@ export const AuthModal: React.FC = () => {
     setEmailError("");
     setPasswordError("");
     setNameError("");
+    setGeneralError("");
+    setSuccessMsg("");
   }, [authTab, isAuthOpen]);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (loading) return;
     
-    // Reset errors
+    // Reset errors and messages
     setEmailError("");
     setPasswordError("");
     setNameError("");
+    setGeneralError("");
+    setSuccessMsg("");
 
     let hasError = false;
 
@@ -71,11 +81,55 @@ export const AuthModal: React.FC = () => {
 
     if (hasError) return;
 
-    // Close the modal upon successful login simulator
-    setIsAuthOpen(false);
+    setLoading(true);
 
-    // Opening mindsphere.space in blank - opening a new tab
-    window.open("https://mindsphere.space", "_blank", "noopener,noreferrer");
+    try {
+      const endpoint = authTab === "signup" ? "/api/auth/signup" : "/api/auth/signin";
+      const payload = authTab === "signup" 
+        ? { name, email, password, role } 
+        : { email, password };
+
+      const response = await fetch(endpoint, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || "Server ulanishida kutilmagan xatolik.");
+      }
+
+      // Store credentials locally on successful response
+      localStorage.setItem("ms_token", data.token);
+      localStorage.setItem("ms_user", JSON.stringify(data.user));
+
+      setSuccessMsg(data.message || "Muvaffaqiyatli amalga oshirildi!");
+      
+      // Delay to show cool check animation to the user, then redirect to app workspace
+      setTimeout(() => {
+        setIsAuthOpen(false);
+        // Clean out input fields on completion
+        setEmail("");
+        setPassword("");
+        setName("");
+        
+        // Dynamic redirection to .space with auth key-value parameters
+        const token = data.token;
+        const u = data.user;
+        const spaceUrl = `https://mindsphere.space?accessToken=${token}&name=${encodeURIComponent(u.name)}&email=${encodeURIComponent(u.email)}&role=${u.role}&auth=success`;
+        window.open(spaceUrl, "_blank", "noopener,noreferrer");
+      }, 1200);
+
+    } catch (err: any) {
+      console.error("Auth request failed:", err);
+      setGeneralError(err.message || "Tizimga ulanishda xatolik. Qayta urinib ko'ring.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -307,13 +361,37 @@ export const AuthModal: React.FC = () => {
                 )}
               </div>
 
+              {/* API Feedback banners */}
+              {generalError && (
+                <div className="p-3 bg-red-500/10 border border-red-500/20 text-red-500 rounded-xl text-xs flex items-center gap-2 animate-pulse">
+                  <span>⚠️</span>
+                  <span>{generalError}</span>
+                </div>
+              )}
+
+              {successMsg && (
+                <div className="p-3 bg-emerald-500/10 border border-emerald-500/20 text-emerald-500 rounded-xl text-xs flex items-center gap-2 font-medium">
+                  <span className="animate-pulse">●</span>
+                  <span>{successMsg}</span>
+                </div>
+              )}
+
               {/* Action Button */}
               <button
                 type="submit"
-                className="w-full mt-2 py-2.5 rounded-xl bg-grad-main font-semibold text-xs text-white hover:opacity-90 active:scale-[0.98] transition-all flex items-center justify-center gap-2 cursor-pointer shadow-md"
+                disabled={loading}
+                className={`w-full mt-2 py-2.5 rounded-xl bg-grad-main font-semibold text-xs text-white hover:opacity-90 active:scale-[0.98] transition-all flex items-center justify-center gap-2 cursor-pointer shadow-md ${
+                  loading ? "opacity-75 cursor-wait" : ""
+                }`}
               >
-                {authTab === "signin" ? t.auth.btnSubmitIn : t.auth.btnSubmitUp}
-                <ArrowRight size={14} />
+                {loading ? (
+                  <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                ) : (
+                  <>
+                    {authTab === "signin" ? t.auth.btnSubmitIn : t.auth.btnSubmitUp}
+                    <ArrowRight size={14} />
+                  </>
+                )}
               </button>
             </form>
 
