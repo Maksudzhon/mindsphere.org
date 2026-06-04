@@ -78,7 +78,7 @@ export const AuthModal: React.FC = () => {
       setNameError(t.auth.errorRequiredName);
       hasError = true;
     }
-
+                                                                                                                                                    
     if (hasError) return;
 
     setLoading(true);
