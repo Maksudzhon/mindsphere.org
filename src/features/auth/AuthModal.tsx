@@ -78,57 +78,29 @@ export const AuthModal: React.FC = () => {
       setNameError(t.auth.errorRequiredName);
       hasError = true;
     }
-                                                                                                                                                    
+
     if (hasError) return;
 
     setLoading(true);
 
     try {
-      const endpoint = authTab === "signup" ? "/api/auth/signup" : "/api/auth/signin";
-      const payload = authTab === "signup" 
-        ? { name, email, password, role } 
-        : { email, password };
-
-      const response = await fetch(endpoint, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(payload),
-      });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.error || "Server ulanishida kutilmagan xatolik.");
-      }
-
-      // Store credentials locally on successful response
-      localStorage.setItem("ms_token", data.token);
-      localStorage.setItem("ms_user", JSON.stringify(data.user));
-
-      setSuccessMsg(data.message || "Muvaffaqiyatli amalga oshirildi!");
+      // Clean mock simulated auth success on client-side
+      setSuccessMsg(authTab === "signup" ? "Muvaffaqiyatli ro'yxatdan o'tdingiz!" : "Tizimga muvaffaqiyatli kirdingiz!");
       
-      // Delay to show cool check animation to the user, then redirect to app workspace
       setTimeout(() => {
         setIsAuthOpen(false);
         // Clean out input fields on completion
         setEmail("");
         setPassword("");
         setName("");
-        
-        // Dynamic redirection to .space with auth key-value parameters
-        const token = data.token;
-        const u = data.user;
-        const spaceUrl = `https://mindsphere.space?accessToken=${token}&name=${encodeURIComponent(u.name)}&email=${encodeURIComponent(u.email)}&role=${u.role}&auth=success`;
-        window.open(spaceUrl, "_blank", "noopener,noreferrer");
       }, 1200);
 
     } catch (err: any) {
-      console.error("Auth request failed:", err);
-      setGeneralError(err.message || "Tizimga ulanishda xatolik. Qayta urinib ko'ring.");
+      setGeneralError("Kutilmagan xatolik. Qayta urinib ko'ring.");
     } finally {
-      setLoading(false);
+      setTimeout(() => {
+        setLoading(false);
+      }, 1200);
     }
   };
 

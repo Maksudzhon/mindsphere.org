@@ -1,0 +1,42 @@
+{
+  "users": [
+    {
+      "id": "demo-user-id",
+      "name": "Mavlonbek",
+      "email": "demo@mindsphere.uz",
+      "passwordHash": "ef92b778bafe771e89245b89ecbc08a44a4e166c06659911881f383d4473e94f",
+      "role": "student",
+      "createdAt": "2026-06-25T17:40:48.181Z"
+    }
+  ],
+  "billing": [
+    {
+      "id": "bill-1",
+      "userId": "demo-user-id",
+      "plan": "Premium Access",
+      "amount": 150000,
+      "status": "paid",
+      "createdAt": "2026-06-25T17:40:48.181Z"
+    }
+  ],
+  "chats": [
+    {
+      "id": "chat-1",
+      "userId": "demo-user-id",
+      "sessionTitle": "Matematika bo'yicha yordam",
+      "messages": [
+        {
+          "sender": "user",
+          "text": "Salom! Menga hosila topishni tushuntiring.",
+          "timestamp": "2026-06-25T17:40:48.181Z"
+        },
+        {
+          "sender": "assistant",
+          "text": "Salom! Albatta, hosila funksiyaning o'zgarish tezligini ko'rsatadi...",
+          "timestamp": "2026-06-25T17:40:48.181Z"
+        }
+      ],
+      "createdAt": "2026-06-25T17:40:48.181Z"
+    }
+  ]
+}

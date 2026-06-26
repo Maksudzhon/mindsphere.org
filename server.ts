@@ -7,9 +7,28 @@ import express from "express";
 import path from "path";
 import fs from "fs";
 import crypto from "crypto";
+import { GoogleGenAI } from "@google/genai";
 
 const app = express();
 const PORT = 3000;
+
+// Lazy load Gemini instance
+let aiClient: any = null;
+function getGeminiClient() {
+  const key = process.env.GEMINI_API_KEY;
+  if (!key) return null;
+  if (!aiClient) {
+    aiClient = new GoogleGenAI({
+      apiKey: key,
+      httpOptions: {
+        headers: {
+          'User-Agent': 'aistudio-build',
+        }
+      }
+    });
+  }
+  return aiClient;
+}
 
 // Database Types
 interface UserRecord {
@@ -315,6 +334,62 @@ app.post("/api/chats/save", (req, res) => {
   writeDb(db);
 
   res.status(201).json({ message: "Suhbat muvaffaqiyatli saqlandi", chat: newChat });
+});
+
+// AI Tutor chat handler targeting Gemini or localized fallback
+app.post("/api/tutor/chat", async (req, res) => {
+  const { prompt, lang, history } = req.body;
+  if (!prompt) {
+    return res.status(400).json({ error: "Suhbat so'rovi kiritilmagan." });
+  }
+
+  const client = getGeminiClient();
+  if (client) {
+    try {
+      const systemPrompt = `
+        You are MindSphere AI Tutor, a friendly, hyper-intelligent personal digital tutor for Uzbekistan's leading collaborative learning platform.
+        Respond in ${lang === "ru" ? "Russian" : lang === "uz" ? "Uzbek (latin script)" : "English"}.
+        Deliver clear, inspiring, step-by-step educational instructions. Keep it engaging, mathematically rigorous if appropriate, and always encourage the student.
+        Use Markdown formatting. Speak as a companion, not an empty shell. Avoid generic AI standard tropes.
+      `;
+
+      const response = await client.models.generateContent({
+        model: "gemini-3.5-flash",
+        contents: prompt,
+        config: {
+          systemInstruction: systemPrompt,
+          temperature: 0.7,
+        },
+      });
+
+      return res.json({ text: response.text });
+    } catch (err: any) {
+      console.error("Gemini API call error", err);
+    }
+  }
+
+  // Localized educational fallback simulation
+  const replies: { [key: string]: string[] } = {
+    uz: [
+      "Ajoyib savol! Ushbu bobning yechimi: uni keltirib chiqarish uchun birinchi navbatda boshlang'ich tenglamalar tizimini soddalashtirishimiz zarur. Savolingiz bo'yicha klan doskasidagi yangi darslarni ham ko'rib chiqdingizmi?",
+      "MindSphere darslariga xush kelibsiz! Ushbu bobni muvaffaqiyatli topshirish va klanga hissa qo'shish uchun video darslikni yakunlab, o'ng tarafdagi klan viktorinasida qatnashishingiz kerak. Bu sizga qo'shimcha +150 XP beradi!",
+      "Tushunarli! Keling, buni birgalikda tahlil qilamiz. Mavzuni oson o'zlashtirish uchun avvalo asosiy fizika yoki matematika qoidalarini yodga olaylik."
+    ],
+    ru: [
+      "Превосходный вопрос! Решение этой темы кроется в правильной группировке начальных уравнений. Вы уже просмотрели полезные задачи в разделе кланов?",
+      "Добро пожаловать в учебный класс MindSphere! Чтобы успешно завершить эту главу и заработать баллы клана, вам нужно пройти интерактивную викторину. Это принесёт вам +150 XP!",
+      "Давайте разберем это вместе. Для простоты понимания вспомним сначала ключевые термины физического закона."
+    ],
+    en: [
+      "Outstanding question! The logical answer lies in identifying the core relationship first. Have you checked the latest clan biology dashboard challenges?",
+      "Welcome to MindSphere workspace! To unlock this masterclass badge and help your guild, take the module quiz. This triggers +150 XP rewards!",
+      "Let's break this down together. To grasp this topic easily, we should first revisit the fundamental geometric definitions."
+    ]
+  };
+
+  const pool = replies[lang] || replies.uz;
+  const randomReply = pool[Math.floor(Math.random() * pool.length)];
+  return res.json({ text: randomReply });
 });
 
 // 6. HEALTH & TESTING SUMMARY ENDPOINT (To verify current data stats)

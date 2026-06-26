@@ -46,7 +46,7 @@ function AppContent() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col justify-between bg-[var(--bg)] text-[var(--txt)] transition-colors duration-400 relative">
+    <div className="min-h-screen flex flex-col justify-between bg-[var(--bg)] text-[var(--txt)] transition-colors duration-400 relative font-sans">
       {/* Sticky navigation header */}
       <MemoizedNavbar />
       
